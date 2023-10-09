@@ -12,6 +12,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace ML.Common.Controller
@@ -304,17 +305,23 @@ namespace ML.Common.Controller
                 return ms.ToArray();
             }
         }
-        public static BitmapImage ByteArrayToBitmapImage(byte[] byteArray)
+        public static ImageSource ByteArrayToBitmapImage(byte[] imageData)
         {
-            BitmapImage bitmapImage = new BitmapImage();
-            using (MemoryStream memoryStream = new MemoryStream(byteArray))
+            if (imageData == null || imageData.Length == 0) return null;
+
+            var image = new BitmapImage();
+            using (var mem = new MemoryStream(imageData))
             {
-                bitmapImage.BeginInit();
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.StreamSource = memoryStream;
-                bitmapImage.EndInit();
+                mem.Position = 0;
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = null;
+                image.StreamSource = mem;
+                image.EndInit();
             }
-            return bitmapImage;
+            image.Freeze();
+            return image;
         }
 
         public static bool IntToBool(int number)

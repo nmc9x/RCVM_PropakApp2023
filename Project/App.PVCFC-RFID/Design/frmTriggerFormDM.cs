@@ -15,7 +15,14 @@ namespace App.PVCFC_RFID.Design
         public frmTriggerFormDM(int index)
         {
             InitializeComponent();
-            this.ucTriggerView.Index = index;
+            ucTriggerView.Index = index;
+            FormClosed += FrmTriggerFormDM_FormClosed;
         }
+
+        private void FrmTriggerFormDM_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ucTriggerView.NotifyFormClosing();
+        }
+
     }
 }

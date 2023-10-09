@@ -8,10 +8,11 @@
     d:DesignHeight="720"
     d:DesignWidth="1280"
     Background="#F0F0F0"
+    
     mc:Ignorable="d">
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <vm:TriggerViewModel/>
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
     <UserControl.Resources>
 
         <ResourceDictionary>

@@ -444,6 +444,7 @@ namespace App.PVCFC_RFID.Controller
                     }
                     DataRawListChanged?.Invoke(index, EventArgs.Empty);
                 });
+                
 #if DEBUG
 
                 Console.WriteLine("code: " + code);
@@ -462,6 +463,7 @@ namespace App.PVCFC_RFID.Controller
         }
 
        
+
         private static void FeedbackConfigProcess(int index, byte[] receiveByte)
         {
             SharedValues.Running.StationList[index].DM60XFeedback.TriggerConfFeedback = (receiveByte[4] == 1);

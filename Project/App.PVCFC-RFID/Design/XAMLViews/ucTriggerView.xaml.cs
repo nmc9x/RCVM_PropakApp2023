@@ -1,22 +1,7 @@
 ﻿using App.PVCFC_RFID.Controller;
-using ML.SDK.DM60X.Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Button = System.Windows.Controls.Button;
 using UserControl = System.Windows.Controls.UserControl;
 
@@ -27,11 +12,21 @@ namespace App.PVCFC_RFID.Design.XAMLViews
     /// </summary>
     public partial class ucTriggerView : UserControl
     {
-        public int Index { get ; set; } 
+        public int Index { get ; set; }
         public ucTriggerView()
         {
             InitializeComponent();
+            DataContext = new TriggerViewModel();
+            if(DataContext is  TriggerViewModel trgm)
+            {
+                trgm.Index = Index;
+            }
            
+            
+        }
+        public void NotifyFormClosing()
+        {
+            CallbackCommand(vm=>vm.CloseForm());    
         }
         public void CallbackCommand(Action<TriggerViewModel> execute)
         {
