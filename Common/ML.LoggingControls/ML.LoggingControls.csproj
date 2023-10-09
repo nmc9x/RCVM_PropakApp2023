@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14258F52-5067-4D57-A903-57792ACD78EA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ML.LoggingControls</RootNamespace>
+    <AssemblyName>ML.LoggingControls</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\LoggingController.cs" />
+    <Compile Include="Model\LoggingModel.cs" />
+    <Compile Include="Model\XmlLogfileStream.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="View\frmLogDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmLogDetails.designer.cs">
+      <DependentUpon>frmLogDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\frmViewLogs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmViewLogs.Designer.cs">
+      <DependentUpon>frmViewLogs.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmLogDetails.resx">
+      <DependentUpon>frmLogDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmViewLogs.resx">
+      <DependentUpon>frmViewLogs.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Check24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\closeic48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error22x22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Error24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\infor16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Print24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\start16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\start24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\waring24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\warning16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Warning24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\warning24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ML.Controls\ML.Controls.csproj">
+      <Project>{100389c7-1baa-44bc-9457-f07f5b85a862}</Project>
+      <Name>ML.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ML.Languages\ML.Languages.csproj">
+      <Project>{765fe104-fabb-4e78-aea9-643dc558479b}</Project>
+      <Name>ML.Languages</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

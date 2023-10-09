@@ -1,0 +1,1114 @@
+﻿<UserControl
+    x:Class="App.PVCFC_RFID.Design.ucSettingDM60X"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:App.PVCFC_RFID.Controller"
+    xmlns:Lang="clr-namespace:ML.Languages;assembly=ML.Languages"
+    d:DesignHeight="1050"
+    d:DesignWidth="1000"
+    Background="WhiteSmoke"
+    Loaded="ThisForm_Loaded"
+    mc:Ignorable="d">
+
+    <!--<UserControl.DataContext>
+        <vm:SettingViewModel/>
+    </UserControl.DataContext>-->
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Label
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Content="SETTING FOR DM60X CAMERA"
+                FontSize="15"
+                FontWeight="Bold" />
+        </Grid>
+        <TabControl Grid.Row="1">
+            <TabItem
+                FontSize="14"
+                Header="{x:Static Lang:Languages.BasicSetting}"
+                Style="{DynamicResource TabItemStyle1}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="220" />
+                        <RowDefinition Height="*" />
+
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <GroupBox
+                            Grid.Row="0"
+                            Height="200"
+                            Margin="5,5,5,5"
+                            VerticalAlignment="Top"
+                            BorderBrush="LightGray"
+                            BorderThickness="0.5"
+                            Style="{DynamicResource GroupBoxStyle1}">
+                            <GroupBox.Header>
+                                <TextBlock
+                                    FontSize="16"
+                                    FontWeight="Bold"
+                                    Text="{x:Static Lang:Languages.TriggerSetting}" />
+                            </GroupBox.Header>
+                            <Grid Margin="0,5,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="35" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="125" />
+                                    <ColumnDefinition x:Name="ColumnDefinition5" Width="2*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--    -->
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    Content="{x:Static Lang:Languages.TriggerType}" />
+                                <ComboBox
+                                    x:Name="CbbTriggerType"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Height="30"
+                                    HorizontalAlignment="Stretch"
+                                    SelectedIndex="{Binding CbbTriggerTypeIndex}"
+                                    Style="{DynamicResource ComboBoxStyle1}">
+                                    <ComboBoxItem Content="{x:Static Lang:Languages.SingleExternal}" IsSelected="True" />
+                                    <ComboBoxItem Content="{x:Static Lang:Languages.BrustExternal}"/>
+
+                                </ComboBox>
+
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    Content="{x:Static Lang:Languages.DelayType}" />
+                                <ComboBox
+                                    x:Name="CbbDelayType"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Height="30"
+                                    HorizontalAlignment="Stretch"
+                                    SelectedIndex="{Binding CbbDelayTypeIndex}"
+                                    Style="{DynamicResource ComboBoxStyle1}">
+                                    <ComboBoxItem Content="None" IsSelected="True" />
+                                    <ComboBoxItem Content="Time" />
+                                </ComboBox>
+
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Width="Auto"
+                                    HorizontalAlignment="Left"
+                                    Content="{x:Static Lang:Languages.DecodeTime}" />
+                                <TextBox
+                                    x:Name="TbDecodeTime"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Height="30"
+                                    HorizontalAlignment="Stretch"
+                                    LostFocus="TbDecodeTime_LostFocus"
+                                    Style="{StaticResource TextBoxStyle1}"
+                                    Text="{Binding TbDecodeTimeValue}" />
+                                <Label
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Width="Auto"
+                                    HorizontalAlignment="Left"
+                                    Content="{x:Static Lang:Languages.DelayTimeMs}"
+                                    Visibility="{Binding TbDelayTimeVis}" />
+                                <TextBox
+                                    x:Name="TbDelayTime"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Height="30"
+                                    HorizontalAlignment="Stretch"
+                                    LostFocus="TbDelayTime_LostFocus"
+                                    Style="{StaticResource TextBoxStyle1}"
+                                    Text="{Binding TbDelayTimeValue}"
+                                    Visibility="{Binding TbDelayTimeVis}" />
+                            </Grid>
+                        </GroupBox>
+
+                        <Border
+                            Grid.Column="1"
+                            Margin="5,13,5,5"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            BorderBrush="LightGray"
+                            BorderThickness="0.5,0.5,0.5,0.5"
+                            CornerRadius="10">
+                            <StackPanel Margin="5,5,5,5">
+                                <GroupBox BorderThickness="0.5">
+                                    <GroupBox.Header>
+                                        <TextBlock
+                                            FontSize="16"
+                                            FontWeight="Bold"
+                                            Text="{x:Static Lang:Languages.UseStaticIPAddress}" />
+                                    </GroupBox.Header>
+                                    <Grid
+                                        Grid.Column="1"
+                                        Margin="0,5,0,0"
+                                        VerticalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40" />
+                                            <RowDefinition Height="40" />
+                                            <RowDefinition Height="40" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="120" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Label VerticalAlignment="Center" Content="{x:Static Lang:Languages.IPAddress}" />
+                                        <TextBox
+                                            x:Name="TbIPAddress"
+                                            Grid.Column="1"
+                                            Height="30"
+                                            HorizontalAlignment="Stretch"
+                                            LostFocus="TbIPAddress_LostFocus"
+                                            Style="{StaticResource TextBoxStyle1}"
+                                            Text="{Binding TbIPAddressValue}" />
+                                        <Label
+                                            Grid.Row="1"
+                                            VerticalAlignment="Center"
+                                            Content="{x:Static Lang:Languages.SubnetMask}" />
+                                        <TextBox
+                                            x:Name="TbSubnet"
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Height="30"
+                                            HorizontalAlignment="Stretch"
+                                            LostFocus="TbSubnet_LostFocus"
+                                            Style="{StaticResource TextBoxStyle1}"
+                                            Text="{Binding TbSubnetValue}" />
+                                        <Label
+                                            Grid.Row="2"
+                                            VerticalAlignment="Center"
+                                            Content="{x:Static Lang:Languages.Port}" />
+                                        <TextBox
+                                            x:Name="TbPort"
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            Height="30"
+                                            HorizontalAlignment="Stretch"
+                                            LostFocus="TbPort_LostFocus"
+                                            Style="{StaticResource TextBoxStyle1}"
+                                            Text="{Binding TbPortValue}" />
+                                    </Grid>
+                                </GroupBox>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Browse Setting File: "/>
+                                    <Button Content="..." 
+                                        Height="30" 
+                                        Width="70" 
+                                        Click="BrowseSettingFileClick"/>
+                                </StackPanel>
+                                
+                            </StackPanel>
+                        </Border>
+
+
+                    </Grid>
+                    <GroupBox Grid.Row="1">
+                        <GroupBox.Header>
+                            <TextBlock
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="{x:Static Lang:Languages.SymbolRead}" />
+                        </GroupBox.Header>
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                            <Grid x:Name="Grid_Symbol" Margin="0,10,0,0">
+                                <StackPanel>
+                                    <CheckBox
+                                        x:Name="CheckBox2D"
+                                        Content="2D Code"
+                                        FontWeight="Bold"
+                                        IsChecked="{Binding CheckBox2D_Sts}" />
+                                    <Grid Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="4*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel
+                                            Grid.Column="0"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxDataMatrix, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxDataMatrix"
+                                                    Content="Data Matrix"
+                                                    IsChecked="{Binding CheckBoxDataMatrix_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_DataMatrix.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxQR, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxQR"
+                                                    Content="QR"
+                                                    IsChecked="{Binding CheckBoxQR_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_QR.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="2"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxMaxi, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxMaxi"
+                                                    Content="MaxiCode"
+                                                    IsChecked="{Binding CheckBoxMaxi_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_MaxiCode.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="3"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxAztec, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxAztec"
+                                                    Content="Aztec Code"
+                                                    IsChecked="{Binding CheckBoxAztec_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_Aztec.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+                                    </Grid>
+                                    <CheckBox
+                                        x:Name="CheckBox1D"
+                                        Margin="0,10,0,0"
+                                        Content="1D Code"
+                                        FontWeight="Bold"
+                                        IsChecked="{Binding CheckBox1D_Sts}"
+                                        IsEnabled="{Binding}" />
+                                    <Grid Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel
+                                            Grid.Column="0"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBox128, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBox128"
+                                                    Content="Code 128"
+                                                    IsChecked="{Binding CheckBox128_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_Code128.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBox25, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBox25"
+                                                    Content="Code 25"
+                                                    IsChecked="{Binding CheckBox25_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_Code25.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="2"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBox93, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBox93"
+                                                    Content="Code 93"
+                                                    IsChecked="{Binding CheckBox93_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_Code93.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="3"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBox39, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBox39"
+                                                    Content="Code 39"
+                                                    IsChecked="{Binding CheckBox39_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_Code39.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="4"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxPharma, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxPharma"
+                                                    Content="Pharma"
+                                                    IsChecked="{Binding CheckBoxPharma_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_Pharma.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="5"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxCodabar, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxCodabar"
+                                                    Content="Codabar"
+                                                    IsChecked="{Binding CheckBoxCodabar_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_Codabar.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="6"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxInter, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxInter"
+                                                    Content="Interleaved 2of5"
+                                                    IsChecked="{Binding CheckBoxInterleaved_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_Interleaved.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="7"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxUPCEAN, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxUPCEAN"
+                                                    Content="UPC/EAN"
+                                                    IsChecked="{Binding CheckBoxUPCEAN_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_UPCEAN.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="8"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxMSI, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxMSI"
+                                                    Content="MSI"
+                                                    IsChecked="{Binding CheckBoxMsi_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_MSI.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+                                    </Grid>
+                                    <CheckBox
+                                        x:Name="CheckBoxStacked"
+                                        Margin="0,10,0,0"
+                                        Content="Stacked Code"
+                                        FontWeight="Bold"
+                                        IsChecked="{Binding CheckBoxStacked_Sts}"
+                                        IsEnabled="{Binding CheckBoxStacked_EnSts}" />
+                                    <Grid Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="4*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel
+                                            Grid.Column="0"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxPDF, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxPDF"
+                                                    Content="PDF417"
+                                                    IsChecked="{Binding CheckBoxPDF_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_PDF417.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxEANUCC, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxEANUCC"
+                                                    Content="EAN/UCC"
+                                                    IsChecked="{Binding CheckBoxEANUCC_Sts}"
+                                                    IsEnabled="{Binding CheckBoxEANUCC_EnSts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_EANUCC.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="2"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxMicroPDF, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxMicroPDF"
+                                                    Content="Micro PDF417"
+                                                    IsChecked="{Binding CheckBoxMicro_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_MicroPDF417.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="3"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxGS1, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxGS1"
+                                                    Content="GS1 Databar"
+                                                    IsChecked="{Binding CheckBoxGS1_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_GS1Databar.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+                                    </Grid>
+                                    <CheckBox
+                                        x:Name="CheckBoxPostal"
+                                        Margin="0,10,0,0"
+                                        Content="Postal Code"
+                                        FontWeight="Bold"
+                                        IsChecked="{Binding CheckBoxPostal_Sts}" />
+                                    <Grid Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="1*" MaxWidth="100" />
+                                            <ColumnDefinition Width="4*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel
+                                            Grid.Column="0"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxPostnet, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxPostnet"
+                                                    Content="POSTNET"
+                                                    IsChecked="{Binding CheckBoxPostnet_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_POSTNET.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxPlanet, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxPlanet"
+                                                    Content="PLANET"
+                                                    IsChecked="{Binding CheckBoxPlanet_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_PLANET.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="2"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxJap, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxJap"
+                                                    Content="Japan Post"
+                                                    IsChecked="{Binding CheckBoxJap_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_japost.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="3"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxUPU, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxUPU"
+                                                    Content="UPU"
+                                                    IsChecked="{Binding CheckBoxUPU_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_UPU.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="4"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxAus, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxAus"
+                                                    Content="Aus Post"
+                                                    IsChecked="{Binding CheckBoxAus_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_AusPost.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="5"
+                                            Width="100"
+                                            Height="80"
+                                            Margin="5,0,0,0"
+                                            Background="AliceBlue"
+                                            Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxIntel, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Background" Value="Yellow" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <CheckBox
+                                                    x:Name="CheckBoxIntel"
+                                                    Content="Intelligent"
+                                                    IsChecked="{Binding CheckBoxIntel_Sts}" />
+                                                <Border
+                                                    Width="60"
+                                                    Height="60"
+                                                    HorizontalAlignment="Center">
+                                                    <Image Source="pack://application:,,,/Images/Image_Intelligent.png" />
+                                                </Border>
+                                            </StackPanel>
+
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </ScrollViewer>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem
+                FontSize="14"
+                Header="{x:Static Lang:Languages.Operation}"
+                Style="{DynamicResource TabItemStyle1}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="7*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label Content="{x:Static Lang:Languages.Reboot}" />
+                        <Label Grid.Row="1" Content="{x:Static Lang:Languages.ResetDevice}" />
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Button
+                            Width="80"
+                            Height="30"
+                            HorizontalAlignment="Left"
+                            Content="{Binding ButtonRebootText,Converter={vm:CapitalizationConverter}}"
+                            Style="{StaticResource ActionButton}" 
+                            Click="Reboot_Click"/>
+                        <Button
+                            Grid.Row="1"
+                            Width="80"
+                            Height="30"
+                            HorizontalAlignment="Left"
+                            Content="{Binding ButtonResetText,Converter={vm:CapitalizationConverter}}"
+                            Style="{StaticResource ActionButton}"
+                            Click="Reset_Click"/>
+                    </Grid>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button
+            x:Name="BtnApply"
+            Grid.Row="2"
+            Width="100"
+            Height="40"
+            Margin="0,0,20,0"
+            HorizontalAlignment="Right"
+            Click="ApplySettingClick"
+            Content="{Binding ButtonApplyText, Converter={vm:CapitalizationConverter}}"
+            Style="{StaticResource ActionButton}" />
+
+    </Grid>
+</UserControl>

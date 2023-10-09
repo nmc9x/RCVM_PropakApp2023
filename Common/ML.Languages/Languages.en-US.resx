@@ -1,0 +1,1229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivedFailed" xml:space="preserve">
+    <value>Active failed</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ActivedSuccess" xml:space="preserve">
+    <value>Active success</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="AgencyLevel1" xml:space="preserve">
+    <value>Agency level 1</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="BaudRate" xml:space="preserve">
+    <value>Baud rate</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CheckedFailed" xml:space="preserve">
+    <value>Check failed</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CheckedSuccess" xml:space="preserve">
+    <value>Check success</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="COMPort" xml:space="preserve">
+    <value>COM port</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Connect</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Connected</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ConnectionFailed" xml:space="preserve">
+    <value>Connection failed</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ConnectToRFID" xml:space="preserve">
+    <value>Connect to RFID</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DataBit" xml:space="preserve">
+    <value>Data bit</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DateOfExpiry" xml:space="preserve">
+    <value>Date of expiry</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DateOfManufacture" xml:space="preserve">
+    <value>Date of manufacture</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DeliveryBill" xml:space="preserve">
+    <value>Delivery bill</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DeviceAddress" xml:space="preserve">
+    <value>Device address</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Disconnected" xml:space="preserve">
+    <value>Disconnected</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DistributionSchedules" xml:space="preserve">
+    <value>Distribution schedules</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="FileData" xml:space="preserve">
+    <value>File data</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Informations" xml:space="preserve">
+    <value>Informations</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="LOTNo" xml:space="preserve">
+    <value>LOT No</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MgsConnection" xml:space="preserve">
+    <value>{0} Connection</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Ordered" xml:space="preserve">
+    <value>Ordered</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="OrderedTotal" xml:space="preserve">
+    <value>Ordered total</value>
+  </data>
+  <data name="Parity" xml:space="preserve">
+    <value>Parity</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>Path</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Processing" xml:space="preserve">
+    <value>Processing</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ProductionName" xml:space="preserve">
+    <value>Production name</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ScanQRCode" xml:space="preserve">
+    <value>Scan QRCode</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="StopBit" xml:space="preserve">
+    <value>Stop bit</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TotalExport" xml:space="preserve">
+    <value>Total export</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgAreYouSureToConfirmTheDeliryBill" xml:space="preserve">
+    <value>Are you sure to confirm the deliry bill</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgConfirmDeliveryBill" xml:space="preserve">
+    <value>Confirm delivery bill</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgTheDeliveryBillIsConfirm" xml:space="preserve">
+    <value>The delivery bill is confirm</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ChipID" xml:space="preserve">
+    <value>Chip ID</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CodeCount" xml:space="preserve">
+    <value>Code count</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ProductCode" xml:space="preserve">
+    <value>Mã sản phẩm</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ProductDetails" xml:space="preserve">
+    <value>Product details</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ScanDatetime" xml:space="preserve">
+    <value>Ngày </value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>Duplicate code</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Không xác định</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>Results</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Data</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPleaseConnectWithPLC" xml:space="preserve">
+    <value>Please connect with PLC</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPleaseConnectWithRFID" xml:space="preserve">
+    <value>Please connect with RFID</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PalletCode" xml:space="preserve">
+    <value>Pallet code</value>
+  </data>
+  <data name="Trigger" xml:space="preserve">
+    <value>Trigger</value>
+  </data>
+  <data name="DataScannedResults" xml:space="preserve">
+    <value>Data scanned results</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ReadRFID" xml:space="preserve">
+    <value>Read RFID</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Show all</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="AutoConnections" xml:space="preserve">
+    <value>Auto connections</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ConnectToPLC" xml:space="preserve">
+    <value>Connect to PLC</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DelayTriggerTime" xml:space="preserve">
+    <value>Delay Trigger time</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PLC" xml:space="preserve">
+    <value>PLC</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>Read</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Reading" xml:space="preserve">
+    <value>Reading</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="RFID" xml:space="preserve">
+    <value>RFID</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CheckPallet" xml:space="preserve">
+    <value>Check Pallet</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DeleteLogs" xml:space="preserve">
+    <value>Delete logs</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgAreYouSureToDeleteTheDeliveryBillLogs" xml:space="preserve">
+    <value>Are you sure to delete the delivery bill logs?</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgNoProductInPallet" xml:space="preserve">
+    <value>No product in Pallet</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPalletExcessQuantity" xml:space="preserve">
+    <value>Pallet excess quantity</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPalletHaveMultipleValues" xml:space="preserve">
+    <value>Pallet have multiple values</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPalletLackQuantity" xml:space="preserve">
+    <value>Pallet lack quantity</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPalletNoScanCodeResultData" xml:space="preserve">
+    <value>Pallet no scan code result data</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPalletSufficientQuantity" xml:space="preserve">
+    <value>Pallet sufficient quantity</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgProductIsDefective" xml:space="preserve">
+    <value>Product is defective</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="WrongProductName" xml:space="preserve">
+    <value>Wrong product name</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="WrongPallet" xml:space="preserve">
+    <value>Wrong pallet</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MissProduct" xml:space="preserve">
+    <value>Miss product</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CheckData" xml:space="preserve">
+    <value>Check data</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DontHaveDatabase" xml:space="preserve">
+    <value>Don't have database</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="NoProductInPallet" xml:space="preserve">
+    <value>No product in pallet</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="UnknownPallet" xml:space="preserve">
+    <value>Unknown pallet</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MissPallet" xml:space="preserve">
+    <value>Miss pallet</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Station" xml:space="preserve">
+    <value>Station</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ClearLog" xml:space="preserve">
+    <value>Clearlog</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ClearLogs" xml:space="preserve">
+    <value>Clear logs</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Command" xml:space="preserve">
+    <value>Command</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DateTime" xml:space="preserve">
+    <value>Datetime</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="KeyInformation" xml:space="preserve">
+    <value>Key information</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="KeyWord" xml:space="preserve">
+    <value>Keyword</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="LogDetails" xml:space="preserve">
+    <value>Log details</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgDoYouWantToContinue" xml:space="preserve">
+    <value>Do you want to continue?</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="RowsCount" xml:space="preserve">
+    <value>Rows count</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Started" xml:space="preserve">
+    <value>Started</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Stoped" xml:space="preserve">
+    <value>Stoped</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ViewLog" xml:space="preserve">
+    <value>Viewlog</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ActivationParameters" xml:space="preserve">
+    <value>Activation parameters</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="SchedulesInfo" xml:space="preserve">
+    <value>Schedules info</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="SyncData" xml:space="preserve">
+    <value>Sync data</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="SyncDataWithServer" xml:space="preserve">
+    <value>Sync data with server</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="SyncSchedules" xml:space="preserve">
+    <value>Sync schedules</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgDoYouWantToStopThisProcess" xml:space="preserve">
+    <value>Do you want to stop this process?</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPleaseConfirmThisInformation" xml:space="preserve">
+    <value>Please confirm this information</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ProductDeliveryOffline" xml:space="preserve">
+    <value>Product delivery offline</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="WaitToSync" xml:space="preserve">
+    <value>Wait to sync</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="WrongIDCode" xml:space="preserve">
+    <value>Wrong ID code</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="WrongProductCode" xml:space="preserve">
+    <value>Wrong product code</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ProductDeliveryOnline" xml:space="preserve">
+    <value>Product delivery online</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgProductDistributionsModule" xml:space="preserve">
+    <value>Product distributions Model</value>
+    <comment>1.0.0.0 Linh.Tran_230912</comment>
+  </data>
+  <data name="MsgProductionBaggingWarehousingModule" xml:space="preserve">
+    <value>Production-Bagging-Warehousing Model</value>
+    <comment>1.0.0.0 Linh.Tran_230912</comment>
+  </data>
+  <data name="QuantityToExport" xml:space="preserve">
+    <value>Quantity to export</value>
+    <comment>1.0.0.0 Linh.Tran_230912</comment>
+  </data>
+  <data name="QuantityToImport" xml:space="preserve">
+    <value>Quantity to import</value>
+    <comment>1.0.0.0 Linh.Tran_230912</comment>
+  </data>
+  <data name="ScanFailed" xml:space="preserve">
+    <value>Scan failed</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ScanSuccess" xml:space="preserve">
+    <value>Scan success</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Antenna" xml:space="preserve">
+    <value>ANTENNA</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="AntennaID" xml:space="preserve">
+    <value>Antenna ID</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="DistributionCode" xml:space="preserve">
+    <value>Distribution code</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="EnableFilter" xml:space="preserve">
+    <value>Enable Filter</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="Event" xml:space="preserve">
+    <value>Event</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="FilterData" xml:space="preserve">
+    <value>Filter Data</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="GPIEnable" xml:space="preserve">
+    <value>GPI Enable</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="GPIO" xml:space="preserve">
+    <value>GPIO</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="GPIParams" xml:space="preserve">
+    <value>GPI Params</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="GPIwithTimeout" xml:space="preserve">
+    <value>GPI with Timeout</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="GPOStates" xml:space="preserve">
+    <value>GPO States</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="HL" xml:space="preserve">
+    <value>H-&gt;L</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="LH" xml:space="preserve">
+    <value>L-&gt;H</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MaxSizeMemoryBank" xml:space="preserve">
+    <value>Max Size Memory Bank</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MaxTagCount" xml:space="preserve">
+    <value>Max Tag Count</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MaxTagIDLength" xml:space="preserve">
+    <value>Max Tag ID Length</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Mode</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MsgFailFormat" xml:space="preserve">
+    <value>Fail Format</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MsgRFIDSettingSuccessfully" xml:space="preserve">
+    <value>RFID Setting Successfully.</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MsgRFIDSettingUnsuccessfully" xml:space="preserve">
+    <value>RFID Setting Unsuccessfully.</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MsgSettingNotification" xml:space="preserve">
+    <value>Setting Notification</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MsgValueMustBe" xml:space="preserve">
+    <value>Value must be {0} to {1}</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MsgValueValidate" xml:space="preserve">
+    <value>Value Validate</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="StartTrigger" xml:space="preserve">
+    <value>Start Trigger</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="StopTrigger" xml:space="preserve">
+    <value>Stop Trigger</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="TagReportTrigger" xml:space="preserve">
+    <value>Tag Report Trigger</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="TAGSTORAGE" xml:space="preserve">
+    <value>TAG STORAGE</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="Timeout" xml:space="preserve">
+    <value>Timeout</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="TransmitPower" xml:space="preserve">
+    <value>Transmit Power (100*dBm)</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="TRIGGERS" xml:space="preserve">
+    <value>TRIGGERS</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="TriggerType" xml:space="preserve">
+    <value>Trigger Type</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Account</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="AccountHasBeenLocked" xml:space="preserve">
+    <value>Account has been locked</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="AccountIsNotExist" xml:space="preserve">
+    <value>Account is not exist</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="AutoReading" xml:space="preserve">
+    <value>Auto reading</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CannotBeNull" xml:space="preserve">
+    <value>Cannot be null</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CannotCloseApplications" xml:space="preserve">
+    <value>Cannot close applications</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="CannotStartRFIDDevices" xml:space="preserve">
+    <value>Cannot start RFID devices</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change password</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CloseApplications" xml:space="preserve">
+    <value>Close applications</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Config" xml:space="preserve">
+    <value>Config</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Control" xml:space="preserve">
+    <value>Control</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Current password</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DeliveryID" xml:space="preserve">
+    <value>Delivery ID</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Design" xml:space="preserve">
+    <value>Design</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Failed</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>Host name</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Ignore" xml:space="preserve">
+    <value>Ignore</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="IPAddress" xml:space="preserve">
+    <value>IPAddress</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Job" xml:space="preserve">
+    <value>Job</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Load</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="LoginAccount" xml:space="preserve">
+    <value>Login account</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Manager</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ManualReading" xml:space="preserve">
+    <value>Manual reading</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="MsgPasswordIsIncorrect" xml:space="preserve">
+    <value>Password is incorrect</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPasswordNotMatch" xml:space="preserve">
+    <value>Password not match</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPleaseCheckYourSystems" xml:space="preserve">
+    <value>Please check your systems</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPleaseWait" xml:space="preserve">
+    <value>Please wait...</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MustBeGreaterThan0" xml:space="preserve">
+    <value>Must be greater than 0</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="NoResponseFromServer" xml:space="preserve">
+    <value>No response from server</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Normal" xml:space="preserve">
+    <value>Normal</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="NotMatch" xml:space="preserve">
+    <value>Not match</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="NullDeliveryID" xml:space="preserve">
+    <value>Null delivery ID</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Offline</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Online</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Operator</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PasswordsDoesNotMatch" xml:space="preserve">
+    <value>Passwords does not match</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>Permission</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Ping" xml:space="preserve">
+    <value>Ping</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PingResult" xml:space="preserve">
+    <value>Ping result</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PleaseCheckYourData" xml:space="preserve">
+    <value>Please check your data</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PleaseCheckYourServer" xml:space="preserve">
+    <value>Please check your server</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PleaseCheckYourSystems" xml:space="preserve">
+    <value>Please check your systems</value>
+    <comment>1.0.0.0 Linh.Tran_230913</comment>
+  </data>
+  <data name="PleaseContactAdministratorToUnlock" xml:space="preserve">
+    <value>Please contact administrator to unlock</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PleaseSelectTheFilesToPreview" xml:space="preserve">
+    <value>Please select the files to preview</value>
+    <comment>1.0.0.0 Linh.Tran_230913</comment>
+  </data>
+  <data name="PleaseTryAgain" xml:space="preserve">
+    <value>Please try again</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+    <comment>1.0.0.0 Linh.Tran_230913</comment>
+  </data>
+  <data name="ProductImportOffline" xml:space="preserve">
+    <value>Product import offline</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="ProductImportOnline" xml:space="preserve">
+    <value>Product import online</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="RememberLogin" xml:space="preserve">
+    <value>Remember login</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Reset password</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ResponseFromServer" xml:space="preserve">
+    <value>Response from server</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="RetypePassword" xml:space="preserve">
+    <value>Re-type password</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="RFIDSettings" xml:space="preserve">
+    <value>RFID settings</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="RSSI" xml:space="preserve">
+    <value>RSSI</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="SaveDataLocations" xml:space="preserve">
+    <value>SaveDataLocations</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ScanData" xml:space="preserve">
+    <value>Scan data</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="SchedulesFilesDoseNotExist" xml:space="preserve">
+    <value>Schedules's files dose not exist</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="ServerActivation" xml:space="preserve">
+    <value>Server activation</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ServerIsNotResponse" xml:space="preserve">
+    <value>Server is not response</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ServerReponse" xml:space="preserve">
+    <value>Server reponse</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="SystemSettings" xml:space="preserve">
+    <value>System settings</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TagID" xml:space="preserve">
+    <value>Tag ID</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TheApplicationsMustBeRestartToComplete" xml:space="preserve">
+    <value>The applications must be restart to complete</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TheApplicationsWillBeRestart" xml:space="preserve">
+    <value>The applications will be restart</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TheOperationCompletedSuccessfully" xml:space="preserve">
+    <value>The operation completed successfully</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TheSystemHasStopped" xml:space="preserve">
+    <value>The system has stopped</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="TheXAreRunning" xml:space="preserve">
+    <value>The {0} are running</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TotalTagCount" xml:space="preserve">
+    <value>Total tag count</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="URL" xml:space="preserve">
+    <value>URL</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="WrongSchedulesFiles" xml:space="preserve">
+    <value>Wrong schedules's files</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="YouHaveCompletedTheQuantityToBeDistributed" xml:space="preserve">
+    <value>You have completed the quantity to be distributed</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="YouHaveSomeTIMEOUTIssue" xml:space="preserve">
+    <value>You have some TIMEOUT issue</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Block</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>Starting</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Sync" xml:space="preserve">
+    <value>Sync</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Application name</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="FolderDoseNotExist" xml:space="preserve">
+    <value>Folder doesn't exist</value>
+    <comment>1.0.0.0 Linh.Tran_230916</comment>
+  </data>
+  <data name="GeneralInfo" xml:space="preserve">
+    <value>General info</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="LinkServer" xml:space="preserve">
+    <value>Link server</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="MsgAreYouSureToCloseApplications" xml:space="preserve">
+    <value>Are you sure to close applications?</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="PleasetStopTriggerBeforeClose" xml:space="preserve">
+    <value>Please stop trigger before closed</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="ReleaseNote" xml:space="preserve">
+    <value>Release note</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Waiting</value>
+    <comment>1.0.0.0 Linh.Tran_230916</comment>
+  </data>
+  <data name="BackupNotify" xml:space="preserve">
+    <value>Backup Notify</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230916</comment>
+  </data>
+  <data name="MsgBackupParameterSuccessfully" xml:space="preserve">
+    <value>Backup parameter successfully!</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230916</comment>
+  </data>
+  <data name="MsgBackupParameterUnsuccessfully" xml:space="preserve">
+    <value>Backup parameter unsuccessfully!</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230916</comment>
+  </data>
+  <data name="MsgRestoreParameterSuccessfully" xml:space="preserve">
+    <value>Restore  parameter successfully!</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230916</comment>
+  </data>
+  <data name="MsgRestoreParameterUnsuccessfully" xml:space="preserve">
+    <value>Restore  parameter unsuccessfully!</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230916</comment>
+  </data>
+  <data name="RestoreNotify" xml:space="preserve">
+    <value>Restore Notify</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230916</comment>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Backup</value>
+    <comment>1.0.0.0  Linh.Tran_230916</comment>
+  </data>
+  <data name="ChooseAFolder" xml:space="preserve">
+    <value>Choose a folder</value>
+    <comment>1.0.0.0  Linh.Tran_230916</comment>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Restore</value>
+    <comment>1.0.0.0  Linh.Tran_230916</comment>
+  </data>
+  <data name="CreatFolderFailed" xml:space="preserve">
+    <value>Creat folder failed</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="PleaseCheckIPAndPortOfDevices" xml:space="preserve">
+    <value>Please check IP and port of devices</value>
+    <comment>1.0.0.0  Linh.Tran_230917</comment>
+  </data>
+  <data name="Server" xml:space="preserve">
+    <value>Máy chủ</value>
+    <comment>1.0.0.0  Linh.Tran_230917</comment>
+  </data>
+  <data name="ServerStatus" xml:space="preserve">
+    <value>Server status</value>
+    <comment>1.0.0.0  Linh.Tran_230917</comment>
+  </data>
+  <data name="WebBrowser" xml:space="preserve">
+    <value>Web browser</value>
+    <comment>1.0.0.0  Linh.Tran_230918</comment>
+  </data>
+</root>

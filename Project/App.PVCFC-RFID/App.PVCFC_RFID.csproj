@@ -1,0 +1,589 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{161539B5-393F-41DA-AF4F-222F1ED5F41E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>App.PVCFC_RFID</RootNamespace>
+    <AssemblyName>App.PVCFC_RFID</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.WebView2.Core">
+      <HintPath>..\..\ML.SolutionsProject\Common\dll\WebView\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms">
+      <HintPath>..\..\ML.SolutionsProject\Common\dll\WebView\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Aero2" />
+    <Reference Include="Symbol.RFID3.Host">
+      <HintPath>..\..\ML.SolutionsProject\Common\dll\ZebraFX9600\Symbol.RFID3.Host.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Collections.Immutable.1.3.1\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Memory.4.5.2\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\ViewModels\SettingViewModel.cs" />
+    <Compile Include="Controller\SharedControlHandler.cs" />
+    <Compile Include="Controller\SharedEvents.cs" />
+    <Compile Include="Controller\SharedFunctions.cs" />
+    <Compile Include="Controller\SharedValues.cs" />
+    <Compile Include="Controller\ViewModels\TriggerViewModel.cs" />
+    <Compile Include="DataType\ObjectType.cs" />
+    <Compile Include="Design\frmProductDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmProductDetails.designer.cs">
+      <DependentUpon>frmProductDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\frmRebootNotify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmRebootNotify.Designer.cs">
+      <DependentUpon>frmRebootNotify.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\frmSettingDM60X.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmSettingDM60X.Designer.cs">
+      <DependentUpon>frmSettingDM60X.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\frmSyncDataWithServer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmSyncDataWithServer.Designer.cs">
+      <DependentUpon>frmSyncDataWithServer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\frmSettingsRFIDZebra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmSettingsRFIDZebra.Designer.cs">
+      <DependentUpon>frmSettingsRFIDZebra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\frmTrigger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmTrigger.designer.cs">
+      <DependentUpon>frmTrigger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\frmTriggerFormDM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmTriggerFormDM.Designer.cs">
+      <DependentUpon>frmTriggerFormDM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\frmWebView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmWebView.Designer.cs">
+      <DependentUpon>frmWebView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\ucAbout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Design\ucAbout.Designer.cs">
+      <DependentUpon>ucAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\ucProductExportLineInfoOffline_BK.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Design\ucProductExportLineInfoOffline_BK.designer.cs">
+      <DependentUpon>ucProductExportLineInfoOffline_BK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\ucProductExportLineInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Design\ucProductExportLineInfo.designer.cs">
+      <DependentUpon>ucProductExportLineInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\ucSettingAccounts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Design\ucSettingAccounts.Designer.cs">
+      <DependentUpon>ucSettingAccounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\XAMLViews\ucSettingDM60X.xaml.cs">
+      <DependentUpon>ucSettingDM60X.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Design\ucSettingsItemsRFIDZebraFX9600_BK230909.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Design\ucSettingsItemsRFIDZebraFX9600_BK230909.Designer.cs">
+      <DependentUpon>ucSettingsItemsRFIDZebraFX9600_BK230909.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\ucStationInfo_230905_2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Design\ucStationInfo_230905_2.designer.cs">
+      <DependentUpon>ucStationInfo_230905_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\ucStationInfo_230905.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Design\ucStationInfo_230905.designer.cs">
+      <DependentUpon>ucStationInfo_230905.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\ucStationInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Design\ucStationInfo.designer.cs">
+      <DependentUpon>ucStationInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\ucSettingSystems.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Design\ucSettingSystems.Designer.cs">
+      <DependentUpon>ucSettingSystems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\ucSettingSystemsJobItems.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Design\ucSettingSystemsJobItems.Designer.cs">
+      <DependentUpon>ucSettingSystemsJobItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\XAMLViews\ucTriggerView.xaml.cs">
+      <DependentUpon>ucTriggerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RunningModel.cs" />
+    <Compile Include="Model\SettingsModel.cs" />
+    <Compile Include="Model\SettingsStationModel.cs" />
+    <Compile Include="Design\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RunningStationModel.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Design\ucAccountDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Design\ucAccountDetails.Designer.cs">
+      <DependentUpon>ucAccountDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\ucSettingsItemsRFIDZebraFX9600.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Design\ucSettingsItemsRFIDZebraFX9600.Designer.cs">
+      <DependentUpon>ucSettingsItemsRFIDZebraFX9600.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Design\frmProductDetails.resx">
+      <DependentUpon>frmProductDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\frmRebootNotify.resx">
+      <DependentUpon>frmRebootNotify.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\frmSettingDM60X.resx">
+      <DependentUpon>frmSettingDM60X.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\frmSyncDataWithServer.resx">
+      <DependentUpon>frmSyncDataWithServer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\frmSettingsRFIDZebra.resx">
+      <DependentUpon>frmSettingsRFIDZebra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\frmTrigger.resx">
+      <DependentUpon>frmTrigger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\frmTriggerFormDM.resx">
+      <DependentUpon>frmTriggerFormDM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\frmWebView.resx">
+      <DependentUpon>frmWebView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\ucAbout.resx">
+      <DependentUpon>ucAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\ucProductExportLineInfoOffline_BK.resx">
+      <DependentUpon>ucProductExportLineInfoOffline_BK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\ucProductExportLineInfo.resx">
+      <DependentUpon>ucProductExportLineInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\ucProductExportLineInfoOnline.resx" />
+    <EmbeddedResource Include="Design\ucSettingAccounts.resx">
+      <DependentUpon>ucSettingAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\ucSettingsItemsRFIDZebraFX9600_BK230909.resx">
+      <DependentUpon>ucSettingsItemsRFIDZebraFX9600_BK230909.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\ucStationInfo_230905_2.resx">
+      <DependentUpon>ucStationInfo_230905_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\ucStationInfo_230905.resx">
+      <DependentUpon>ucStationInfo_230905.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\ucStationInfo.resx">
+      <DependentUpon>ucStationInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\ucSettingSystems.resx">
+      <DependentUpon>ucSettingSystems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\ucSettingSystemsJobItems.resx">
+      <DependentUpon>ucSettingSystemsJobItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Design\frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\ucSettingsItemsRFIDZebraFX9600.resx">
+      <DependentUpon>ucSettingsItemsRFIDZebraFX9600.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\about32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\ML.AccountManagements\ML.AccountManagements.csproj">
+      <Project>{e695bbcd-73a0-4b69-ae05-8260e5855ed6}</Project>
+      <Name>ML.AccountManagements</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ML.Common\ML.Common.csproj">
+      <Project>{3d08b682-51f3-4d84-97f3-5bcd34e2c691}</Project>
+      <Name>ML.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ML.Connections\ML.Connections.csproj">
+      <Project>{62791625-01b3-4cf0-ab9f-14cc33b9c82a}</Project>
+      <Name>ML.Connections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ML.Controls\ML.Controls.csproj">
+      <Project>{100389c7-1baa-44bc-9457-f07f5b85a862}</Project>
+      <Name>ML.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ML.DatabaseConnections\ML.DatabaseConnections.csproj">
+      <Project>{79fc7557-e9f7-4ee7-bbce-1f3de05993fd}</Project>
+      <Name>ML.DatabaseConnections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ML.Languages\ML.Languages.csproj">
+      <Project>{765fe104-fabb-4e78-aea9-643dc558479b}</Project>
+      <Name>ML.Languages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ML.LoggingControls\ML.LoggingControls.csproj">
+      <Project>{14258f52-5067-4d57-a903-57792acd78ea}</Project>
+      <Name>ML.LoggingControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DeviceTransfer\ML.DeviceTransfer.PVCFCRFID\ML.DeviceTransfer.PVCFCRFID.csproj">
+      <Project>{f57d31fc-cf4d-4dcc-9ee5-ffcf71429d79}</Project>
+      <Name>ML.DeviceTransfer.PVCFCRFID</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ML.DeviceTransfer.PVCFCDM60X\ML.DeviceTransfer.PVCFCDM60X.csproj">
+      <Project>{C0077A16-D283-4434-ABDD-897E5D756197}</Project>
+      <Name>ML.DeviceTransfer.PVCFCDM60X</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ML.SDK.DM60X\ML.SDK.DM60X.csproj">
+      <Project>{be57467e-f9d7-4a09-af42-44e014876195}</Project>
+      <Name>ML.SDK.DM60X</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SDKDevices\ML.SDK.RDIF.FX9600\ML.SDK.RDIF_FX9600.csproj">
+      <Project>{87f17a18-4765-49a7-87f4-7fb9fde1c6d9}</Project>
+      <Name>ML.SDK.RDIF_FX9600</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SDKDevices\ML.SDK.Transfer\ML.SDK.Transfer.csproj">
+      <Project>{d98118d6-0927-462f-9285-24b0645868df}</Project>
+      <Name>ML.SDK.Transfer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\confimr65x65.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connectede48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connection_off216x216.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connection_on216x216.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connection_unknown216x216.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connection_warn216x216.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disConnected48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gray64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gray128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gray256x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\green64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\green128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\green256x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\house32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\orange64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red256x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rfid256x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\start65x65.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop65x65.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trigger65x65.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\white256x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yellow64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yellow128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yellow256x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reload16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gray256x2561.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\green256x2561.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red256x2561.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yellow256x2561.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings256x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings32x321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings512x512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\webSettings32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\webSettings256x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\config32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\config56x56.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\webConfig56x56.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settingsS256x56.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sync32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sync512x512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logs32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logs32x37.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user32x38.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rfid.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Image_AusPost.png" />
+    <Resource Include="Images\Image_Aztec.png" />
+    <Resource Include="Images\Image_Codabar.png" />
+    <Resource Include="Images\Image_Code128.png" />
+    <Resource Include="Images\Image_Code25.png" />
+    <Resource Include="Images\Image_Code39.png" />
+    <Resource Include="Images\Image_Code93.png" />
+    <Resource Include="Images\Image_DataMatrix.png" />
+    <Resource Include="Images\Image_EANUCC.png" />
+    <Resource Include="Images\Image_GS1Databar.png" />
+    <Resource Include="Images\Image_Intelligent.png" />
+    <Resource Include="Images\Image_Interleaved.png" />
+    <Resource Include="Images\Image_japost.png" />
+    <Resource Include="Images\Image_Maxicode.png" />
+    <Resource Include="Images\Image_MicroPDF417.png" />
+    <Resource Include="Images\Image_MSI.png" />
+    <Resource Include="Images\Image_PDF417.png" />
+    <Resource Include="Images\Image_Pharma.png" />
+    <Resource Include="Images\Image_planet.png" />
+    <Resource Include="Images\Image_postnet.png" />
+    <Resource Include="Images\Image_QR.png" />
+    <Resource Include="Images\Image_UPCEAN.png" />
+    <Resource Include="Images\Image_upu.png" />
+    <Content Include="Label\Readme.vi-VN.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Label\Readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\serverfailed64x64.png" />
+    <None Include="Resources\serverok64x64.png" />
+    <None Include="Resources\Spinner.gif" />
+    <None Include="Resources\gif-load.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Design\XAMLViews\ResourceDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Design\XAMLViews\ucSettingDM60X.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Design\XAMLViews\ucTriggerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

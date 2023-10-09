@@ -1,0 +1,1303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivedFailed" xml:space="preserve">
+    <value>Kích hoạt thất bại</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ActivedSuccess" xml:space="preserve">
+    <value>Kích hoạt thành công</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="AgencyLevel1" xml:space="preserve">
+    <value>Đại lý cấp 1</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="BaudRate" xml:space="preserve">
+    <value>Baud rate</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CheckedFailed" xml:space="preserve">
+    <value>Quét thất bại</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CheckedSuccess" xml:space="preserve">
+    <value>Quét thành công</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Dừng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="COMPort" xml:space="preserve">
+    <value>COM port</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Kết nối</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Kết nối</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ConnectionFailed" xml:space="preserve">
+    <value>Kết nối thất bại</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ConnectToRFID" xml:space="preserve">
+    <value>Kết nối với RFID</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DataBit" xml:space="preserve">
+    <value>Data bit</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DateOfExpiry" xml:space="preserve">
+    <value>Ngày hết hạn</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DateOfManufacture" xml:space="preserve">
+    <value>Ngày sản xuất</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DeliveryBill" xml:space="preserve">
+    <value>Lệnh xuất kho</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Chi tiết</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DeviceAddress" xml:space="preserve">
+    <value>Device address</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Disconnected" xml:space="preserve">
+    <value>Ngắt kết nối</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DistributionSchedules" xml:space="preserve">
+    <value>Lệnh xuất hàng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="FileData" xml:space="preserve">
+    <value>Tập tin dữ liệu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Informations" xml:space="preserve">
+    <value>Thông tin</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="LOTNo" xml:space="preserve">
+    <value>LOT No</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MgsConnection" xml:space="preserve">
+    <value>Kết nối {0}</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Ordered" xml:space="preserve">
+    <value>Phiếu xuất hàng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="OrderedTotal" xml:space="preserve">
+    <value>Số lượng cần xuất</value>
+  </data>
+  <data name="Parity" xml:space="preserve">
+    <value>Parity</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>Đường dẫn</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Cổng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Processing" xml:space="preserve">
+    <value>Đang xử lý</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ProductionName" xml:space="preserve">
+    <value>Tên sản phẩm</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ScanQRCode" xml:space="preserve">
+    <value>Quét QRCode</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Trạng thái</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="StopBit" xml:space="preserve">
+    <value>Stop bit</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TotalExport" xml:space="preserve">
+    <value>Số lượng cần xuất</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Xóa</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgAreYouSureToConfirmTheDeliryBill" xml:space="preserve">
+    <value>Bạn có muốn xác nhận hoàn thành lệnh xuất hàng?</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgConfirmDeliveryBill" xml:space="preserve">
+    <value>Xác nhận lệnh xuất hàng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgTheDeliveryBillIsConfirm" xml:space="preserve">
+    <value>Lệnh xuất hàng đã được xác nhận</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ChipID" xml:space="preserve">
+    <value>Chip ID</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CodeCount" xml:space="preserve">
+    <value>Tổng số mã</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DuplicateCode" xml:space="preserve">
+    <value>Trùng mã</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ProductCode" xml:space="preserve">
+    <value>Mã sản phẩm</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ProductDetails" xml:space="preserve">
+    <value>Chi tiết sản phẩm</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ScanDatetime" xml:space="preserve">
+    <value>Ngày quét</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Không tồn tại</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>Kết quả</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Dữ liệu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Errors" xml:space="preserve">
+    <value>Lỗi</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPleaseConnectWithPLC" xml:space="preserve">
+    <value>Vui lòng kết nối với PLC</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPleaseConnectWithRFID" xml:space="preserve">
+    <value>Vui lòng kết nối với RFID</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PalletCode" xml:space="preserve">
+    <value>Mã Pallet</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Trigger" xml:space="preserve">
+    <value>Kiểm tra tín hiệu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DataScannedResults" xml:space="preserve">
+    <value>Kết quả quét dữ liệu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ReadRFID" xml:space="preserve">
+    <value>Đọc RFID</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Hiển thị tất cả</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="AutoConnections" xml:space="preserve">
+    <value>Tự động kết nối</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ConnectToPLC" xml:space="preserve">
+    <value>Kết nối với PLC</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DelayTriggerTime" xml:space="preserve">
+    <value>Thời gian phát tín hiệu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PLC" xml:space="preserve">
+    <value>PLC</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>Đọc</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Reading" xml:space="preserve">
+    <value>Đang đọc</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="RFID" xml:space="preserve">
+    <value>RFID</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CheckPallet" xml:space="preserve">
+    <value>Kiểm tra Pallet</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DeleteLogs" xml:space="preserve">
+    <value>Xóa lịch sử xuất hàng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgAreYouSureToDeleteTheDeliveryBillLogs" xml:space="preserve">
+    <value>Bạn có muốn xóa tất cả lịch sử lệnh xuất hàng?</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgNoProductInPallet" xml:space="preserve">
+    <value>Pallet không có sản phẩm</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPalletExcessQuantity" xml:space="preserve">
+    <value>Pallet dư số lượng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPalletHaveMultipleValues" xml:space="preserve">
+    <value>Pallet có nhiều giá trị</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPalletLackQuantity" xml:space="preserve">
+    <value>Pallet không đủ số lượng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPalletNoScanCodeResultData" xml:space="preserve">
+    <value>Pallet không có dữ liệu kết quả quét mã</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPalletSufficientQuantity" xml:space="preserve">
+    <value>Pallet đủ số lượng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgProductIsDefective" xml:space="preserve">
+    <value>Sản phẩm có lỗi</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="WrongProductName" xml:space="preserve">
+    <value>Sai tên sản phẩm</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="WrongPallet" xml:space="preserve">
+    <value>Sai pallet</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MissProduct" xml:space="preserve">
+    <value>Sản phẩm không quét được</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CheckData" xml:space="preserve">
+    <value>Kiểm tra dữ liệu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgDontHaveDatabase" xml:space="preserve">
+    <value>Cơ sở dữ liệu không tồn tại</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="NoProductInPallet" xml:space="preserve">
+    <value>Pallet không có sản phẩm</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="UnknownPallet" xml:space="preserve">
+    <value>Pallet không tồn tại</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MissPallet" xml:space="preserve">
+    <value>Pallet không quét được</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Station" xml:space="preserve">
+    <value>Trạm</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ClearLog" xml:space="preserve">
+    <value>Xóa nhật ký</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ClearLogs" xml:space="preserve">
+    <value>Xóa các bản ghi</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Command" xml:space="preserve">
+    <value>Yêu cầu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DateTime" xml:space="preserve">
+    <value>Ngày giờ</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Xuất</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Lọc</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Từ</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Thông tin</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="KeyInformation" xml:space="preserve">
+    <value>Thông tin</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="KeyWord" xml:space="preserve">
+    <value>Từ khóa</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="LogDetails" xml:space="preserve">
+    <value>Chi tiết nhật ký</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Tin nhắn</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgDoYouWantToContinue" xml:space="preserve">
+    <value>Bạn có muốn tiếp tục không?</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Làm mới</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="RowsCount" xml:space="preserve">
+    <value>Số hàng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Khởi chạy</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Started" xml:space="preserve">
+    <value>Đã bắt đầu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Dừng chạy</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Stoped" xml:space="preserve">
+    <value>Đã dừng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>1.0.0.0</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Đến</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Tên tài khoản</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ViewLog" xml:space="preserve">
+    <value>Xem nhật kí</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Cảnh báo</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ActivationParameters" xml:space="preserve">
+    <value>Thông tin kích hoạt</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Ghi chú</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Số lượng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="SchedulesInfo" xml:space="preserve">
+    <value>Thông tin lịch</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="SyncData" xml:space="preserve">
+    <value>Đồng bộ dữ liệu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="SyncDataWithServer" xml:space="preserve">
+    <value>Đồng bộ dữ liệu với server</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="SyncSchedules" xml:space="preserve">
+    <value>Lịch đồng bộ</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Không</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Đồng ý</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgDoYouWantToStopThisProcess" xml:space="preserve">
+    <value>Bạn có muốn kết thúc quá trình xuất hàng?</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPleaseConfirmThisInformation" xml:space="preserve">
+    <value>Vui lòng xác nhận thông tin</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ProductDeliveryOffline" xml:space="preserve">
+    <value>Phân phối Offline</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="WaitToSync" xml:space="preserve">
+    <value>Chờ đồng bộ</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="WrongIDCode" xml:space="preserve">
+    <value>Sai khóa (TID)</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="WrongProductCode" xml:space="preserve">
+    <value>Sai mã sản phầm</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Có</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ProductDeliveryOnline" xml:space="preserve">
+    <value>Phân phối Online</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgProductDistributionsModule" xml:space="preserve">
+    <value>Module Phân phối</value>
+    <comment>1.0.0.0 Linh.Tran_230912</comment>
+  </data>
+  <data name="MsgProductionBaggingWarehousingModule" xml:space="preserve">
+    <value>Module Sản xuất - Đóng bao - Nhập kho</value>
+    <comment>1.0.0.0 Linh.Tran_230912</comment>
+  </data>
+  <data name="QuantityToExport" xml:space="preserve">
+    <value>Số lượng cần xuất</value>
+    <comment>1.0.0.0 Linh.Tran_230912</comment>
+  </data>
+  <data name="QuantityToImport" xml:space="preserve">
+    <value>Số lượng cần nhập</value>
+    <comment>1.0.0.0 Linh.Tran_230912</comment>
+  </data>
+  <data name="ScanFailed" xml:space="preserve">
+    <value>Quét thất bại</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ScanSuccess" xml:space="preserve">
+    <value>Quét thành công</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DistributionCode" xml:space="preserve">
+    <value>Mã phân phối</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Antenna" xml:space="preserve">
+    <value>ĂNG-TEN</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="AntennaID" xml:space="preserve">
+    <value>Mã số ăng-ten</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Áp dụng</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="EnableFilter" xml:space="preserve">
+    <value>Bật bộ lọc</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="Event" xml:space="preserve">
+    <value>Sự kiện</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="FilterData" xml:space="preserve">
+    <value>Lọc dữ liệu</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="GPIEnable" xml:space="preserve">
+    <value>Bật ngõ vào</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="GPIO" xml:space="preserve">
+    <value>NGÕ VÀO/RA</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="GPIParams" xml:space="preserve">
+    <value>Tham số ngõ vào</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="GPIwithTimeout" xml:space="preserve">
+    <value>Ngõ vào &amp; thời gian</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="GPOStates" xml:space="preserve">
+    <value>Trạng thái ngõ ra</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="HL" xml:space="preserve">
+    <value>Cao -&gt; Thấp</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="LH" xml:space="preserve">
+    <value>Thấp -&gt; Cao</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MaxSizeMemoryBank" xml:space="preserve">
+    <value>Bộ nhớ Bank</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MaxTagCount" xml:space="preserve">
+    <value>Thẻ tối đa</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MaxTagIDLength" xml:space="preserve">
+    <value>Độ dài EPC</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Chế độ</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MsgFailFormat" xml:space="preserve">
+    <value>Sai định dạng</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MsgRFIDSettingSuccessfully" xml:space="preserve">
+    <value>RFID Cài đặt thành công.</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MsgRFIDSettingUnsuccessfully" xml:space="preserve">
+    <value>RFIDCài đặt không thành công.</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MsgSettingNotification" xml:space="preserve">
+    <value>Thông báo cài đặt</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MsgValueMustBe" xml:space="preserve">
+    <value>Giá trị phải từ  {0} đến {1}</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="MsgValueValidate" xml:space="preserve">
+    <value>Xác thực giá trị</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="StartTrigger" xml:space="preserve">
+    <value>Kích đọc</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="StopTrigger" xml:space="preserve">
+    <value>Dừng kích đọc</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="TagReportTrigger" xml:space="preserve">
+    <value>Thẻ tối thiểu</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="TAGSTORAGE" xml:space="preserve">
+    <value>LƯU TRỮ THẺ</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="Timeout" xml:space="preserve">
+    <value>Timeout</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="TransmitPower" xml:space="preserve">
+    <value>Mức sóng (100*dBm)</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="TRIGGERS" xml:space="preserve">
+    <value>KÍCH HOẠT</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="TriggerType" xml:space="preserve">
+    <value>Loại kích hoạt</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230911</comment>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Tài khoản</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="AccountHasBeenLocked" xml:space="preserve">
+    <value>Tài khoản đã bị khóa</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="AccountIsNotExist" xml:space="preserve">
+    <value>Tài khoản không tồn tại</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Thêm</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Địa chỉ</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="AutoReading" xml:space="preserve">
+    <value>Đọc tự động</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CannotBeNull" xml:space="preserve">
+    <value>Không được rỗng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CannotCloseApplications" xml:space="preserve">
+    <value>Không thể đóng ứng dụng</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="CannotStartRFIDDevices" xml:space="preserve">
+    <value>Không thể chạy thiết bị RFID</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Thay đổi mật khẩu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CloseApplications" xml:space="preserve">
+    <value>Đóng ứng dụng</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Config" xml:space="preserve">
+    <value>Cấu hình</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Xác nhận</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Control" xml:space="preserve">
+    <value>Điều khiển</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Mật khẩu hiện tại</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Xóa</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="DeliveryID" xml:space="preserve">
+    <value>Mã phân phối</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Design" xml:space="preserve">
+    <value>Thiết kế</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Thoát</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Thất bại</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>Tên máy chủ</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Ignore" xml:space="preserve">
+    <value>Bỏ qua</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Nhập</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="IPAddress" xml:space="preserve">
+    <value>Địa chỉ IP</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Job" xml:space="preserve">
+    <value>Công việc</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Tải</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Đăng nhập</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="LoginAccount" xml:space="preserve">
+    <value>Tài khoản đăng nhập</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Quản lý</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ManualReading" xml:space="preserve">
+    <value>Đọc</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="MsgPasswordIsIncorrect" xml:space="preserve">
+    <value>Mật khẩu không đúng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPasswordNotMatch" xml:space="preserve">
+    <value>Mật khẩu không giống nhau</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPleaseCheckYourSystems" xml:space="preserve">
+    <value>Vui lòng kiểm tra hệ thống của bạn</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MsgPleaseWait" xml:space="preserve">
+    <value>Vui lòng chờ...</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="MustBeGreaterThan0" xml:space="preserve">
+    <value>Phải lớn hơn 0</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Mật khẩu mới</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Trống</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="NoResponseFromServer" xml:space="preserve">
+    <value>Không có phản hồi từ máy chủ</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Normal" xml:space="preserve">
+    <value>Cơ bản</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="NotMatch" xml:space="preserve">
+    <value>Không khớp nhau</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="NullDeliveryID" xml:space="preserve">
+    <value>Mã phân phối rỗng</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Offline</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Online</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Vận hành</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mật khẩu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PasswordsDoesNotMatch" xml:space="preserve">
+    <value>Mật khẩu không giống nhau</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>Phân quyền</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Ping" xml:space="preserve">
+    <value>Ping</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PingResult" xml:space="preserve">
+    <value>Kết quả Ping</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PleaseCheckYourData" xml:space="preserve">
+    <value>Vui lòng kiểm tra dữ liệu của bạn</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PleaseCheckYourServer" xml:space="preserve">
+    <value>Vui lòng kiểm tra máy chủ</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PleaseCheckYourSystems" xml:space="preserve">
+    <value>Vui lòng kiểm tra hệ thống của bạn</value>
+    <comment>1.0.0.0 Linh.Tran_230913</comment>
+  </data>
+  <data name="PleaseContactAdministratorToUnlock" xml:space="preserve">
+    <value>Vui lòng liên hệ với Admin để mở khóa</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="PleaseSelectTheFilesToPreview" xml:space="preserve">
+    <value>Vui lòng chọn tập tin để xem</value>
+    <comment>1.0.0.0 Linh.Tran_230913</comment>
+  </data>
+  <data name="PleaseTryAgain" xml:space="preserve">
+    <value>Vui lòng thử lại</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Xem trước</value>
+    <comment>1.0.0.0 Linh.Tran_230913</comment>
+  </data>
+  <data name="ProductImportOffline" xml:space="preserve">
+    <value>Nhập kho Offline</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="ProductImportOnline" xml:space="preserve">
+    <value>Nhập kho Online</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="RememberLogin" xml:space="preserve">
+    <value>Ghi nhớ tài khoản</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Làm mới mật khẩu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ResponseFromServer" xml:space="preserve">
+    <value>Máy chủ phản hồi</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="RetypePassword" xml:space="preserve">
+    <value>Nhập lại mật khẩu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="RFIDSettings" xml:space="preserve">
+    <value>Thiết đặt RFID</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="RSSI" xml:space="preserve">
+    <value>RSSI</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Lưu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="SaveDataLocations" xml:space="preserve">
+    <value>Vị trí lưu dữ liệu</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ScanData" xml:space="preserve">
+    <value>Quét dữ liệu</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="SchedulesFilesDoseNotExist" xml:space="preserve">
+    <value>Tập lệnh không tồn tại</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="ServerActivation" xml:space="preserve">
+    <value>Thông tin máy chủ</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ServerIsNotResponse" xml:space="preserve">
+    <value>Máy chủ không phản hồi</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="ServerReponse" xml:space="preserve">
+    <value>Máy chủ phản hồi</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Thiết đặt</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Thành công</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="SystemSettings" xml:space="preserve">
+    <value>Thiết đặt hệ thống</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TagID" xml:space="preserve">
+    <value>Tag ID</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TheApplicationsMustBeRestartToComplete" xml:space="preserve">
+    <value>Ứng dụng phải khởi động lại để hoàn tất cài đặt</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TheApplicationsWillBeRestart" xml:space="preserve">
+    <value>Ứng dụng sẽ được khởi động lại</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TheOperationCompletedSuccessfully" xml:space="preserve">
+    <value>Thao tác hoàn thành</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TheSystemHasStopped" xml:space="preserve">
+    <value>Hệ thống đã dừng</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="TheXAreRunning" xml:space="preserve">
+    <value>{0} đang chạy</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Thời gian</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="TotalTagCount" xml:space="preserve">
+    <value>Tổng số mã</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Cập nhật</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="URL" xml:space="preserve">
+    <value>URL</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Người dùng</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="WrongSchedulesFiles" xml:space="preserve">
+    <value>Sai tập tin lịch</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="YouHaveCompletedTheQuantityToBeDistributed" xml:space="preserve">
+    <value>Bạn đã hoàn thành phân phối đủ số lượng</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="YouHaveSomeTIMEOUTIssue" xml:space="preserve">
+    <value>Hết thời gian chờ phản hồi từ máy chủ</value>
+    <comment>1.0.0.0</comment>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Khóa</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Lỗi</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Sẵn sàng</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>Đang chạy</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Sync" xml:space="preserve">
+    <value>Đồng bộ</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Tên ứng dụng</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="FolderDoseNotExist" xml:space="preserve">
+    <value>Thư mục không tồn tại</value>
+    <comment>1.0.0.0 Linh.Tran_230916</comment>
+  </data>
+  <data name="GeneralInfo" xml:space="preserve">
+    <value>Thông tin chung</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="LinkServer" xml:space="preserve">
+    <value>Đường dẫn máy chủ</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Đăng xuất</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="MsgAreYouSureToCloseApplications" xml:space="preserve">
+    <value>Bạn có muốn đóng ứng dụng?</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="PleasetStopTriggerBeforeClose" xml:space="preserve">
+    <value>Vui lòng dừng "Kích đọc" trước khi đóng</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="ReleaseNote" xml:space="preserve">
+    <value>Thông tin phiên bản</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Phiên bản</value>
+    <comment>1.0.0.0  Linh.Tran_230915</comment>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Đợi...</value>
+    <comment>1.0.0.0 Linh.Tran_230916</comment>
+  </data>
+  <data name="BackupNotify" xml:space="preserve">
+    <value>Thông báo sao lưu</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230916</comment>
+  </data>
+  <data name="MsgBackupParameterSuccessfully" xml:space="preserve">
+    <value>Sao lưu thông số thành công!</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230916</comment>
+  </data>
+  <data name="MsgBackupParameterUnsuccessfully" xml:space="preserve">
+    <value>Sao lưu thông số không thành công!</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230916</comment>
+  </data>
+  <data name="MsgRestoreParameterSuccessfully" xml:space="preserve">
+    <value>Khôi phục thông số thành công!</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230916</comment>
+  </data>
+  <data name="MsgRestoreParameterUnsuccessfully" xml:space="preserve">
+    <value>Khôi phục thông số không thành công!</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230916</comment>
+  </data>
+  <data name="RestoreNotify" xml:space="preserve">
+    <value>Thông báo khôi phục</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230916</comment>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Sao lưu</value>
+    <comment>1.0.0.0  Linh.Tran_230916</comment>
+  </data>
+  <data name="ChooseAFolder" xml:space="preserve">
+    <value>Chọn thư mục</value>
+    <comment>1.0.0.0  Linh.Tran_230916</comment>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Khôi phục</value>
+    <comment>1.0.0.0  Linh.Tran_230916</comment>
+  </data>
+  <data name="CreatFolderFailed" xml:space="preserve">
+    <value>Tạo thư mục thất bại</value>
+    <comment>1.0.0.0  Linh.Tran_230911</comment>
+  </data>
+  <data name="PleaseCheckIPAndPortOfDevices" xml:space="preserve">
+    <value>Vui lòng kiểm tra IP và Cổng của thiết bị</value>
+    <comment>1.0.0.0  Linh.Tran_230917</comment>
+  </data>
+  <data name="Server" xml:space="preserve">
+    <value>Máy chủ</value>
+    <comment>1.0.0.0  Linh.Tran_230917</comment>
+  </data>
+  <data name="ServerStatus" xml:space="preserve">
+    <value>Trạng thái máy chủ</value>
+    <comment>1.0.0.0  Linh.Tran_230917</comment>
+  </data>
+  <data name="WebBrowser" xml:space="preserve">
+    <value>Trình duyệt</value>
+    <comment>1.0.0.0  Linh.Tran_230918</comment>
+  </data>
+  <data name="BasicSetting" xml:space="preserve">
+    <value>Cài Đặt Cơ Bản</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="BrustExternal" xml:space="preserve">
+    <value>Chế Độ Đọc Lại</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="DecodeTime" xml:space="preserve">
+    <value>Thời gian đọc</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="DelayTimeMs" xml:space="preserve">
+    <value>Thời Gian Chờ</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="DelayType" xml:space="preserve">
+    <value>Kiểu Đọc</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="Operation" xml:space="preserve">
+    <value>Thao Tác Khác</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="Reboot" xml:space="preserve">
+    <value>Reboot</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="RebootDevice" xml:space="preserve">
+    <value>Khởi Động Lại Thiết Bị</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="ResetDevice" xml:space="preserve">
+    <value>Cài Đặt Lại Cấu Hình Thiết Bị</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="SettingForDM60XCamera" xml:space="preserve">
+    <value>Cài Đặt Cho DM60X</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="SingleExternal" xml:space="preserve">
+    <value>Chế Độ Đọc Đơn</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="SubnetMask" xml:space="preserve">
+    <value>Địa Chỉ Mask</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="SymbolRead" xml:space="preserve">
+    <value>Chọn Kiểu Mã</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="TriggerSetting" xml:space="preserve">
+    <value>Cài Đặt Trigger</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+  <data name="UseStaticIPAddress" xml:space="preserve">
+    <value>Sử dụng IP tĩnh</value>
+    <comment>1.0.0.0 MinhChau.Nguyen_230926 None</comment>
+  </data>
+</root>

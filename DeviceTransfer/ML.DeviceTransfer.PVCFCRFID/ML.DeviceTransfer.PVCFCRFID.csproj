@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F57D31FC-CF4D-4DCC-9EE5-FFCF71429D79}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ML.DeviceTransfer.PVCFCRFID</RootNamespace>
+    <AssemblyName>ML.DeviceTransfer.PVCFCRFID</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Symbol.RFID3.Host, Version=1.2.0.0, Culture=neutral, PublicKeyToken=68ec8db391f150ca, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APISAAS\APIActiveSerialProductModel.cs" />
+    <Compile Include="APISAAS\APIController.cs" />
+    <Compile Include="APISAAS\APIGetAgentInforByConditionModel.cs" />
+    <Compile Include="APISAAS\APIGetAgentProductByIdModel.cs" />
+    <Compile Include="APISAAS\APIGetProductInfoModel.cs" />
+    <Compile Include="APISAAS\APIGetUserNameInfoModel.cs" />
+    <Compile Include="APISAAS\APIInsertAgentProductModel.cs" />
+    <Compile Include="APISAAS\APIInsertDistributorAndActiveModel.cs" />
+    <Compile Include="APISAAS\APILoginModel.cs" />
+    <Compile Include="Controller\PVCFCSharedFunctions.cs" />
+    <Compile Include="Controller\PVCFCSharedValues.cs" />
+    <Compile Include="DataType\ObjectType.cs" />
+    <Compile Include="Model\PVCFCDistributionSchedulesModel.cs" />
+    <Compile Include="Model\PVCFCProductItemModel.cs" />
+    <Compile Include="Model\PVCFCRFIDDeviceRunningModel.cs" />
+    <Compile Include="Model\PVCFCRFIDUIBridgeSocketModel.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\ML.Languages\ML.Languages.csproj">
+      <Project>{765fe104-fabb-4e78-aea9-643dc558479b}</Project>
+      <Name>ML.Languages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SDKDevices\ML.SDK.RDIF.FX9600\ML.SDK.RDIF_FX9600.csproj">
+      <Project>{87f17a18-4765-49a7-87f4-7fb9fde1c6d9}</Project>
+      <Name>ML.SDK.RDIF_FX9600</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ML.Common\ML.Common.csproj">
+      <Project>{3d08b682-51f3-4d84-97f3-5bcd34e2c691}</Project>
+      <Name>ML.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ML.Connections\ML.Connections.csproj">
+      <Project>{62791625-01b3-4cf0-ab9f-14cc33b9c82a}</Project>
+      <Name>ML.Connections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SDKDevices\ML.SDK.Transfer\ML.SDK.Transfer.csproj">
+      <Project>{D98118D6-0927-462F-9285-24B0645868DF}</Project>
+      <Name>ML.SDK.Transfer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

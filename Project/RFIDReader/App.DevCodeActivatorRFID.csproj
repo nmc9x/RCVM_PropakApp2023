@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CC24692F-99E6-43CC-A5D7-882D1CEEF9B3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>App.DevCodeActivatorRFID</RootNamespace>
+    <AssemblyName>App.DevCodeActivatorRFID</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\SharedControlHandler.cs" />
+    <Compile Include="Controller\SharedEvents.cs" />
+    <Compile Include="Controller\SharedFunctions.cs" />
+    <Compile Include="Controller\SharedValues.cs" />
+    <Compile Include="DataType\ObjectType.cs" />
+    <Compile Include="Design\frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\frmProductDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmProductDetails.Designer.cs">
+      <DependentUpon>frmProductDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\frmProductScans.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmProductScans.Designer.cs">
+      <DependentUpon>frmProductScans.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ChipDataModel.cs" />
+    <Compile Include="Model\DistributionSchedulesModel.cs" />
+    <Compile Include="Model\ProcessingModel.cs" />
+    <Compile Include="Model\ProductItemModel.cs" />
+    <Compile Include="Model\RunningModel.cs" />
+    <Compile Include="Model\SettingsModel.cs" />
+    <Compile Include="Model\StationModel.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Design\frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\frmProductDetails.resx">
+      <DependentUpon>frmProductDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\frmProductScans.resx">
+      <DependentUpon>frmProductScans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connection_unknown216x216.png" />
+    <None Include="Resources\yellow256x256.png" />
+    <None Include="Resources\yellow128x128.png" />
+    <None Include="Resources\yellow64x64.png" />
+    <None Include="Resources\white256x256.png" />
+    <None Include="Resources\trigger65x65.png" />
+    <None Include="Resources\stop65x65.png" />
+    <None Include="Resources\start65x65.png" />
+    <None Include="Resources\settings32x32.png" />
+    <None Include="Resources\rfid256x256.png" />
+    <None Include="Resources\rfid.ico" />
+    <None Include="Resources\red256x256.png" />
+    <None Include="Resources\red128x128.png" />
+    <None Include="Resources\red64x64.png" />
+    <None Include="Resources\orange64x64.png" />
+    <None Include="Resources\house32x32.png" />
+    <None Include="Resources\green256x256.png" />
+    <None Include="Resources\green128x128.png" />
+    <None Include="Resources\green64x64.png" />
+    <None Include="Resources\gray256x256.png" />
+    <None Include="Resources\gray128x128.png" />
+    <None Include="Resources\gray64x64.png" />
+    <None Include="Resources\disConnected48x48.png" />
+    <None Include="Resources\connection_warn216x216.png" />
+    <None Include="Resources\connection_on216x216.png" />
+    <None Include="Resources\connection_off216x216.png" />
+    <None Include="Resources\connectede48x48.png" />
+    <None Include="Resources\confimr65x65.png" />
+    <None Include="Resources\about32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\ML.Common\ML.Common.csproj">
+      <Project>{3d08b682-51f3-4d84-97f3-5bcd34e2c691}</Project>
+      <Name>ML.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ML.Connections\ML.Connections.csproj">
+      <Project>{62791625-01b3-4cf0-ab9f-14cc33b9c82a}</Project>
+      <Name>ML.Connections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ML.Controls\ML.Controls.csproj">
+      <Project>{100389c7-1baa-44bc-9457-f07f5b85a862}</Project>
+      <Name>ML.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ML.DatabaseConnections\ML.DatabaseConnections.csproj">
+      <Project>{79fc7557-e9f7-4ee7-bbce-1f3de05993fd}</Project>
+      <Name>ML.DatabaseConnections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ML.Languages\ML.Languages.csproj">
+      <Project>{765fe104-fabb-4e78-aea9-643dc558479b}</Project>
+      <Name>ML.Languages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DeviceTransfer\ML.DeviceTransfer\ML.DeviceTransfer.csproj">
+      <Project>{e096abd8-a04f-4fac-8f21-86a71a567213}</Project>
+      <Name>ML.DeviceTransfer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SDKDevices\ML.SDK.RFID\ML.SDK.RFID.csproj">
+      <Project>{ddc9aae3-d01c-4703-9439-3326b704927a}</Project>
+      <Name>ML.SDK.RFID</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SDKDevices\ML.SDK.Transfer\ML.SDK.Transfer.csproj">
+      <Project>{d98118d6-0927-462f-9285-24b0645868df}</Project>
+      <Name>ML.SDK.Transfer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
