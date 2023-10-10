@@ -48,7 +48,7 @@ namespace App.PVCFC_RFID.Controller
         {
             try
             {
-                int numberOfStations = Properties.Settings.Default.NumberOfStation;
+                int numberOfStations = 2; //MinhChau09102323 Properties.Settings.Default.NumberOfStation
                 //String path = settingsPath + "Settings\\";
                 string fullPath = GetSettingsName();
                 //
@@ -71,7 +71,7 @@ namespace App.PVCFC_RFID.Controller
                         numIPArr[numIPArr.Length - 1] = newNumIP;
                         //
                         stationItems.DM60X.IPAddress = string.Join(".", numIPArr);
-                        stationItems.DM60X.Port = (int.Parse(Properties.Settings.Default.DM60XPort) + i).ToString();
+                        stationItems.DM60X.Port = "21";//(int.Parse(Properties.Settings.Default.DM60XPort) + i).ToString();
                         //
                         loadSettings.StationList.Add(stationItems);
                     }

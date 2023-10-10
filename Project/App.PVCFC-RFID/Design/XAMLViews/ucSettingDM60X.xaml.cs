@@ -17,17 +17,18 @@ namespace App.PVCFC_RFID.Design
         #region Properties
         private static readonly string IPv4Pattern = @"^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
 
-        public int Index { get; set; }
+        public static int Index { get; set; }
         #endregion
 
         public ucSettingDM60X()
         {
             InitializeComponent();
+            SettingViewModel.Index = Index;
             DataContext = new SettingViewModel();
-            if(DataContext is SettingViewModel sm)
-            {
-                sm.Index = Index;
-            }
+            //if(DataContext is SettingViewModel sm)
+            //{
+            //    sm.Index = Index;
+            //}
         }
 
         public void CallbackCommand(Action<SettingViewModel> execute)
@@ -53,7 +54,7 @@ namespace App.PVCFC_RFID.Design
 
         private void ApplySettingClick(object sender, RoutedEventArgs e)
         {
-            CallbackCommand(vm => vm.ApplySettingFunction(Index));
+            CallbackCommand(vm => vm.ApplySettingFunction());
         }
         private void ThisForm_Loaded(object sender, RoutedEventArgs e)
         {

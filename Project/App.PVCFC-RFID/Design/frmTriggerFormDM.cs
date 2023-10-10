@@ -12,10 +12,12 @@ namespace App.PVCFC_RFID.Design
 {
     public partial class frmTriggerFormDM : Form
     {
+        public int Index { get; set; }
         public frmTriggerFormDM(int index)
         {
+            Index = index;
+            XAMLViews.ucTriggerView.Index = index;
             InitializeComponent();
-            ucTriggerView.Index = index;
             FormClosed += FrmTriggerFormDM_FormClosed;
         }
 

@@ -124,7 +124,7 @@ namespace App.PVCFC_RFID.Design
                 }
                 //End Table layoutf
                 //
-                for (int i = 1; i < tblStationInfo.RowCount; i++)
+                for (int i = 1; i < 2; i++) // tblStationInfo.RowCount
                 {
                     #region Station Parameters
                     //Export Parameters
@@ -709,6 +709,7 @@ namespace App.PVCFC_RFID.Design
                             //frmTrigger frm = new frmTrigger(tuple.Item1, SharedValues.Running.DetailsFormLocations, SharedValues.Running.DetailsFormSize);
                             //frm.ShowDialog(); 
                             var frmTrigger = new frmTriggerFormDM(tuple.Item1);
+                           
                             frmTrigger.ShowDialog();
                             break;
                     }

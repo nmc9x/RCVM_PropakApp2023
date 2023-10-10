@@ -112,12 +112,6 @@
     <Compile Include="Design\frmProductDetails.designer.cs">
       <DependentUpon>frmProductDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Design\frmRebootNotify.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Design\frmRebootNotify.Designer.cs">
-      <DependentUpon>frmRebootNotify.cs</DependentUpon>
-    </Compile>
     <Compile Include="Design\frmSettingDM60X.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -246,9 +240,6 @@
     </Compile>
     <EmbeddedResource Include="Design\frmProductDetails.resx">
       <DependentUpon>frmProductDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Design\frmRebootNotify.resx">
-      <DependentUpon>frmRebootNotify.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Design\frmSettingDM60X.resx">
       <DependentUpon>frmSettingDM60X.cs</DependentUpon>

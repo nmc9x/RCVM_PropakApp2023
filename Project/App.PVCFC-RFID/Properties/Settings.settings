@@ -24,7 +24,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="NumberOfStation" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="DeviceTransferName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">ML.DeviceTransfer.PVCFCDM60X</Value>
@@ -37,12 +37,6 @@
     </Setting>
     <Setting Name="DateFormatFull" Type="System.String" Scope="Application">
       <Value Profile="(Default)">dd/MM/yyyy hh:mm:ss tt</Value>
-    </Setting>
-    <Setting Name="TIDLength" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">24</Value>
-    </Setting>
-    <Setting Name="EPCLength" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">12</Value>
     </Setting>
     <Setting Name="RFIDIP" Type="System.String" Scope="Application">
       <Value Profile="(Default)">169.254.10.11</Value>
@@ -63,7 +57,7 @@
       <Value Profile="(Default)">169.254.10.11</Value>
     </Setting>
     <Setting Name="DM60XPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">23</Value>
+      <Value Profile="(Default)">21</Value>
     </Setting>
   </Settings>
 </SettingsFile>

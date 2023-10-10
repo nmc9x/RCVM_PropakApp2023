@@ -12,17 +12,16 @@ namespace App.PVCFC_RFID.Design.XAMLViews
     /// </summary>
     public partial class ucTriggerView : UserControl
     {
-        public int Index { get ; set; }
-        public ucTriggerView()
+        public static int Index { get; set; }
+        public ucTriggerView():this(Index){}
+        public ucTriggerView(int index)
         {
             InitializeComponent();
             DataContext = new TriggerViewModel();
-            if(DataContext is  TriggerViewModel trgm)
+            if (DataContext is TriggerViewModel trgm)
             {
-                trgm.Index = Index;
+                trgm.Index = index;
             }
-           
-            
         }
         public void NotifyFormClosing()
         {

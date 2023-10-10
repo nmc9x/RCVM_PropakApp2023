@@ -56,8 +56,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Integration.ElementHost elementHost1;
         private ucSettingDM60X ucSettingDM60X1;
+        private System.Windows.Forms.Integration.ElementHost elementHost1;
+       
     }
 }

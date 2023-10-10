@@ -1,30 +1,20 @@
 ﻿using Cognex.DataMan.SDK;
 using Cognex.DataMan.SDK.Utils;
-using Microsoft.SqlServer.Server;
 using ML.Common.Controller;
 using ML.Connections.Controller;
 using ML.Connections.DataType;
 using ML.SDK.DM60X.Model;
 using System;
 using System.Collections.Concurrent;
-using System.Configuration;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Security.Cryptography;
-using System.Text;
+using System.Runtime.Remoting.Channels;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 using static ML.SDK.DM60X.DataType.DM60XDataType;
 using static ML.SDK.DM60X.Model.CodeModel;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.AxHost;
-using Image = System.Drawing.Image;
 
 namespace ML.SDK.DM60X.Controller
 {
@@ -38,20 +28,23 @@ namespace ML.SDK.DM60X.Controller
         private ResultCollector _results;
         private string _IP;
         private int _Port;
+        private int _SocketIndex;
         private ConnectionsType.StatusEnum _ConnectionStatus;
         private Thread _ThreadDeviceStatusChecking;
         private readonly object _ObjectSyncLock = new object();
         protected ConcurrentQueue<CodeModel> MessageBufferReceivedArr = new ConcurrentQueue<CodeModel>();
-        public DM60XDeviceHandler(string ip, int port)
+        public DM60XDeviceHandler(string ip, int port,int socketIndex)
         {
             _ConnectionStatus = ConnectionsType.StatusEnum.DisConnected;
 
             _IP = ip;
             _Port = port;
+            _SocketIndex = socketIndex;
+
+#if DEBUG
             Console.WriteLine("Init IP & Port: " + _IP + "/" + _Port);
+#endif
             Connect(_IP, _Port);
-
-
 
             //Thread checking status
             _ThreadDeviceStatusChecking = new Thread(DeviceStatusChecking)
@@ -74,15 +67,15 @@ namespace ML.SDK.DM60X.Controller
                 #region Save Current Network Params To Memory Map File
 
                 CommonFunctions.SetToMemoryFile(
-                    "memoryMapFile_IP",
+                    "mmf_IP"+_SocketIndex,
                     15,
                     _DataManSystem.SendCommand("GET NET-LOCAL.IP-ADDRESS").PayLoad);
                 CommonFunctions.SetToMemoryFile(
-                    "memoryMapFile_Subnet",
+                    "mmf_Subnet" + _SocketIndex,
                     15,
                     _DataManSystem.SendCommand("GET NET-LOCAL.SUBNET-MASK").PayLoad);
                 CommonFunctions.SetToMemoryFile(
-                    "memoryMapFile_Port",
+                    "mmf_Port" + _SocketIndex,
                     4,
                     _DataManSystem.SendCommand("GET TELNET.PORT").PayLoad);
 
@@ -155,17 +148,18 @@ namespace ML.SDK.DM60X.Controller
             {
                 while (true)
                 {
-                    CommonFunctions.GetFromMemoryFile("memoryMapFile_Reboot", 1,out string isRebootStr,out _);
+                    
+                    CommonFunctions.GetFromMemoryFile("mmf_Reboot"+_SocketIndex, 1,out string isRebootStr,out _);
                     if(isRebootStr == "1")
                     {
                         DeviceReboot();
 
 #if DEBUG
-                        Console.WriteLine("Rebooting ....");
+                        Console.WriteLine("Rebooting .... Socket: "+_SocketIndex);
 #endif
                     }
                     
-                    CommonFunctions.GetFromMemoryFile("memoryMapFile_Reset", 1, out string isResetStr, out _);
+                    CommonFunctions.GetFromMemoryFile("mmf_Reset"+ _SocketIndex, 1, out string isResetStr, out _);
                     if (isResetStr == "1")
                     {
                         ResetConfigToDefault();
@@ -174,10 +168,14 @@ namespace ML.SDK.DM60X.Controller
                         Console.WriteLine("Reset params to default !");
 #endif
                     }
-                    CommonFunctions.GetFromMemoryFile("memoryMapFile_TriggerClick", 1, out string isTriggerClickStr, out _);
-                    if (isTriggerClickStr == "1")
+                    CommonFunctions.GetFromMemoryFile("mmf_TriggerClick"+ _SocketIndex, 1, out string isTriggerClickStr, out _);
+                    if (isTriggerClickStr == "1" )
                     {
                         SoftwareTrigger();
+
+#if DEBUG
+                        Console.WriteLine("Software Trigger is Action !"+ _SocketIndex);
+#endif
                     }
 
                     Thread.Sleep(100);
@@ -350,7 +348,7 @@ namespace ML.SDK.DM60X.Controller
                                     var image_size = Gui.FitImageInControl(first_image.Size, new Size(400, 400));
                                     var fitted_image = Gui.ResizeImageToBitmap(first_image, image_size);
                                     var byteImage = CommonFunctions.ImageToByteArray(fitted_image);
-                                    CommonFunctions.SetToMemoryFile("memoryMapFile_ImageTrigger", byteImage.Length, "", byteImage);
+                                    CommonFunctions.SetToMemoryFile("mmf_ImageTrigger", byteImage.Length, "", byteImage);
                                 }
                                     
                                 break;
@@ -618,7 +616,7 @@ namespace ML.SDK.DM60X.Controller
         public void CheckChangeNetworkPar(string ipAddress, string subnet, string port)
         {
 
-            CommonFunctions.GetFromMemoryFile("memoryMapFile_isChangeNetwork", 1, out string isChangedNetwork, out _);
+            CommonFunctions.GetFromMemoryFile("mmf_isChangeNetwork"+_SocketIndex, 1, out string isChangedNetwork, out _);
            
             if (isChangedNetwork == "1")
             {
@@ -890,6 +888,23 @@ namespace ML.SDK.DM60X.Controller
             }
         }
         #endregion
+
+        #endregion
+
+
+        #region Printer
+        public void CheckPrinterConnection()
+        {
+
+        }
+        public void StartPrint()
+        {
+
+        }
+        public void StopPrint()
+        {
+
+        }
 
         #endregion
 

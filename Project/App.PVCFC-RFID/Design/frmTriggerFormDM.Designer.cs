@@ -30,6 +30,7 @@
         {
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
             this.ucTriggerView = new App.PVCFC_RFID.Design.XAMLViews.ucTriggerView();
+           
             this.SuspendLayout();
             // 
             // elementHost1
@@ -54,9 +55,9 @@
 
         }
 
-        #endregion
-
         private System.Windows.Forms.Integration.ElementHost elementHost1;
+        #endregion
         private XAMLViews.ucTriggerView ucTriggerView;
+
     }
 }

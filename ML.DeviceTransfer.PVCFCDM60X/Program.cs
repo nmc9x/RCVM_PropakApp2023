@@ -16,17 +16,17 @@ namespace ML.DeviceTransfer.PVCFCDM60X
         static void Main(string[] args)
         {
 #if DEBUG
-            args = new string[10];
-            args[0] = "ML.DeviceTransfer.PVCFCDM60X"; // socketName
-            args[1] = "0";                                // socketIndex
-            args[2] = "20400";                            // uiSocketPort
-            args[3] = "20401";                            // bridgeSocketPort
-            args[4] = "169.254.10.11";                    // deviceIP
-            args[5] = "21";                             // port
-            args[6] = "0";                                // timeout
-            args[7] = "http://113.163.69.8";              // Link API
-            args[8] = "9594";                             // port
-            args[9] = "true";                                // isOffline
+            //args = new string[10];
+            //args[0] = "ML.DeviceTransfer.PVCFCDM60X"; // socketName
+            //args[1] = "0";                                // socketIndex
+            //args[2] = "20400";                            // uiSocketPort
+            //args[3] = "20401";                            // bridgeSocketPort
+            //args[4] = "169.254.10.11";                    // deviceIP
+            //args[5] = "21";                             // port
+            //args[6] = "0";                                // timeout
+            //args[7] = "http://113.163.69.8";              // Link API
+            //args[8] = "9594";                             // port
+            //args[9] = "true";                                // isOffline
 #endif
 
             #region Arguments
@@ -54,7 +54,7 @@ namespace ML.DeviceTransfer.PVCFCDM60X
             #endregion//End Init UI Socket
 
             #region Init Device handler
-            DM60XSharedValues.DeviceHandler = new SDK.DM60X.Controller.DM60XDeviceHandler(DM60XSharedValues.DeviceIP, DM60XSharedValues.DevicePort);
+            DM60XSharedValues.DeviceHandler = new SDK.DM60X.Controller.DM60XDeviceHandler(DM60XSharedValues.DeviceIP, DM60XSharedValues.DevicePort, DM60XSharedValues.SocketIndex);
             #endregion//End Init Device handler
             new Thread(() =>
             {

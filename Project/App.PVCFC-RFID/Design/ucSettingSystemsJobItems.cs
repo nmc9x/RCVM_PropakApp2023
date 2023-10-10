@@ -202,8 +202,8 @@ namespace App.PVCFC_RFID.Design
                 try
                 {
                     _IsBinding = true;
-                    var frm = new frmSettingDM60X(_Index);
-                   
+                    frmSettingDM60X.Index = _Index;
+                    var frm = new frmSettingDM60X();
                     //frmSettingsRFIDZebra frm = new frmSettingsRFIDZebra(_Index);
                     frm.StartPosition = FormStartPosition.Manual;
                     frm.Location = SharedValues.Running.ChildFormLocations;

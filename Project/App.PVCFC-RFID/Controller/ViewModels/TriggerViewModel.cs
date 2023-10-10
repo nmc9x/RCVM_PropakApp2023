@@ -47,7 +47,7 @@ namespace App.PVCFC_RFID.Controller
             
             SharedControlHandler._dispatcher?.Invoke(() =>
             {
-                CommonFunctions.GetFromMemoryFile("memoryMapFile_ImageTrigger", _MaxImageByteSize, out _, out byte[] imageData);
+                CommonFunctions.GetFromMemoryFile("mmf_ImageTrigger", _MaxImageByteSize, out _, out byte[] imageData);
                 if (imageData != null)
                 {
                     ImgSrc = CommonFunctions.ByteArrayToBitmapImage(imageData);
@@ -61,19 +61,21 @@ namespace App.PVCFC_RFID.Controller
         internal void CloseForm()
         {
             SharedControlHandler.DataRawListChanged -= OnDataRawListChanged;
+            ClearDataRawList();
         }
         internal void ClearDataRawList()
         {
             SharedControlHandler._dispatcher?.Invoke(() =>
             {
-                SharedValues.Running.StationList[0].DataRawList.Clear();
+                SharedValues.Running.StationList[Index].DataRawList.Clear();
                 CodeList.Clear();
             });
         }
 
         internal void SoftwareTrigger()
         {
-            CommonFunctions.SetToMemoryFile("memoryMapFile_TriggerClick", 1, "1");
+            CommonFunctions.SetToMemoryFile("mmf_TriggerClick"+Index, 1, "1");
+          
         }
     }
 }

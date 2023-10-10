@@ -88,7 +88,7 @@ namespace App.PVCFC_RFID.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public int NumberOfStation {
             get {
                 return ((int)(this["NumberOfStation"]));
@@ -128,24 +128,6 @@ namespace App.PVCFC_RFID.Properties {
         public string DateFormatFull {
             get {
                 return ((string)(this["DateFormatFull"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("24")]
-        public int TIDLength {
-            get {
-                return ((int)(this["TIDLength"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("12")]
-        public int EPCLength {
-            get {
-                return ((int)(this["EPCLength"]));
             }
         }
         
@@ -208,7 +190,7 @@ namespace App.PVCFC_RFID.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("23")]
+        [global::System.Configuration.DefaultSettingValueAttribute("21")]
         public string DM60XPort {
             get {
                 return ((string)(this["DM60XPort"]));

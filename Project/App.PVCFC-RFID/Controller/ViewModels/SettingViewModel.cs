@@ -10,11 +10,12 @@ namespace App.PVCFC_RFID.Controller
 {
     public class SettingViewModel : ViewModelBase
     {
-        public int Index { get;set; }
+        public static int Index { get;set; }
         public SettingViewModel()
         {
-            GetSavedValueSettingToElement(Index);
+            GetSavedValueSettingToElement();
         }
+      
         #region Properties
         private int _CbbTriggerTypeIndex = 0;
         public int CbbTriggerTypeIndex
@@ -379,21 +380,21 @@ namespace App.PVCFC_RFID.Controller
 
         #endregion
 
-        public void UpdateCurrentSettingValue(int index)
+        public void UpdateCurrentSettingValue()
         {
             // Get Trigger Config
-            SharedValues.Settings.StationList[index].DM60X.TriggerTypeIndex = CbbTriggerTypeIndex;
-            SharedValues.Settings.StationList[index].DM60X.DelayTypeIndex = CbbDelayTypeIndex;
-            SharedValues.Settings.StationList[index].DM60X.DecodeTime = int.Parse(TbDecodeTimeValue);
-            SharedValues.Settings.StationList[index].DM60X.DelayTime = int.Parse(TbDelayTimeValue);
+            SharedValues.Settings.StationList[Index].DM60X.TriggerTypeIndex = CbbTriggerTypeIndex;
+            SharedValues.Settings.StationList[Index].DM60X.DelayTypeIndex = CbbDelayTypeIndex;
+            SharedValues.Settings.StationList[Index].DM60X.DecodeTime = int.Parse(TbDecodeTimeValue);
+            SharedValues.Settings.StationList[Index].DM60X.DelayTime = int.Parse(TbDelayTimeValue);
 
             // Get Network Parameter
-            SharedValues.Settings.StationList[index].DM60X.IPAddress = TbIPAddressValue;
-            SharedValues.Settings.StationList[index].DM60X.Port = TbPortValue;
-            SharedValues.Settings.StationList[index].DM60X.SubnetMask = TbSubnetValue;
+            SharedValues.Settings.StationList[Index].DM60X.IPAddress = TbIPAddressValue;
+            SharedValues.Settings.StationList[Index].DM60X.Port = TbPortValue;
+            SharedValues.Settings.StationList[Index].DM60X.SubnetMask = TbSubnetValue;
 
             // Get Symbol Config
-            SharedValues.Settings.StationList[index].DM60X.SymbolState = new bool[]
+            SharedValues.Settings.StationList[Index].DM60X.SymbolState = new bool[]
             {
                 CheckBoxDataMatrix_Sts,
                 CheckBoxQR_Sts,
@@ -500,99 +501,99 @@ namespace App.PVCFC_RFID.Controller
 
         }
 
-        internal void GetSavedValueSettingToElement(int index)
+        internal void GetSavedValueSettingToElement()
         {
             // Get Trigger Config
-            CbbTriggerTypeIndex = SharedValues.Settings.StationList[index].DM60X.TriggerTypeIndex;
-            CbbDelayTypeIndex = SharedValues.Settings.StationList[index].DM60X.DelayTypeIndex;
-            TbDecodeTimeValue = SharedValues.Settings.StationList[index].DM60X.DecodeTime.ToString();
-            TbDelayTimeValue = SharedValues.Settings.StationList[index].DM60X.DelayTime.ToString();
+            CbbTriggerTypeIndex = SharedValues.Settings.StationList[Index].DM60X.TriggerTypeIndex;
+            CbbDelayTypeIndex = SharedValues.Settings.StationList[Index].DM60X.DelayTypeIndex;
+            TbDecodeTimeValue = SharedValues.Settings.StationList[Index].DM60X.DecodeTime.ToString();
+            TbDelayTimeValue = SharedValues.Settings.StationList[Index].DM60X.DelayTime.ToString();
 
             // Get Network Parameter
-            TbIPAddressValue = SharedValues.Settings.StationList[index].DM60X.IPAddress;
-            TbPortValue = SharedValues.Settings.StationList[index].DM60X.Port;
-            TbSubnetValue = SharedValues.Settings.StationList[index].DM60X.SubnetMask;
+            TbIPAddressValue = SharedValues.Settings.StationList[Index].DM60X.IPAddress;
+            TbPortValue = SharedValues.Settings.StationList[Index].DM60X.Port;
+            TbSubnetValue = SharedValues.Settings.StationList[Index].DM60X.SubnetMask;
 
             //GetSymbol
-            _CheckBoxDataMatrix_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[0];
-            _CheckBoxQR_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[1];
-            _CheckBoxMaxi_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[2];
-            _CheckBoxAztec_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[3];
-            _CheckBox128_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[4];
-            _CheckBox25_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[5];
-            _CheckBox93_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[6];
-            _CheckBox39_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[7];
-            _CheckBoxPharma_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[8];
-            _CheckBoxCodabar_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[9];
-            _CheckBoxInterleaved_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[10];
-            _CheckBoxUPCEAN_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[11];
-            _CheckBoxMsi_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[12];
-            _CheckBoxPDF_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[13];
-            _CheckBoxEANUCC_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[14];
-            _CheckBoxMicro_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[15];
-            _CheckBoxGS1_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[16];
-            _CheckBoxPostnet_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[17];
-            _CheckBoxPlanet_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[18];
-            _CheckBoxJap_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[19];
-            _CheckBoxUPU_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[20];
-            _CheckBoxAus_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[21];
-            _CheckBoxIntel_Sts = SharedValues.Settings.StationList[index].DM60X.SymbolState[22];
+            _CheckBoxDataMatrix_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[0];
+            _CheckBoxQR_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[1];
+            _CheckBoxMaxi_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[2];
+            _CheckBoxAztec_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[3];
+            _CheckBox128_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[4];
+            _CheckBox25_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[5];
+            _CheckBox93_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[6];
+            _CheckBox39_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[7];
+            _CheckBoxPharma_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[8];
+            _CheckBoxCodabar_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[9];
+            _CheckBoxInterleaved_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[10];
+            _CheckBoxUPCEAN_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[11];
+            _CheckBoxMsi_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[12];
+            _CheckBoxPDF_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[13];
+            _CheckBoxEANUCC_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[14];
+            _CheckBoxMicro_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[15];
+            _CheckBoxGS1_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[16];
+            _CheckBoxPostnet_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[17];
+            _CheckBoxPlanet_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[18];
+            _CheckBoxJap_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[19];
+            _CheckBoxUPU_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[20];
+            _CheckBoxAus_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[21];
+            _CheckBoxIntel_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[22];
         }
         internal void SymbolGroupSelectChecked(string groupName)
         {
-            //if(groupName == "2D")
-            //{
-            //    CheckBoxDataMatrix_Sts = CheckBox2D_Sts;
-            //    CheckBoxQR_Sts = CheckBox2D_Sts;
-            //    CheckBoxMaxi_Sts = CheckBox2D_Sts;
-            //    CheckBoxAztec_Sts = CheckBox2D_Sts;
-            //}
-            //if (groupName == "1D")
-            //{
-            //    CheckBox128_Sts = CheckBox1D_Sts;
-            //    CheckBox25_Sts = CheckBox1D_Sts;
-            //    CheckBox93_Sts = CheckBox1D_Sts;
-            //    CheckBox39_Sts = CheckBox1D_Sts;
-            //    CheckBoxPharma_Sts = CheckBox1D_Sts;
-            //    CheckBoxCodabar_Sts = CheckBox1D_Sts;
-            //    CheckBoxInterleaved_Sts = CheckBox1D_Sts;
-            //    CheckBoxUPCEAN_Sts = CheckBox1D_Sts;
-            //    CheckBoxMsi_Sts = CheckBox1D_Sts;
-            //}
-            //if (groupName == "Stacked")
-            //{
-            //    CheckBoxPDF_Sts = CheckBoxStacked_Sts;
-            //    CheckBoxEANUCC_Sts = CheckBoxStacked_Sts;
-            //    CheckBoxMicro_Sts = CheckBoxStacked_Sts;
-            //    CheckBoxGS1_Sts = CheckBoxStacked_Sts;
-            //}
-            //if (groupName == "Postal")
-            //{
-            //    CheckBoxPostnet_Sts = CheckBoxPostal_Sts;
-            //    CheckBoxPlanet_Sts = CheckBoxPostal_Sts;
-            //    CheckBoxJap_Sts = CheckBoxPostal_Sts;
-            //    CheckBoxUPU_Sts = CheckBoxPostal_Sts;
-            //    CheckBoxAus_Sts = CheckBoxPostal_Sts;
-            //    CheckBoxIntel_Sts = CheckBoxPostal_Sts;
-            //}
+            if (groupName == "2D")
+            {
+                CheckBoxDataMatrix_Sts = CheckBox2D_Sts;
+                CheckBoxQR_Sts = CheckBox2D_Sts;
+                CheckBoxMaxi_Sts = CheckBox2D_Sts;
+                CheckBoxAztec_Sts = CheckBox2D_Sts;
+            }
+            if (groupName == "1D")
+            {
+                CheckBox128_Sts = CheckBox1D_Sts;
+                CheckBox25_Sts = CheckBox1D_Sts;
+                CheckBox93_Sts = CheckBox1D_Sts;
+                CheckBox39_Sts = CheckBox1D_Sts;
+                CheckBoxPharma_Sts = CheckBox1D_Sts;
+                CheckBoxCodabar_Sts = CheckBox1D_Sts;
+                CheckBoxInterleaved_Sts = CheckBox1D_Sts;
+                CheckBoxUPCEAN_Sts = CheckBox1D_Sts;
+                CheckBoxMsi_Sts = CheckBox1D_Sts;
+            }
+            if (groupName == "Stacked")
+            {
+                CheckBoxPDF_Sts = CheckBoxStacked_Sts;
+                CheckBoxEANUCC_Sts = CheckBoxStacked_Sts;
+                CheckBoxMicro_Sts = CheckBoxStacked_Sts;
+                CheckBoxGS1_Sts = CheckBoxStacked_Sts;
+            }
+            if (groupName == "Postal")
+            {
+                CheckBoxPostnet_Sts = CheckBoxPostal_Sts;
+                CheckBoxPlanet_Sts = CheckBoxPostal_Sts;
+                CheckBoxJap_Sts = CheckBoxPostal_Sts;
+                CheckBoxUPU_Sts = CheckBoxPostal_Sts;
+                CheckBoxAus_Sts = CheckBoxPostal_Sts;
+                CheckBoxIntel_Sts = CheckBoxPostal_Sts;
+            }
         }
        
         internal void RebootDevice() 
         {
-            CommonFunctions.SetToMemoryFile("memoryMapFile_Reboot", 1, "1");
+            CommonFunctions.SetToMemoryFile("mmf_Reboot" + Index, 1, "1");
         }
         internal void ResetParams()
         {
-            CommonFunctions.SetToMemoryFile("memoryMapFile_Reset", 1, "1");
+            CommonFunctions.SetToMemoryFile("mmf_Reset" + Index, 1, "1");
         }
-        public void ApplySettingFunction(int index)
+        public void ApplySettingFunction()
         {
             try
             {
-                UpdateCurrentSettingValue(index);
-                CommonFunctions.GetFromMemoryFile("memoryMapFile_IP", 15, out string ip,out _);
-                CommonFunctions.GetFromMemoryFile("memoryMapFile_Subnet", 15, out string subnet, out _);
-                CommonFunctions.GetFromMemoryFile("memoryMapFile_Port", 4, out string port, out _);
+                UpdateCurrentSettingValue();
+                CommonFunctions.GetFromMemoryFile("mmf_IP"+Index, 15, out string ip,out _);
+                CommonFunctions.GetFromMemoryFile("mmf_Subnet"+Index, 15, out string subnet, out _);
+                CommonFunctions.GetFromMemoryFile("mmf_Port" + Index, 4, out string port, out _);
                 if(TbIPAddressValue != ip || TbPortValue != port || TbSubnetValue != subnet) 
                 {
                     var dialougeRes = MessageBox.Show(
@@ -603,16 +604,16 @@ namespace App.PVCFC_RFID.Controller
 
                     if(dialougeRes == MessageBoxResult.Yes)
                     {
-                        CommonFunctions.SetToMemoryFile("memoryMapFile_isChangeNetwork", 1, "1");
+                        CommonFunctions.SetToMemoryFile("mmf_isChangeNetwork"+Index, 1, "1");
                     }
                     else
                     {
-                        CommonFunctions.SetToMemoryFile("memoryMapFile_isChangeNetwork", 1, "0");
+                        CommonFunctions.SetToMemoryFile("mmf_isChangeNetwork" + Index, 1, "0");
                     }
                 }
-                SharedControlHandler.SendDM60XSettings(index);
+                SharedControlHandler.SendDM60XSettings(Index);
                 Thread.Sleep(1500);
-                SharedFunctions.DM60XConfigResultNotify(index, true);
+                SharedFunctions.DM60XConfigResultNotify(Index, true);
             }
             catch (Exception)
             {

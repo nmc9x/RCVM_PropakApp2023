@@ -43,7 +43,7 @@ namespace App.PVCFC_RFID.Design
                 _JobList.Add(ucSettingSystemsJobItems1);
                 //
                 //Table layout
-                this.tbJobConfig.RowCount = Properties.Settings.Default.NumberOfStation;
+                this.tbJobConfig.RowCount = 2;//Properties.Settings.Default.NumberOfStation;
                 for (int i = 1; i < tbJobConfig.RowCount; i++)
                 {
                     tbJobConfig.RowStyles.Insert(i, new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
