@@ -1,7 +1,10 @@
-﻿using ML.Connections.Controller;
+﻿using ML.Common.Controller;
+using ML.Connections.Controller;
 using ML.Connections.DataType;
 using System;
+using System.Data;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -12,44 +15,80 @@ namespace ML.SDK.PRINTER.Controller
     public class PrinterHandler : SocketClient
     {
         #region Declaration
-        private string _IP;
-        private string _Port;
+        //private string _IP;
+        //private string _Port;
         private int _SocketIndex;
         private MainListener _PrinterListener;
 
         private SocketClient _SockClient;
         private TcpClient _Client;
         private NetworkStream _Stream;
-        private readonly string _ServerIP;
-        private readonly int _ServerPort;
+        private readonly string _IP;
+        private readonly string _Port;
 
 
         private Thread _ThreadDeviceStatusChecking = null;
-        private ConnectionsType.StatusEnum _ConnectionStatus = ConnectionsType.StatusEnum.Unknown;
+        private int _ConnectionStatus = 0;
         #endregion
 
-        public PrinterHandler(string serverIP, int serverPort)
-        {
-            _ServerIP = serverIP;
-            _ServerPort = serverPort;
-        }
+      
 
-        public PrinterHandler(string ip, string port, int socketIndex):this(ip,int.Parse(port))
+        public PrinterHandler(string ip, string port, int socketIndex)
         {
             _IP = ip;
             _Port = port;
             _SocketIndex = socketIndex;
-            Test();
+           
+
+            //Thread checking status
+            _ThreadDeviceStatusChecking = new Thread(DeviceStatusChecking)
+            {
+                Name = "CheckStsDeviceThread",
+                IsBackground = true,
+                Priority = ThreadPriority.Highest
+            };
+            _ThreadDeviceStatusChecking.Start();
+            //End Thread checking status
         }
         public async void Test()
         {
             await StartAndLoadData();
         }
+        private IPStatus PingIP()
+        {
+            try
+            {
+                var myPing = new Ping();
+                var reply = myPing.Send(_IP);
+                if (reply != null)
+                {
+                    if (reply.Status == IPStatus.Success)
+                    {
+
+                    }
+#if DEBUG
+                    Console.WriteLine("PingIP Status :  " +
+                        reply.Status + ", Time : " +
+                        reply.RoundtripTime.ToString() + ", Address : " +
+                        reply.Address + ", Reconnect...");
+#endif
+                    return reply.Status;
+                }
+            }
+            catch
+            {
+#if DEBUG
+                Console.WriteLine("PingIP ERROR: You have Some TIMEOUT issue");
+#endif
+            }
+            return IPStatus.Unknown;
+        }
+
         public override bool Connect()
         {
             try
             {
-                _Client = new TcpClient(_ServerIP, _ServerPort);
+                _Client = new TcpClient(_IP, int.Parse(_Port));
                 _Stream = _Client.GetStream();
 #if DEBUG
                 Console.WriteLine("Connected");
@@ -132,7 +171,7 @@ namespace ML.SDK.PRINTER.Controller
         {
             _Stream?.Close();
             _Client?.Close();
-            Console.WriteLine($"Disconnected from {_ServerIP}:{_ServerPort}");
+            Console.WriteLine($"Disconnected from {_IP}:{_Port}");
         }
 
         //public bool Connect()
@@ -192,55 +231,27 @@ namespace ML.SDK.PRINTER.Controller
 
         private void DeviceStatusChecking()
         {
-#if DEBUG
-            Console.WriteLine("DeviceStatusChecking");
-#endif
+            int oldConnectionSts = _ConnectionStatus;
+            int newConnectedSts = 0;
             while (true)
             {
-                try
+                var printerConnSts = PingIP();
+                if (printerConnSts == IPStatus.Success)
                 {
-                    #region Check connection status
-                    ConnectionsType.StatusEnum oldRFIDStatus = ConnectionsType.StatusEnum.Unknown;
-                    ConnectionsType.StatusEnum newRFIDStatus = ConnectionsType.StatusEnum.Unknown;
-                    //
-                    if (_PrinterListener != null)
-                    {
-                        oldRFIDStatus = _ConnectionStatus;
-                        if (_PrinterListener.CheckAlive())
-                        {
-                            newRFIDStatus = ConnectionsType.StatusEnum.Connected;
-                        }
-                        else if (_PrinterListener.CheckConnections())
-                        {
-                            newRFIDStatus = ConnectionsType.StatusEnum.Processing;
-                        }
-                        else
-                        {
-                            newRFIDStatus = ConnectionsType.StatusEnum.DisConnected;
-                        }
-                    }
-                    else
-                    {
-                        newRFIDStatus = ConnectionsType.StatusEnum.DisConnected;
-                    }
-                    //
-                    if (newRFIDStatus != oldRFIDStatus)
-                    {
-                        if (_PrinterListener != null)
-                        {
-                            _ConnectionStatus = newRFIDStatus;
-                            //
-                            ConnectionEvents.RaiseDeviceStatusChanged(_ConnectionStatus, EventArgs.Empty);
-                        }
-                    }
-                    #endregion//End Check connection status
+                    newConnectedSts = 1;
+                    
                 }
-                catch (Exception ex)
+                else
                 {
-                    Console.WriteLine("ERRORS: " + ex.Message);
+                    newConnectedSts = 0;
+                   
                 }
-                //
-                Thread.Sleep(100);
+                if(oldConnectionSts != newConnectedSts)
+                {
+                    _ConnectionStatus = newConnectedSts;
+                    CommonFunctions.SetToMemoryFile("mmf_conn_" + _SocketIndex, 1, _ConnectionStatus.ToString());
+                }
+                Thread.Sleep(1000);
             }
         }
     }

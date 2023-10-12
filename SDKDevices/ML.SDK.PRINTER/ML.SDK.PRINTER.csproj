@@ -47,6 +47,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\ML.Common\ML.Common.csproj">
+      <Project>{3D08B682-51F3-4D84-97F3-5BCD34E2C691}</Project>
+      <Name>ML.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\ML.Connections\ML.Connections.csproj">
       <Project>{62791625-01B3-4CF0-AB9F-14CC33B9C82A}</Project>
       <Name>ML.Connections</Name>
