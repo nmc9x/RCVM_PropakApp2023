@@ -181,7 +181,7 @@ namespace ML.Connections.Controller
                                 {
 #if DEBUG
                                     countData++;
-                                    Console.WriteLine("countData: " + countData.ToString());
+                                    Console.WriteLine("countData: " + countData.ToString() +":" + data);
 #endif
                                     //this.ProcessMessage(data);//Linh.Tran_210902: Command: Fix errors mis packages
                                     //
@@ -217,7 +217,7 @@ namespace ML.Connections.Controller
         {
             if (_Stream != null && _Stream.CanWrite)
             {
-                _Writer.BaseStream.Write(data, 0, data.Length);
+                //_Writer.BaseStream.Write(data, 0, data.Length);
             }
             else
             {

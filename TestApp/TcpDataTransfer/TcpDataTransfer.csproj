@@ -4,24 +4,21 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C0077A16-D283-4434-ABDD-897E5D756197}</ProjectGuid>
+    <ProjectGuid>{18840CBF-E30C-49D9-BCE6-014B527B3318}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ML.DeviceTransfer.PVCFCDM60X</RootNamespace>
-    <AssemblyName>ML.DeviceTransfer.PVCFCDM60X</AssemblyName>
+    <RootNamespace>TcpDataTransfer</RootNamespace>
+    <AssemblyName>TcpDataTransfer</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Project\App.PVCFC-RFID\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -38,8 +35,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,43 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\DM60XSharedValues.cs" />
-    <Compile Include="Controller\DM60XUIBridgeSocket.cs" />
-    <Compile Include="DataType\ObjectType.cs" />
-    <Compile Include="Model\DM60XDeviceRunningModel.cs" />
-    <Compile Include="Model\DM60XDistributionSchedulesModel.cs" />
-    <Compile Include="Model\DM60XProductItemModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\ML.Common\ML.Common.csproj">
-      <Project>{3D08B682-51F3-4D84-97F3-5BCD34E2C691}</Project>
-      <Name>ML.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\ML.Connections\ML.Connections.csproj">
-      <Project>{62791625-01B3-4CF0-AB9F-14CC33B9C82A}</Project>
-      <Name>ML.Connections</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\ML.Languages\ML.Languages.csproj">
-      <Project>{765fe104-fabb-4e78-aea9-643dc558479b}</Project>
-      <Name>ML.Languages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ML.SDK.DM60X\ML.SDK.DM60X.csproj">
-      <Project>{BE57467E-F9D7-4A09-AF42-44E014876195}</Project>
-      <Name>ML.SDK.DM60X</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SDKDevices\ML.SDK.PRINTER\ML.SDK.PRINTER.csproj">
-      <Project>{05205DCF-0C0D-430D-BC7B-2F6063ABFC10}</Project>
-      <Name>ML.SDK.PRINTER</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SDKDevices\ML.SDK.Transfer\ML.SDK.Transfer.csproj">
-      <Project>{D98118D6-0927-462F-9285-24B0645868DF}</Project>
-      <Name>ML.SDK.Transfer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

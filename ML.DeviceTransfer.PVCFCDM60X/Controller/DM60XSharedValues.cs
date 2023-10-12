@@ -1,5 +1,6 @@
 ﻿using ML.DeviceTransfer.PVCFCDM60X.Model;
 using ML.SDK.DM60X.Controller;
+using ML.SDK.PRINTER.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,5 +25,7 @@ namespace ML.DeviceTransfer.PVCFCDM60X.Controller
         public static DM60XUIBridgeSocket UIBridgeSocket;
         
         public static DM60XDeviceRunningModel Running;//Linh.Tran_230911: Run data when Start scan
+
+        public static PrinterHandler PrinterHandler;
     }
 }
