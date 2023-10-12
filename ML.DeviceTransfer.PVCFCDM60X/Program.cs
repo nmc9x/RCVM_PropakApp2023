@@ -55,7 +55,7 @@ namespace ML.DeviceTransfer.PVCFCDM60X
 
             #region Init Device handler
             //DM60XSharedValues.DeviceHandler = new SDK.DM60X.Controller.DM60XDeviceHandler(DM60XSharedValues.DeviceIP, DM60XSharedValues.DevicePort, DM60XSharedValues.SocketIndex);
-            DM60XSharedValues.PrinterHandler = new SDK.PRINTER.Controller.PrinterHandler("192.168.15.154", "12500", 0);
+            DM60XSharedValues.PrinterHandler = new SDK.PRINTER.Controller.PrinterHandler("127.0.0.1", "12500", 0);
             #endregion//End Init Device handler
             new Thread(() =>
             {

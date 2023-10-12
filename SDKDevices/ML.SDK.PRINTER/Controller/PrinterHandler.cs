@@ -231,10 +231,20 @@ namespace ML.SDK.PRINTER.Controller
 
         private void DeviceStatusChecking()
         {
-            int oldConnectionSts = _ConnectionStatus;
-            int newConnectedSts = 0;
+            
+            int oldConnectionSts;
+            int newConnectedSts;
+            string tempRes;
             while (true)
             {
+                oldConnectionSts = _ConnectionStatus;
+                CommonFunctions.GetFromMemoryFile("mmf_conn_" + _SocketIndex, 1, out string res, out _);
+                if(res != null)
+                {
+                    tempRes = res.ToString();
+                    Console.WriteLine(tempRes);
+                }
+                
                 var printerConnSts = PingIP();
                 if (printerConnSts == IPStatus.Success)
                 {
