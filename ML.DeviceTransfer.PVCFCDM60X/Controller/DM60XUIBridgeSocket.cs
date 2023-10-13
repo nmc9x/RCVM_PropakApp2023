@@ -59,7 +59,7 @@ namespace ML.DeviceTransfer.PVCFCDM60X.Controller
                                             var resDevRebootFunc = DeviceRebootFunction(receiveBytes);
                                             var resReset = ConfigResetAndReboot(receiveBytes);
                                            
-                                            DM60XSharedValues.UIBridgeSocket.SendConfigFeedbackToUI(
+                                            CognexSharedValues.UIBridgeSocket.SendConfigFeedbackToUI(
                                                new bool[]
                                                {
                                                     resTriggerCfg,
@@ -112,7 +112,7 @@ namespace ML.DeviceTransfer.PVCFCDM60X.Controller
                     "delayTime " + delayTime + "\n" +
                     "decodeTime " + decodeTime);
 #endif
-                return DM60XSharedValues.DeviceHandler.SetTriggerSetting(triggerType, delayType, delayTime, decodeTime);
+                return CognexSharedValues.DeviceHandler.SetTriggerSetting(triggerType, delayType, delayTime, decodeTime);
 
             }
             catch (Exception)
@@ -142,7 +142,7 @@ namespace ML.DeviceTransfer.PVCFCDM60X.Controller
 #if DEBUG
                 Console.WriteLine("Ip: " + ipArr + "\n" + "Subnet: " + subnetArr + "\n" +"Port: " + portArr);         
 #endif
-                DM60XSharedValues.DeviceHandler.CheckChangeNetworkPar(ipArr, subnetArr, portArr);
+                CognexSharedValues.DeviceHandler.CheckChangeNetworkPar(ipArr, subnetArr, portArr);
                 return true;
             }
             catch (Exception)
@@ -157,7 +157,7 @@ namespace ML.DeviceTransfer.PVCFCDM60X.Controller
                 var arrTemp = new byte[25];
                 Array.Copy(receiveBytes, 45, arrTemp, 0, arrTemp.Length); // 45 - 69
                 var tempBoolArr = CommonFunctions.BytesToBooleanArray(arrTemp);
-                DM60XSharedValues.DeviceHandler.SetSymbol(tempBoolArr);
+                CognexSharedValues.DeviceHandler.SetSymbol(tempBoolArr);
                 return true;
             }
             catch (Exception)
@@ -172,7 +172,7 @@ namespace ML.DeviceTransfer.PVCFCDM60X.Controller
                 var isReboot = CommonFunctions.IntToBool(receiveBytes[70]);
                 if (isReboot)
                 {
-                    DM60XSharedValues.DeviceHandler.DeviceReboot();
+                    CognexSharedValues.DeviceHandler.DeviceReboot();
                     return true;
                 }
                 else
@@ -193,7 +193,7 @@ namespace ML.DeviceTransfer.PVCFCDM60X.Controller
                 var isReboot = CommonFunctions.IntToBool(receiveBytes[71]);
                 if (isReboot)
                 {
-                    DM60XSharedValues.DeviceHandler.ResetConfigAndReboot();
+                    CognexSharedValues.DeviceHandler.ResetConfigAndReboot();
                     return true;
                 }
                 else

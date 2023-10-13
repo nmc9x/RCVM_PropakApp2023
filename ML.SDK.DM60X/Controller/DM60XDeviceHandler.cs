@@ -33,6 +33,7 @@ namespace ML.SDK.DM60X.Controller
         private Thread _ThreadDeviceStatusChecking;
         private readonly object _ObjectSyncLock = new object();
         protected ConcurrentQueue<CodeModel> MessageBufferReceivedArr = new ConcurrentQueue<CodeModel>();
+        private int countEventGetRes = 0;
         public DM60XDeviceHandler(string ip, int port,int socketIndex)
         {
             _ConnectionStatus = ConnectionsType.StatusEnum.DisConnected;
@@ -44,8 +45,6 @@ namespace ML.SDK.DM60X.Controller
 #if DEBUG
             Console.WriteLine("Init IP & Port: " + _IP + "/" + _Port);
 #endif
-            Connect(_IP, _Port);
-
             //Thread checking status
             _ThreadDeviceStatusChecking = new Thread(DeviceStatusChecking)
             {
@@ -55,6 +54,10 @@ namespace ML.SDK.DM60X.Controller
             };
             _ThreadDeviceStatusChecking.Start();
             //End Thread checking status
+
+            Connect(_IP, _Port);
+
+           
         }
         #endregion
 
@@ -169,16 +172,16 @@ namespace ML.SDK.DM60X.Controller
 #endif
                     }
                     CommonFunctions.GetFromMemoryFile("mmf_TriggerClick"+ _SocketIndex, 1, out string isTriggerClickStr, out _);
-                    if (isTriggerClickStr == "1" )
+                    if (isTriggerClickStr == "1")
                     {
                         SoftwareTrigger();
 
 #if DEBUG
-                        Console.WriteLine("Software Trigger is Action !"+ _SocketIndex);
+                        Console.WriteLine("Software Trigger is Action at Socket Index: "+ _SocketIndex);
 #endif
                     }
 
-                    Thread.Sleep(100);
+                    Thread.Sleep(1);
                 }
             }
             catch (Exception ex)
@@ -219,7 +222,7 @@ namespace ML.SDK.DM60X.Controller
 
                     }
 #if DEBUG
-                    Console.WriteLine("PingIP Status :  " +
+                    Console.WriteLine("PingIP Camera :  " +
                         reply.Status + ", Time : " +
                         reply.RoundtripTime.ToString() + ", Address : " +
                         reply.Address + ", Reconnect...");
@@ -319,6 +322,8 @@ namespace ML.SDK.DM60X.Controller
         #region DM60X Read Data
         private void Results_ComplexResultCompleted(object sender, ComplexResult e)
         {
+            countEventGetRes++;
+            if(countEventGetRes>1) { countEventGetRes = 0; return; }
             var resultThread = new Thread(new ParameterizedThreadStart(ProcessResult));
             resultThread.IsBackground = true;
             resultThread.Start(e);
@@ -415,7 +420,8 @@ namespace ML.SDK.DM60X.Controller
                 return (Result)xmlSerializer.Deserialize(stringReader);
             }
         }
-        
+
+       
         private void ProccessReceivedMessage(CodeModel codeModel)
         {
             MessageBufferReceivedArr.Enqueue(codeModel);
@@ -465,6 +471,7 @@ namespace ML.SDK.DM60X.Controller
         #region Normal_Operation
         public bool SoftwareTrigger()
         {
+           
             try
             {
                 var res = _DataManSystem.SendCommand("TRIGGER ON");
@@ -485,13 +492,16 @@ namespace ML.SDK.DM60X.Controller
         {
             try
             {
+                countEventGetRes = 0;
                 _results.ComplexResultCompleted += Results_ComplexResultCompleted;
+                
                 return true;
             }
             catch (Exception)
             {
                 return false;
             }
+            
         }
         public bool StopReadding()
         {

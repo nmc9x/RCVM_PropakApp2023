@@ -70,6 +70,8 @@ namespace App.PVCFC_RFID.Controller
                 string deviceIP = SharedValues.Settings.StationList[i].DM60X.IPAddress;//Properties.Settings.Default.RFIDIP + (i + 1).ToString();
                 int devicePort = int.Parse(SharedValues.Settings.StationList[i].DM60X.Port) ; 
                 byte timeout = 0;
+                string printerIP = "192.168.15.15" + (3 + i);
+                string printerPort = "1250" +i;
                 //
                 string fullPath = Application.StartupPath + "\\" + Properties.Settings.Default.DeviceTransferName + ".exe";
                 string arguments = "";
@@ -85,6 +87,8 @@ namespace App.PVCFC_RFID.Controller
                 arguments += "  " + SharedValues.Settings.SysServerURL;//deviceAddress = (byte)int.Parse(args[7]);
                 arguments += "  " + SharedValues.Settings.SysServerPort.ToString();//deviceAddress = (byte)int.Parse(args[8]);
                 arguments += "  " + SharedValues.Running.IsOffline.ToString();//deviceAddress = (byte)int.Parse(args[9]);
+                arguments += "  " + printerIP; //10
+                arguments += "  " + printerPort; //11
                 //
                 SharedValues.Running.StationList[i].TransferID = CommonFunctions.DeviceTransferStartProcess(socketName, fullPath, arguments);
                 //
@@ -442,6 +446,7 @@ namespace App.PVCFC_RFID.Controller
                         int foundItemsIndex = SharedValues.Running.StationList[index].DataRawList.ToList().FindIndex(x => x.Code == code && x.Symbol == symb);
                         SharedValues.Running.StationList[index].DataRawList[foundItemsIndex].Count++;
                     }
+                    CommonFunctions.SetToMemoryFile("mmf_CurrentCodeData_" + index, 20, code);
                     DataRawListChanged?.Invoke(index, EventArgs.Empty);
                 });
                 

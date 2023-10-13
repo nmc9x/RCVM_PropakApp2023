@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ML.DeviceTransfer.PVCFCDM60X.Controller
 {
-    public class DM60XSharedValues
+    public class CognexSharedValues
     {
         public static string SocketName = "ML.DeviceTransfer.PVCFCDM60X";
         public static int SocketIndex = 0;
@@ -19,6 +19,11 @@ namespace ML.DeviceTransfer.PVCFCDM60X.Controller
         public static int DevicePort = 23;
         public static uint Timeout = 0;
         public static int SendPort = 20400;
+
+        //Printer
+        public static string PrinterIP = "192.168.15.154";
+        public static string PrinterPort = "12500";
+        
 
         public static DM60XDeviceHandler DeviceHandler;
 

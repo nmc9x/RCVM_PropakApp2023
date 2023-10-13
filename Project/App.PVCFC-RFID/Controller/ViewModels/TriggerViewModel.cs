@@ -42,8 +42,10 @@ namespace App.PVCFC_RFID.Controller
             SharedControlHandler.DataRawListChanged += OnDataRawListChanged;
 
         }
+
         private void OnDataRawListChanged(object sender, EventArgs e)
         {
+    
             
             SharedControlHandler._dispatcher?.Invoke(() =>
             {

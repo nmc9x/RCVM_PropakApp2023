@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.ucSettingDM60X1 = new App.PVCFC_RFID.Design.ucSettingDM60X();
+            this.ucSettingDM60X = new App.PVCFC_RFID.Design.ucSettingDM60X();
             this.SuspendLayout();
             // 
             // elementHost1
@@ -40,7 +40,7 @@
             this.elementHost1.Size = new System.Drawing.Size(1008, 729);
             this.elementHost1.TabIndex = 0;
             this.elementHost1.Text = "elementHost1";
-            this.elementHost1.Child = this.ucSettingDM60X1;
+            this.elementHost1.Child = this.ucSettingDM60X;
             // 
             // frmSettingDM60X
             // 
@@ -56,7 +56,7 @@
         }
 
         #endregion
-        private ucSettingDM60X ucSettingDM60X1;
+        private ucSettingDM60X ucSettingDM60X;
         private System.Windows.Forms.Integration.ElementHost elementHost1;
        
     }

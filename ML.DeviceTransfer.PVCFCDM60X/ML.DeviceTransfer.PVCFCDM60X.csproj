@@ -48,8 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\DM60XSharedValues.cs" />
+    <Compile Include="Controller\CognexSharedValues.cs" />
     <Compile Include="Controller\DM60XUIBridgeSocket.cs" />
+    <Compile Include="Controller\PrinterSharedValues.cs" />
     <Compile Include="DataType\ObjectType.cs" />
     <Compile Include="Model\DM60XDeviceRunningModel.cs" />
     <Compile Include="Model\DM60XDistributionSchedulesModel.cs" />

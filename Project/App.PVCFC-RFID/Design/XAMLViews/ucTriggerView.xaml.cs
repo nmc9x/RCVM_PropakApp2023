@@ -87,8 +87,6 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             CallbackCommand(vm => vm.ClearDataRawList());
         }
 
-      
-
         private void TriggerClick(object sender, RoutedEventArgs e)
         {
             CallbackCommand(vm => vm.SoftwareTrigger());

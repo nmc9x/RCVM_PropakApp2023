@@ -16,6 +16,7 @@ using ML.DeviceTransfer.PVCFCRFID.Model;
 using ML.DeviceTransfer.PVCFCRFID.APISAASModel;
 using System.Threading;
 using ML.Controls;
+using Symbol.RFID3;
 
 namespace App.PVCFC_RFID.Design
 {
@@ -146,9 +147,12 @@ namespace App.PVCFC_RFID.Design
 
         private void InitEvents()
         {
-            btnStart.Click += btnControls_Click;
-            btnStop.Click += btnControls_Click;
-            btnTrigger.Click += btnControls_Click;
+            //btnStart.Click += btnControls_Click;
+            //btnStop.Click += btnControls_Click;
+            
+            btnStart.Click += StartPrintProcess;
+            btnStop.Click += StopPrintProcess;
+            btnTrigger.Click += TriggerClick;
             //
             txtProductNameSearch.TextChanged += btnProductNameSearch_Click;
             btnProductNameSearch.Click+=btnProductNameSearch_Click;
@@ -157,6 +161,27 @@ namespace App.PVCFC_RFID.Design
             //
             btnProductNameReload.Click+=btnProductNameReload_Click;
             btnAgentReload.Click+=btnAgentReload_Click;
+        }
+
+        private void TriggerClick(object sender, EventArgs e)
+        {
+            ControlsEvent((new Tuple<int, ControlsEventEnum>(_Index, ControlsEventEnum.Trigger)), EventArgs.Empty);
+        }
+
+        private void StopPrintProcess(object sender, EventArgs e)
+        {
+            CommonFunctions.SetToMemoryFile("mmf_StartProcess_" + _Index, 1, "0");
+            btnStart.Enabled = true;
+            btnStop.Enabled = false;
+            
+        }
+
+        private void StartPrintProcess(object sender, EventArgs e)
+        {
+            CommonFunctions.SetToMemoryFile("mmf_StartProcess_" + _Index, 1, "1");
+            btnStop.Enabled = true;
+            btnStart.Enabled = false;
+            
         }
 
         private void InitData()

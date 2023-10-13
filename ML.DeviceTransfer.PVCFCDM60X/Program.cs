@@ -16,7 +16,7 @@ namespace ML.DeviceTransfer.PVCFCDM60X
         static void Main(string[] args)
         {
 #if DEBUG
-            args = new string[10];
+            args = new string[12];
             args[0] = "ML.DeviceTransfer.PVCFCDM60X"; // socketName
             args[1] = "0";                                // socketIndex
             args[2] = "20400";                            // uiSocketPort
@@ -27,35 +27,46 @@ namespace ML.DeviceTransfer.PVCFCDM60X
             args[7] = "http://113.163.69.8";              // Link API
             args[8] = "9594";                             // port
             args[9] = "true";                                // isOffline
+            args[10] = "192.168.15.154"; // Printer IP
+            args[11] = "12500"; // Printer Port
 #endif
 
             #region Arguments
-            DM60XSharedValues.SocketName = args[0];
-            DM60XSharedValues.SocketIndex = int.Parse(args[1]);
-            DM60XSharedValues.UISocketPort = int.Parse(args[2]);
-            DM60XSharedValues.BridgeSocketPort = int.Parse(args[3]);
-            DM60XSharedValues.DeviceIP = args[4];
-            DM60XSharedValues.DevicePort = int.Parse(args[5]);
-            DM60XSharedValues.Timeout = uint.Parse(args[6]);
-            DM60XSharedValues.SendPort = DM60XSharedValues.UISocketPort;
+            CognexSharedValues.SocketName = args[0];
+            CognexSharedValues.SocketIndex = int.Parse(args[1]);
+            CognexSharedValues.UISocketPort = int.Parse(args[2]);
+            CognexSharedValues.BridgeSocketPort = int.Parse(args[3]);
+            CognexSharedValues.DeviceIP = args[4];
+            CognexSharedValues.DevicePort = int.Parse(args[5]);
+            CognexSharedValues.Timeout = uint.Parse(args[6]);
+            CognexSharedValues.SendPort = CognexSharedValues.UISocketPort;
+            CognexSharedValues.PrinterIP = args[10];
+            CognexSharedValues.PrinterPort = args[11];
             #endregion
 
-           
 
-          
+
+
             #region Init Running
-            DM60XSharedValues.Running = new Model.DM60XDeviceRunningModel() { Index = DM60XSharedValues.SocketIndex, IsOffline = bool.Parse(args[9]) };
+            CognexSharedValues.Running = new Model.DM60XDeviceRunningModel() { Index = CognexSharedValues.SocketIndex, IsOffline = bool.Parse(args[9]) };
             #endregion//End Inits Running
 
             #region Init UI Socket
-            DM60XSharedValues.UIBridgeSocket = new DM60XUIBridgeSocket();
-            //DM60XSharedValues.UIBridgeSocket.Inits(DM60XSharedValues.SendPort, DM60XSharedValues.SocketIndex);
-            //DM60XSharedValues.UIBridgeSocket.Connect(DM60XSharedValues.SocketName, DM60XSharedValues.SocketIndex, DM60XSharedValues.BridgeSocketPort, DM60XSharedValues.UISocketPort);
+            CognexSharedValues.UIBridgeSocket = new DM60XUIBridgeSocket();
+            CognexSharedValues.UIBridgeSocket.Inits(CognexSharedValues.SendPort, CognexSharedValues.SocketIndex);
+            CognexSharedValues.UIBridgeSocket.Connect(CognexSharedValues.SocketName, CognexSharedValues.SocketIndex, CognexSharedValues.BridgeSocketPort, CognexSharedValues.UISocketPort);
             #endregion//End Init UI Socket
 
             #region Init Device handler
-            //DM60XSharedValues.DeviceHandler = new SDK.DM60X.Controller.DM60XDeviceHandler(DM60XSharedValues.DeviceIP, DM60XSharedValues.DevicePort, DM60XSharedValues.SocketIndex);
-            DM60XSharedValues.PrinterHandler = new SDK.PRINTER.Controller.PrinterHandler("127.0.0.1", "12500", 0);
+            Task.Run(() =>
+            {
+                CognexSharedValues.DeviceHandler = new SDK.DM60X.Controller.DM60XDeviceHandler(CognexSharedValues.DeviceIP, CognexSharedValues.DevicePort, CognexSharedValues.SocketIndex);
+            });
+            Task.Run(() =>
+            {
+                CognexSharedValues.PrinterHandler = new SDK.PRINTER.Controller.PrinterHandler(CognexSharedValues.PrinterIP, CognexSharedValues.PrinterPort, CognexSharedValues.SocketIndex);
+            });
+            
             #endregion//End Init Device handler
             new Thread(() =>
             {
