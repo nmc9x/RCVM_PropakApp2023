@@ -1,4 +1,5 @@
-﻿using App.PVCFC_RFID.Model;
+﻿using App.PVCFC_RFID.DataType;
+using App.PVCFC_RFID.Model;
 using ML.Common.Controller;
 using ML.Connections.DataType;
 using ML.DeviceTransfer.PVCFCRFID.Model;
@@ -8,6 +9,7 @@ using ML.SDK.DM60X.Model;
 using ML.SDK.RDIF_FX9600.DataType;
 using System;
 using System.Collections.Concurrent;
+using System.Drawing.Text;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -15,6 +17,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using System.Xml.Linq;
 using static ML.SDK.DM60X.DataType.DM60XDataType;
 
 namespace App.PVCFC_RFID.Controller
@@ -58,25 +61,41 @@ namespace App.PVCFC_RFID.Controller
             _ThreadListenDeviceTransferListenning.Priority = ThreadPriority.Highest;
             _ThreadListenDeviceTransferListenning.Start();
             //End Run Thread
-
+            StationType[] stationSet = { StationType.COGNEX_DATAMAN, StationType.COGNEX_DATAMAN };
             #region Run Stations - Device transfer
             for (int i = 0; i < SharedValues.Running.NumberOfStation; i++)
             {
-                string socketName = Properties.Settings.Default.DeviceTransferName;
+                //string socketName = Properties.Settings.Default.DeviceTransferName;
+                var stationType = stationSet[i];
+                object curStation = null;
+                switch (stationType)
+                {
+                    case StationType.COGNEX_DATAMAN:
+                        curStation = SharedValues.Settings.StationList[i].DMCamera;
+                        break;
+                    case StationType.KEYENCE:
+                        curStation = SharedValues.Settings.StationList[i].KeyenceCamera;
+                        break;
+                     default: break;
+                     
+                }
+                var dynamicCurStation = (dynamic)curStation;
+
                 int socketIndex = i;
+                string deviceTransferName = dynamicCurStation.DeviceTransferName;
                 int uiSocketPort = _UISocketPort;//Port received
                 int stationsSocketPort = _StationSocketPort + i;//Port send
                 //
-                string deviceIP = SharedValues.Settings.StationList[i].DM60X.IPAddress;//Properties.Settings.Default.RFIDIP + (i + 1).ToString();
-                int devicePort = int.Parse(SharedValues.Settings.StationList[i].DM60X.Port) ; 
+                string deviceIP = dynamicCurStation.IPAddress;//Properties.Settings.Default.RFIDIP + (i + 1).ToString();
+                int devicePort = int.Parse(dynamicCurStation.Port); 
                 byte timeout = 0;
-                string printerIP = "192.168.15.15" + (3 + i);
-                string printerPort = "1250" +i;
+                string printerIP = dynamicCurStation.PrinterIP;
+                string printerPort = dynamicCurStation.PrinterPort;
                 //
-                string fullPath = Application.StartupPath + "\\" + Properties.Settings.Default.DeviceTransferName + ".exe";
+                string fullPath = Application.StartupPath + "\\" + deviceTransferName + ".exe";
                 string arguments = "";
 
-                arguments += socketName;//socketName
+                arguments += deviceTransferName;//socketName
                 arguments += "  " + socketIndex;//socketIndex = int.Parse(args[1]);
                 arguments += "  " + uiSocketPort;//uiSocketPort = int.Parse(args[2]);
                 arguments += "  " + stationsSocketPort;//bridgeSocketPort = int.Parse(args[3]);
@@ -84,13 +103,10 @@ namespace App.PVCFC_RFID.Controller
                 arguments += "  " + deviceIP;//deviceIP = args[4];
                 arguments += "  " + devicePort;//devicePort = int.Parse(args[5]);
                 arguments += "  " + timeout;//deviceAddress = (byte)int.Parse(args[6]);
-                arguments += "  " + SharedValues.Settings.SysServerURL;//deviceAddress = (byte)int.Parse(args[7]);
-                arguments += "  " + SharedValues.Settings.SysServerPort.ToString();//deviceAddress = (byte)int.Parse(args[8]);
-                arguments += "  " + SharedValues.Running.IsOffline.ToString();//deviceAddress = (byte)int.Parse(args[9]);
-                arguments += "  " + printerIP; //10
-                arguments += "  " + printerPort; //11
+                arguments += "  " + printerIP; //7
+                arguments += "  " + printerPort; //8
                 //
-                SharedValues.Running.StationList[i].TransferID = CommonFunctions.DeviceTransferStartProcess(socketName, fullPath, arguments);
+                SharedValues.Running.StationList[i].TransferID = CommonFunctions.DeviceTransferStartProcess(deviceTransferName, fullPath, arguments);
                 //
                 //Init Send socket
                 SharedValues.Running.StationList[i].UIBridgeSocket = new DM60XUIBridgeSocketHandler();
@@ -100,7 +116,7 @@ namespace App.PVCFC_RFID.Controller
             #endregion//End Run Stations - Device transfers
             #endregion//End Station
         }
-
+       
         public static void KillDeviceTransfer(int index = -1)
         {
             if (index < 0)
@@ -519,7 +535,7 @@ namespace App.PVCFC_RFID.Controller
         {
             try
             {
-                byte[] sendCommand = SharedValues.Settings.StationList[index].DM60X.ConfigsCommand;
+                byte[] sendCommand = SharedValues.Settings.StationList[index].DMCamera.ConfigsCommand;
                 SharedValues.Running.StationList[index].UIBridgeSocket.SendConfigToDeviceTransfer(sendCommand);
                 //
                 return true;

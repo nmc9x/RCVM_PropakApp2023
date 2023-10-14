@@ -27,11 +27,18 @@ namespace App.PVCFC_RFID.Model
         //    set { _RFID = value; }
         //}
 
-        private DM60X_SettingModel _DM60X = new DM60X_SettingModel();
-        public DM60X_SettingModel DM60X
+        private DMCam_SettingModel _DMCamera = new DMCam_SettingModel();
+        public DMCam_SettingModel DMCamera
         {
-            get { return _DM60X; }
-            set { _DM60X = value; }
+            get { return _DMCamera; }
+            set { _DMCamera = value; }
+        }
+
+        private Keyence_SettingModel _KeyenceCamera = new Keyence_SettingModel();
+        public Keyence_SettingModel KeyenceCamera
+        {
+            get { return _KeyenceCamera; }
+            set { _KeyenceCamera = value; }
         }
     }
 }

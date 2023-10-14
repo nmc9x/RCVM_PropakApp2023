@@ -70,8 +70,8 @@ namespace App.PVCFC_RFID.Controller
                         string newNumIP = (Convert.ToInt32(numIPArr[numIPArr.Length - 1]) + i).ToString();
                         numIPArr[numIPArr.Length - 1] = newNumIP;
                         //
-                        stationItems.DM60X.IPAddress = string.Join(".", numIPArr);
-                        stationItems.DM60X.Port = "21";//(int.Parse(Properties.Settings.Default.DM60XPort) + i).ToString();
+                        stationItems.DMCamera.IPAddress = string.Join(".", numIPArr);
+                        stationItems.DMCamera.Port = "21";//(int.Parse(Properties.Settings.Default.DM60XPort) + i).ToString();
                         //
                         loadSettings.StationList.Add(stationItems);
                     }

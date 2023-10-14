@@ -15,7 +15,12 @@ namespace App.PVCFC_RFID.DataType
     //
 
     #region Enum
-   
+   public enum StationType
+    {
+        UNKNOWN,
+        COGNEX_DATAMAN,
+        KEYENCE
+    }
     #endregion//End Enum
 
     #region Extensions

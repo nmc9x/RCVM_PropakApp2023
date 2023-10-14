@@ -9,9 +9,9 @@ using static ML.SDK.DM60X.DataType.DM60XDataType;
 
 namespace ML.SDK.DM60X.Model
 {
-    public class DM60X_SettingModel
+    public class DMCam_SettingModel
     {
-
+        public string DeviceTransferName { get; set; } = "ML.DeviceTransfer.PVCFCDM60X";
         public string IPAddress { get; set; } = "169.254.10.11";
         public string Port { get; set; } = "23";
         public string SubnetMask { get; set; } = "255.255.0.0";
@@ -26,8 +26,9 @@ namespace ML.SDK.DM60X.Model
         //public Dictionary<string, bool> SymbolSelecList { get; set; }
         public bool[] SymbolState { get; set; }
 
-
-        public DM60X_SettingModel()
+        public string PrinterPort { get; set; } = "192.168.15.154";
+        public string PrinterIP { get; set; } = "12500";
+        public DMCam_SettingModel()
         {
             #region Init Par
             IPAddress = "169.254.10.11";

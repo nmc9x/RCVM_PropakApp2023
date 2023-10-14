@@ -257,8 +257,8 @@ namespace App.PVCFC_RFID.Design
                 //numPort.Value = SharedValues.Settings.StationList[_Index].RFID.Port;
                 //txtURL.Text = SharedValues.Settings.StationList[_Index].RFID.HostNameURL;
 
-                txtIPAddrress.Text = SharedValues.Settings.StationList[_Index].DM60X.IPAddress;
-                numPort.Value = int.Parse(SharedValues.Settings.StationList[_Index].DM60X.Port);
+                txtIPAddrress.Text = SharedValues.Settings.StationList[_Index].DMCamera.IPAddress;
+                numPort.Value = int.Parse(SharedValues.Settings.StationList[_Index].DMCamera.Port);
                 txtURL.Text = "";
             }));
         }
@@ -269,8 +269,8 @@ namespace App.PVCFC_RFID.Design
             //SharedValues.Settings.StationList[_Index].RFID.Port = (int)numPort.Value;
             //SharedValues.Settings.StationList[_Index].RFID.HostNameURL = txtURL.Text;
 
-             SharedValues.Settings.StationList[_Index].DM60X.IPAddress = txtIPAddrress.Text;
-             SharedValues.Settings.StationList[_Index].DM60X.Port = numPort.Value.ToString();
+             SharedValues.Settings.StationList[_Index].DMCamera.IPAddress = txtIPAddrress.Text;
+             SharedValues.Settings.StationList[_Index].DMCamera.Port = numPort.Value.ToString();
              
         }
 

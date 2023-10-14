@@ -383,18 +383,18 @@ namespace App.PVCFC_RFID.Controller
         public void UpdateCurrentSettingValue()
         {
             // Get Trigger Config
-            SharedValues.Settings.StationList[Index].DM60X.TriggerTypeIndex = CbbTriggerTypeIndex;
-            SharedValues.Settings.StationList[Index].DM60X.DelayTypeIndex = CbbDelayTypeIndex;
-            SharedValues.Settings.StationList[Index].DM60X.DecodeTime = int.Parse(TbDecodeTimeValue);
-            SharedValues.Settings.StationList[Index].DM60X.DelayTime = int.Parse(TbDelayTimeValue);
+            SharedValues.Settings.StationList[Index].DMCamera.TriggerTypeIndex = CbbTriggerTypeIndex;
+            SharedValues.Settings.StationList[Index].DMCamera.DelayTypeIndex = CbbDelayTypeIndex;
+            SharedValues.Settings.StationList[Index].DMCamera.DecodeTime = int.Parse(TbDecodeTimeValue);
+            SharedValues.Settings.StationList[Index].DMCamera.DelayTime = int.Parse(TbDelayTimeValue);
 
             // Get Network Parameter
-            SharedValues.Settings.StationList[Index].DM60X.IPAddress = TbIPAddressValue;
-            SharedValues.Settings.StationList[Index].DM60X.Port = TbPortValue;
-            SharedValues.Settings.StationList[Index].DM60X.SubnetMask = TbSubnetValue;
+            SharedValues.Settings.StationList[Index].DMCamera.IPAddress = TbIPAddressValue;
+            SharedValues.Settings.StationList[Index].DMCamera.Port = TbPortValue;
+            SharedValues.Settings.StationList[Index].DMCamera.SubnetMask = TbSubnetValue;
 
             // Get Symbol Config
-            SharedValues.Settings.StationList[Index].DM60X.SymbolState = new bool[]
+            SharedValues.Settings.StationList[Index].DMCamera.SymbolState = new bool[]
             {
                 CheckBoxDataMatrix_Sts,
                 CheckBoxQR_Sts,
@@ -504,40 +504,40 @@ namespace App.PVCFC_RFID.Controller
         internal void GetSavedValueSettingToElement()
         {
             // Get Trigger Config
-            CbbTriggerTypeIndex = SharedValues.Settings.StationList[Index].DM60X.TriggerTypeIndex;
-            CbbDelayTypeIndex = SharedValues.Settings.StationList[Index].DM60X.DelayTypeIndex;
-            TbDecodeTimeValue = SharedValues.Settings.StationList[Index].DM60X.DecodeTime.ToString();
-            TbDelayTimeValue = SharedValues.Settings.StationList[Index].DM60X.DelayTime.ToString();
+            CbbTriggerTypeIndex = SharedValues.Settings.StationList[Index].DMCamera.TriggerTypeIndex;
+            CbbDelayTypeIndex = SharedValues.Settings.StationList[Index].DMCamera.DelayTypeIndex;
+            TbDecodeTimeValue = SharedValues.Settings.StationList[Index].DMCamera.DecodeTime.ToString();
+            TbDelayTimeValue = SharedValues.Settings.StationList[Index].DMCamera.DelayTime.ToString();
 
             // Get Network Parameter
-            TbIPAddressValue = SharedValues.Settings.StationList[Index].DM60X.IPAddress;
-            TbPortValue = SharedValues.Settings.StationList[Index].DM60X.Port;
-            TbSubnetValue = SharedValues.Settings.StationList[Index].DM60X.SubnetMask;
+            TbIPAddressValue = SharedValues.Settings.StationList[Index].DMCamera.IPAddress;
+            TbPortValue = SharedValues.Settings.StationList[Index].DMCamera.Port;
+            TbSubnetValue = SharedValues.Settings.StationList[Index].DMCamera.SubnetMask;
 
             //GetSymbol
-            _CheckBoxDataMatrix_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[0];
-            _CheckBoxQR_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[1];
-            _CheckBoxMaxi_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[2];
-            _CheckBoxAztec_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[3];
-            _CheckBox128_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[4];
-            _CheckBox25_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[5];
-            _CheckBox93_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[6];
-            _CheckBox39_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[7];
-            _CheckBoxPharma_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[8];
-            _CheckBoxCodabar_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[9];
-            _CheckBoxInterleaved_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[10];
-            _CheckBoxUPCEAN_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[11];
-            _CheckBoxMsi_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[12];
-            _CheckBoxPDF_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[13];
-            _CheckBoxEANUCC_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[14];
-            _CheckBoxMicro_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[15];
-            _CheckBoxGS1_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[16];
-            _CheckBoxPostnet_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[17];
-            _CheckBoxPlanet_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[18];
-            _CheckBoxJap_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[19];
-            _CheckBoxUPU_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[20];
-            _CheckBoxAus_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[21];
-            _CheckBoxIntel_Sts = SharedValues.Settings.StationList[Index].DM60X.SymbolState[22];
+            _CheckBoxDataMatrix_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[0];
+            _CheckBoxQR_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[1];
+            _CheckBoxMaxi_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[2];
+            _CheckBoxAztec_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[3];
+            _CheckBox128_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[4];
+            _CheckBox25_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[5];
+            _CheckBox93_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[6];
+            _CheckBox39_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[7];
+            _CheckBoxPharma_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[8];
+            _CheckBoxCodabar_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[9];
+            _CheckBoxInterleaved_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[10];
+            _CheckBoxUPCEAN_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[11];
+            _CheckBoxMsi_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[12];
+            _CheckBoxPDF_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[13];
+            _CheckBoxEANUCC_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[14];
+            _CheckBoxMicro_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[15];
+            _CheckBoxGS1_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[16];
+            _CheckBoxPostnet_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[17];
+            _CheckBoxPlanet_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[18];
+            _CheckBoxJap_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[19];
+            _CheckBoxUPU_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[20];
+            _CheckBoxAus_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[21];
+            _CheckBoxIntel_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[22];
         }
         internal void SymbolGroupSelectChecked(string groupName)
         {
