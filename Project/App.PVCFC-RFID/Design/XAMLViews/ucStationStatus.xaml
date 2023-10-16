@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="App.PVCFC_RFID.Design.XAMLViews.ucStationStatus"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:App.PVCFC_RFID.Design.XAMLViews"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:NumToColorConverter x:Key="NumToColor" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Border
+            Margin="1,1,3,1"
+            BorderBrush="Gray"
+            BorderThickness="1">
+            <StackPanel x:Name="StackPanelIcon" Margin="1,1,1,1" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock x:Name="TextBoxStationId" Width="auto" />
+                <materialDesign:PackIcon
+                    x:Name="IconCam"
+                    Width="20"
+                    Height="20"
+                    Foreground="{Binding StatusCamera, Converter={StaticResource NumToColor}}"
+                    Kind="SignalVariant" />
+                <materialDesign:PackIcon
+                    x:Name="IconPrinter"
+                    Width="20"
+                    Height="20"
+                    Foreground="{Binding StatusPrinter, Converter={StaticResource NumToColor}}"
+                    Kind="Printer" />
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</UserControl>

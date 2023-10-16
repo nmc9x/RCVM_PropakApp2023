@@ -1,0 +1,204 @@
+﻿<UserControl
+    x:Class="App.PVCFC_RFID.Design.XAMLViews.ucCurrentJobs"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+
+
+            </ResourceDictionary.MergedDictionaries>
+            <!--  primary  -->
+            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#744CE0" />
+            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#5f8acf" />
+            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFFFF" />
+
+            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF" />
+            <!--  accent  -->
+            <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#5C5B5E" />
+            <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="#FFFFFF" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="GridItem">
+        <Grid Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="Blue" />
+                </ResourceDictionary>
+            </Grid.Resources>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="4*" />
+                </Grid.RowDefinitions>
+                <Border
+                    Width="80"
+                    HorizontalAlignment="Left"
+                    Background="#d1e388"
+                    BorderThickness="1">
+                    <TextBlock
+                        Margin="16,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="10"
+                        FontWeight="Bold"
+                        Foreground="Black"
+                        Text="{Binding StationTagName}" />
+                </Border>
+
+                <Border
+                    Grid.Row="1"
+                    Margin="16"
+                    Background="Green">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="WhiteSmoke"
+                        Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+                        Text="RUN" />
+                </Border>
+
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Border Background="#abb7c9">
+                    <GroupBox
+                        Margin="16"
+                        materialDesign:ElevationAssist.Elevation="Dp7"
+                        Header="GOOD"
+                        Style="{StaticResource MaterialDesignCardGroupBox}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Foreground="Black"
+                                Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
+                                Text="9999" />
+                            <Button
+                                Grid.Row="1"
+                                Width="30"
+                                Height="30"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                ToolTip="MaterialDesignFloatingActionDarkButton">
+                                <materialDesign:PackIcon
+                                    Width="30"
+                                    Height="30"
+                                    Kind="DotsHorizontal" />
+                            </Button>
+                        </Grid>
+
+                    </GroupBox>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Column="2">
+                <Border Background="#abb7c9">
+                    <GroupBox
+                        Margin="16"
+                        materialDesign:ElevationAssist.Elevation="Dp7"
+                        Header="FAIL"
+                        Style="{StaticResource MaterialDesignCardGroupBox}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Foreground="Black"
+                                Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
+                                Text="9999" />
+                            <Button
+                                Grid.Row="1"
+                                Width="30"
+                                Height="30"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                ToolTip="MaterialDesignFloatingActionDarkButton">
+                                <materialDesign:PackIcon
+                                    Width="30"
+                                    Height="30"
+                                    Kind="DotsHorizontal" />
+                            </Button>
+                        </Grid>
+
+                    </GroupBox>
+                </Border>
+            </Grid>
+
+
+            <Grid Grid.Column="3">
+                <Border Background="#abb7c9">
+                    <GroupBox
+                        Margin="16"
+                        materialDesign:ElevationAssist.Elevation="Dp7"
+                        Header="TOTAL"
+                        Style="{StaticResource MaterialDesignCardGroupBox}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Foreground="Black"
+                                Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
+                                Text="9999" />
+                            <Button
+                                Grid.Row="1"
+                                Width="30"
+                                Height="30"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                ToolTip="MaterialDesignFloatingActionDarkButton">
+                                <materialDesign:PackIcon
+                                    Width="30"
+                                    Height="30"
+                                    Kind="DotsHorizontal" />
+                            </Button>
+                        </Grid>
+
+                    </GroupBox>
+                </Border>
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

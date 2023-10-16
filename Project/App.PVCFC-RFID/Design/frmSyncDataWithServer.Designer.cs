@@ -40,7 +40,6 @@
             this.btnLast = new System.Windows.Forms.Button();
             this.lblTotalRows = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.ucStationInfo1 = new App.PVCFC_RFID.Design.ucStationInfo();
             this.tabControlSync = new System.Windows.Forms.TabControl();
             this.tabControlSyncPageExport = new System.Windows.Forms.TabPage();
             this.grSyncSchedules = new System.Windows.Forms.GroupBox();
@@ -107,7 +106,6 @@
             this.tblMains.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblMains.Controls.Add(this.grDataDetails, 1, 3);
             this.tblMains.Controls.Add(this.lblTitle, 1, 1);
-            this.tblMains.Controls.Add(this.ucStationInfo1, 1, 2);
             this.tblMains.Controls.Add(this.tabControlSync, 0, 1);
             this.tblMains.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMains.Font = new System.Drawing.Font("Arial", 10.25F);
@@ -252,21 +250,6 @@
             this.lblTitle.Size = new System.Drawing.Size(119, 22);
             this.lblTitle.TabIndex = 5;
             this.lblTitle.Text = "SYNC DATA";
-            // 
-            // ucStationInfo1
-            // 
-            this.ucStationInfo1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ucStationInfo1.Font = new System.Drawing.Font("Arial", 10.25F);
-            this.ucStationInfo1.Index = 0;
-            this.ucStationInfo1.IsHideDetails = false;
-            this.ucStationInfo1.IsHideStatus = true;
-            this.ucStationInfo1.IsSelected = false;
-            this.ucStationInfo1.Location = new System.Drawing.Point(403, 42);
-            this.ucStationInfo1.Name = "ucStationInfo1";
-            this.ucStationInfo1.Size = new System.Drawing.Size(875, 224);
-            this.ucStationInfo1.TabIndex = 12;
-            this.ucStationInfo1.Title = "";
             // 
             // tabControlSync
             // 

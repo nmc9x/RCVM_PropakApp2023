@@ -443,25 +443,27 @@ namespace App.PVCFC_RFID.Controller
                 // Get Result List
                 _dispatcher.Invoke(() =>
                 {
-                    var foundItem = SharedValues.Running.StationList[index].DataRawList.FirstOrDefault(x => x.Code == code && x.Symbol == symb);
-                    if (foundItem == null)
-                    {
+                    //var foundItem = SharedValues.Running.StationList[index].DataRawList.FirstOrDefault(x => x.Code == code && x.Symbol == symb);
+                    //if (foundItem == null)
+                    //{
 
-                        SharedValues.Running.StationList[index].DataRawList.Add(
-                                  new GotCodeModel
-                                  {
-                                      Code = code,
-                                      Symbol = symb,
-                                      DecodeTime = dec,
-                                      Status = sts
-                                  }
-                                  );
-                    }
-                    else
-                    {
-                        int foundItemsIndex = SharedValues.Running.StationList[index].DataRawList.ToList().FindIndex(x => x.Code == code && x.Symbol == symb);
-                        SharedValues.Running.StationList[index].DataRawList[foundItemsIndex].Count++;
-                    }
+                    SharedValues.Running.StationList[index].DataRawList.Add(
+                              new GotCodeModel
+                              {
+                                  Code = code,
+                                  Symbol = symb,
+                                  DecodeTime = dec,
+                                  Status = sts,
+                                  DateTimeStr = DateTime.Now.ToString("yyyy-MM-dd") + "/" + DateTime.Now.ToString("HH:mm:ss")
+
+                              }
+                              ) ;
+                    //}
+                    //else
+                    //{
+                    //    int foundItemsIndex = SharedValues.Running.StationList[index].DataRawList.ToList().FindIndex(x => x.Code == code && x.Symbol == symb);
+                    //    SharedValues.Running.StationList[index].DataRawList[foundItemsIndex].Count++;
+                    //}
                     CommonFunctions.SetToMemoryFile("mmf_CurrentCodeData_" + index, 20, code);
                     DataRawListChanged?.Invoke(index, EventArgs.Empty);
                 });

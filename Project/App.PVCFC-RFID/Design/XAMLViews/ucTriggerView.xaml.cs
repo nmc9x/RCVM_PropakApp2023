@@ -1,7 +1,10 @@
 ﻿using App.PVCFC_RFID.Controller;
 using System;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Media;
 using Button = System.Windows.Controls.Button;
 using UserControl = System.Windows.Controls.UserControl;
 
@@ -22,7 +25,24 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             {
                 trgm.Index = index;
             }
+            TriggerViewModel.CustomEvt += DataGridItemsChanged;
         }
+
+        private void DataGridItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (DataGrid1.Items.Count > 0)
+            {
+                var border = VisualTreeHelper.GetChild(DataGrid1, 0) as Decorator;
+                if (border != null)
+                {
+                    var scroll = border.Child as ScrollViewer;
+                    if (scroll != null) scroll.ScrollToEnd();
+                }
+            }
+        }
+
+      
+
         public void NotifyFormClosing()
         {
             CallbackCommand(vm=>vm.CloseForm());    
@@ -90,6 +110,15 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         private void TriggerClick(object sender, RoutedEventArgs e)
         {
             CallbackCommand(vm => vm.SoftwareTrigger());
+        }
+
+        private void DataGrid1_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataGrid1.Items.Count > 0)
+            {
+                var lastItem = DataGrid1.Items[DataGrid1.Items.Count - 1];
+                DataGrid1.ScrollIntoView(lastItem);
+            }
         }
     }
 }

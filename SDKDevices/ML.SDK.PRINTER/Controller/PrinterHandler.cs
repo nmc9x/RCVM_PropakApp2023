@@ -192,88 +192,133 @@ namespace ML.SDK.PRINTER.Controller
         }
         public override async Task Send(string message)
         {
-            if (_Stream == null)
-                throw new InvalidOperationException("Not connected to server.");
-            byte[] data = Encoding.ASCII.GetBytes((char)2 + message + (char)3);
-            _Stream.Write(data, 0, data.Length);
-            Console.WriteLine($"Sent Data: {message}");
-            await Task.Delay(100);
+            try
+            {
+                if (_Stream == null)
+                    throw new InvalidOperationException("Not connected to server.");
+                byte[] data = Encoding.ASCII.GetBytes((char)2 + message + (char)3);
+                _Stream.Write(data, 0, data.Length);
+                Console.WriteLine($"Sent Data: {message}");
+                await Task.Delay(100);
+            }
+            catch (Exception ex)
+            {
+
+#if DEBUG
+                Console.WriteLine(ex.Source + "\n" + ex.Message);
+#endif
+                
+            }
+            
         }
 
         public override string Receive()
         {
-            if (_Stream == null)
-                throw new InvalidOperationException("Not connected to server.");
-            byte[] data = new byte[1024];
-            int bytes = _Stream.Read(data, 0, data.Length);
-            var receivedMessage = Encoding.ASCII.GetString(data, 0, bytes);
-            Console.WriteLine($"Received: {receivedMessage}");
-            return receivedMessage;
+            try
+            {
+                if (_Stream == null)
+                    throw new InvalidOperationException("Not connected to server.");
+                byte[] data = new byte[1024];
+                int bytes = _Stream.Read(data, 0, data.Length);
+                var receivedMessage = Encoding.ASCII.GetString(data, 0, bytes);
+                Console.WriteLine($"Received: {receivedMessage}");
+                return receivedMessage;
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Console.WriteLine(ex.Source + "\n" + ex.Message);
+#endif
+                return null;
+            }
+            
         }
 
         public override async Task StartAndLoadData()
         {
-            //SocketClient client = new SocketClient("192.168.15.154", 12500);
-            var filePath = "C:\\Users\\minhchau.nguyen\\Documents\\MyLanGroup\\Projects\\Propak\\output.csv";
-            string[] tableData = File.ReadAllLines(filePath).Skip(1).ToArray(); // skip header
-
-            string command;
-            string readySts = (char)2 + "RYES" + (char)3 + (char)2 + "STAR;READY" + (char)3;
-            Connect();
-
-            #region ConnectAsync
-            bool isReady = false;
-            while (!isReady)
+            try
             {
-                await Send("STAR;TestTemplate;1;1");
-                if (Receive() == readySts)
-                {
-                    isReady = true;
-                }
-                else
-                {
-                    await Task.Delay(1000);
-                }
-            }
-            #endregion
+                //SocketClient client = new SocketClient("192.168.15.154", 12500);
+                var filePath = "C:\\Users\\minhchau.nguyen\\Documents\\MyLanGroup\\Projects\\Propak\\output.csv";
+                string[] tableData = File.ReadAllLines(filePath).Skip(1).ToArray(); // skip header
 
-            #region ProcessData
-            Console.WriteLine("Start send data...");
-            for (int i = 0; i < tableData.Length; i++)
+                string command;
+                string readySts = (char)2 + "RYES" + (char)3 + (char)2 + "STAR;READY" + (char)3;
+                Connect();
+
+                #region ConnectAsync
+                bool isReady = false;
+                while (!isReady)
+                {
+                    await Send("STAR;TestTemplate;1;1");
+                    if (Receive() == readySts)
+                    {
+                        isReady = true;
+                    }
+                    else
+                    {
+                        await Task.Delay(1000);
+                    }
+                }
+                #endregion
+
+                #region ProcessData
+                Console.WriteLine("Start send data...");
+                for (int i = 0; i < tableData.Length; i++)
+                {
+                    string formattedData = CsvParser.ParseLine(tableData[i]);
+                    command = "DATA;" + formattedData;
+                    await Send(command);
+                }
+                Disconnect();
+
+                #endregion
+            }
+            catch (Exception ex)
             {
-                string formattedData = CsvParser.ParseLine(tableData[i]);
-                command = "DATA;" + formattedData;
-                await Send(command);
+#if DEBUG
+                Console.WriteLine(ex.Source + "\n" + ex.Message);
+#endif
             }
-            Disconnect();
-
-            #endregion
+           
         }
 
         public void CompareData(string[] sourceData, string sampleData = "ITLCD_OLD1162", int colIndex = 2)
         {
-            var uniqueData = new HashSet<string>();
-            var duplicateData = new HashSet<string>();
-            var unknownData = new HashSet<string>();
-            foreach (string data in sourceData)
+            try
             {
-                var col = data.Split(',');
-                var currentValue = col[colIndex].TrimStart('"').TrimEnd('"');
-
-                if (currentValue == sampleData)
+                var uniqueData = new HashSet<string>();
+                var duplicateData = new HashSet<string>();
+                var unknownData = new HashSet<string>();
+                foreach (string data in sourceData)
                 {
-                    if (!uniqueData.Add(currentValue))
+                    var col = data.Split(',');
+                    var currentValue = col[colIndex].TrimStart('"').TrimEnd('"');
+
+                    if (currentValue == sampleData)
                     {
-                        duplicateData.Add(currentValue);
-                        Console.WriteLine("Duplicate");
+                        if (!uniqueData.Add(currentValue))
+                        {
+                            duplicateData.Add(currentValue);
+                            Console.WriteLine("Duplicate");
+                        }
+                    }
+                    else
+                    {
+                        unknownData.Add(currentValue);
+                        Console.WriteLine("Unknown");
                     }
                 }
-                else
-                {
-                    unknownData.Add(currentValue);
-                    Console.WriteLine("Unknown");
-                }
             }
+            catch (Exception ex)
+            {
+
+#if DEBUG
+                Console.WriteLine(ex.Source +"\n"+ex.Message);
+#endif
+
+            }
+            
         }
 
 
@@ -289,56 +334,6 @@ namespace ML.SDK.PRINTER.Controller
             _Client?.Close();
             Console.WriteLine($"Disconnected from {_IP}:{_Port}");
         }
-
-        //public bool Connect()
-        //{
-
-        //            try
-        //            {
-
-        //            }
-        //            catch (Exception)
-        //            {
-
-        //                throw;
-        //            }
-        //            try
-        //            {
-        //                _PrinterListener = new TCPIPServerListener(_IP, int.Parse(_Port));
-        //                if( _PrinterListener != null )
-        //                {
-        //                    if (_PrinterListener.Connect())
-        //                    {
-        //                        //--Status Checking Thread--//
-        //                        _ThreadDeviceStatusChecking = new Thread(DeviceStatusChecking);
-        //                        _ThreadDeviceStatusChecking.IsBackground = true;
-        //                        _ThreadDeviceStatusChecking.Priority = ThreadPriority.Highest;
-        //                        _ThreadDeviceStatusChecking.Start();
-
-        //                        //--Received Data Event--//
-        //                        _PrinterListener.ReceiveDataEvent += _PrinterListener_ReceiveDataEvent;
-        //                        return true;
-        //                    }
-        //                    else
-        //                    {
-        //                        _ConnectionStatus = ConnectionsType.StatusEnum.DisConnected;
-        //                        ConnectionEvents.RaiseDeviceStatusChanged(_ConnectionStatus, EventArgs.Empty);
-        //                        return false;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    return false;
-        //                }
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //#if DEBUG
-        //                Console.WriteLine("ERRORS: " + ex.Message);
-        //#endif
-        //                return false;
-        //            }
-        //}
 
         private void _PrinterListener_ReceiveDataEvent(object sender, EventArgs e)
         {

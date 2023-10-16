@@ -143,7 +143,7 @@ namespace App.PVCFC_RFID
                 SharedValues.Running.IsOffline = !AccountController.Settings.IsOnlineUser;
                 //
                 //SharedValues.Running.IsOffline = true;//Every account have functions
-                Application.Run(new frmMain());
+                Application.Run(new MainPage());
             }
         }
     }

@@ -350,9 +350,10 @@ namespace ML.SDK.DM60X.Controller
                                 {
                                     codeModel.ImageList.Add(image);
                                     var first_image = codeModel.ImageList[0];
-                                    var image_size = Gui.FitImageInControl(first_image.Size, new Size(400, 400));
+                                    var image_size = Gui.FitImageInControl(first_image.Size, new Size(300, 300));
                                     var fitted_image = Gui.ResizeImageToBitmap(first_image, image_size);
                                     var byteImage = CommonFunctions.ImageToByteArray(fitted_image);
+                                    CommonFunctions.SetToMemoryFile("mmf_ImageByteLength", 5, byteImage.Length.ToString());
                                     CommonFunctions.SetToMemoryFile("mmf_ImageTrigger", byteImage.Length, "", byteImage);
                                 }
                                     

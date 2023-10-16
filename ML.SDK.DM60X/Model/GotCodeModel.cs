@@ -50,17 +50,18 @@ namespace ML.SDK.DM60X.Model
             set { SetProperty(ref _Status, value); }
         }
 
-        private int _Count;
+       
+        private string _DateTimeStr;
 
-        public int Count
+        public string DateTimeStr
         {
-            get { return _Count; }
-            set { SetProperty(ref _Count, value); }
+            get { return _DateTimeStr; }
+            set { SetProperty(ref _DateTimeStr, value); }
         }
 
         public GotCodeModel() 
         {
-            ID = null; Code = null; Symbol = null; DecodeTime = null; Status = null; Count = 1;
+            ID = null; Code = null; Symbol = null; DecodeTime = null; Status = null; DateTimeStr = "";
         }
        
     }

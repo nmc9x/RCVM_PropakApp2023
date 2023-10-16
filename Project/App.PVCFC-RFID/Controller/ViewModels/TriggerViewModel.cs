@@ -2,8 +2,11 @@
 using ML.SDK.DM60X.Model;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -30,8 +33,14 @@ namespace App.PVCFC_RFID.Controller
             set { _ImgSrc = value; OnPropertyChanged(); }
         }
 
-        #endregion
+        public delegate void CustomEvtHandler(object sender, NotifyCollectionChangedEventArgs e);
+        public static event CustomEvtHandler CustomEvt;
 
+        #endregion
+        public void RaiseCustomEvent(NotifyCollectionChangedEventArgs e)
+        {
+            CustomEvt?.Invoke(this, e);
+        }
         public TriggerViewModel()
         {
             SharedControlHandler._dispatcher = Dispatcher.CurrentDispatcher;
@@ -40,7 +49,13 @@ namespace App.PVCFC_RFID.Controller
                 CodeList = SharedValues.Running.StationList[Index].DataRawList;  
             });
             SharedControlHandler.DataRawListChanged += OnDataRawListChanged;
+            CodeList.CollectionChanged += CodeList_CollectionChanged;
+        }
 
+        private void CodeList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            RaiseCustomEvent(e);
+           
         }
 
         private void OnDataRawListChanged(object sender, EventArgs e)
@@ -49,7 +64,10 @@ namespace App.PVCFC_RFID.Controller
             
             SharedControlHandler._dispatcher?.Invoke(() =>
             {
-                CommonFunctions.GetFromMemoryFile("mmf_ImageTrigger", _MaxImageByteSize, out _, out byte[] imageData);
+                CommonFunctions.GetFromMemoryFile("mmf_ImageByteLength", 5, out _, out byte[] lengthData);
+                var len = int.Parse(Encoding.ASCII.GetString(lengthData));
+                CommonFunctions.GetFromMemoryFile("mmf_ImageTrigger", len, out _, out byte[] imageData);
+               
                 if (imageData != null)
                 {
                     ImgSrc = CommonFunctions.ByteArrayToBitmapImage(imageData);
@@ -63,6 +81,7 @@ namespace App.PVCFC_RFID.Controller
         internal void CloseForm()
         {
             SharedControlHandler.DataRawListChanged -= OnDataRawListChanged;
+            CodeList.CollectionChanged -= CodeList_CollectionChanged;
             ClearDataRawList();
         }
         internal void ClearDataRawList()

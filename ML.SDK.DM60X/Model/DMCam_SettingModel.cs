@@ -13,7 +13,7 @@ namespace ML.SDK.DM60X.Model
     {
         public string DeviceTransferName { get; set; } = "ML.DeviceTransfer.PVCFCDM60X";
         public string IPAddress { get; set; } = "169.254.10.11";
-        public string Port { get; set; } = "23";
+        public string Port { get; set; } = "21";
         public string SubnetMask { get; set; } = "255.255.0.0";
         public int TriggerTypeIndex { get; set; } = 0;
         public int DelayTypeIndex { get; set; } = 0;

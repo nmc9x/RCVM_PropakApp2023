@@ -8,7 +8,6 @@
     d:DesignHeight="720"
     d:DesignWidth="1280"
     Background="#F0F0F0"
-    
     mc:Ignorable="d">
     <!--<UserControl.DataContext>
         <vm:TriggerViewModel/>
@@ -68,9 +67,9 @@
                     Grid.Row="1"
                     Width="80"
                     Height="30"
-                    Style="{StaticResource ActionButton}"
                     Click="TriggerClick"
-                    Content="Read Trigger" />
+                    Content="Read Trigger"
+                    Style="{StaticResource ActionButton}" />
             </Grid>
             <!--#endregion Left Content-->
 
@@ -91,7 +90,8 @@
                             Margin="3"
                             AutoGenerateColumns="False"
                             BorderThickness="0"
-                           ItemsSource="{Binding CodeList}"
+                            ItemsSource="{Binding CodeList}"
+                            Loaded="DataGrid1_Loaded"
                             LoadingRow="DataGrid1_LoadingRow">
                             <DataGrid.Resources>
                                 <Style TargetType="DataGridColumnHeader">
@@ -101,7 +101,7 @@
                             </DataGrid.Resources>
                             <DataGrid.Columns>
 
-                                  <!-- ID (Auto Gen)-->
+                                <!--  ID (Auto Gen)  -->
                                 <!--<DataGridTemplateColumn Header="ID">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -110,34 +110,34 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>-->
 
-                                  <!--Code-->
+                                <!--  Code  -->
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding Code}"
                                     Header="Code" />
 
-                                  <!--Symbol-->
+                                <!--  Symbol  -->
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding Symbol}"
                                     Header="Symbol" />
 
-                                  <!-- Decode Time -->
+                                <!--  Decode Time  -->
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding DecodeTime}"
                                     Header="Decode Time" />
 
-                                  <!--Status -->
+                                <!--  Status  -->
                                 <DataGridTextColumn
                                     Width="*"
                                     Binding="{Binding Status}"
                                     Header="Status" />
 
-                                  <!--Count -->
+                                <!--  Count  -->
                                 <DataGridTextColumn
                                     Width="*"
-                                    Binding="{Binding Count}"
+                                    Binding="{Binding DateTimeStr}"
                                     Header="Count" />
                             </DataGrid.Columns>
 
@@ -151,8 +151,9 @@
                         Height="30"
                         Margin="0,0,20,0"
                         HorizontalAlignment="Right"
-                        Style="{StaticResource ActionButton}"
-                        Content="Clear" Click="ClearDataGrid_Click" />
+                        Click="ClearDataGrid_Click"
+                        Content="Clear"
+                        Style="{StaticResource ActionButton}" />
                 </Grid>
 
             </Grid>
@@ -170,34 +171,40 @@
                 <TextBlock FontSize="16" Text="Total: " />
                 <TextBlock FontSize="16" Text="{Binding TotalValue}" />
             </StackPanel>
-            <Grid 
+            <Grid
                 Grid.Column="2"
                 Height="50"
-                HorizontalAlignment="Stretch"
-               >
+                HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="FirstButton"
+                <Button
+                    x:Name="FirstButton"
                     Grid.Column="0"
                     Margin="5,5,5,5"
-                    Content="&lt;&lt;"
-                    Click="ControlDataGridButton_Click"/>
-                <Button x:Name="BackButton" Grid.Column="1"
+                    Click="ControlDataGridButton_Click"
+                    Content="&lt;&lt;" />
+                <Button
+                    x:Name="BackButton"
+                    Grid.Column="1"
                     Margin="5,5,5,5"
-                    Content="&lt;" 
-                    Click="ControlDataGridButton_Click"/>
-                <Button x:Name="NextButton" Grid.Column="2"
+                    Click="ControlDataGridButton_Click"
+                    Content="&lt;" />
+                <Button
+                    x:Name="NextButton"
+                    Grid.Column="2"
                     Margin="5,5,5,5"
-                    Content="&gt;" 
-                    Click="ControlDataGridButton_Click"/>
-                <Button x:Name="LastButton" Grid.Column="3"
+                    Click="ControlDataGridButton_Click"
+                    Content="&gt;" />
+                <Button
+                    x:Name="LastButton"
+                    Grid.Column="3"
                     Margin="5,5,5,5"
-                    Content="&gt;&gt;" 
-                    Click="ControlDataGridButton_Click"/>
+                    Click="ControlDataGridButton_Click"
+                    Content="&gt;&gt;" />
             </Grid>
         </Grid>
     </Grid>

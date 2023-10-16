@@ -19,6 +19,7 @@ namespace ML.Common.Controller
 {
     public class CommonFunctions
     {
+   
         #region Init Path
         public static void SetPath(string rootpath)
         {
@@ -205,6 +206,24 @@ namespace ML.Common.Controller
         #endregion//End Firewall
 
         #region Common
+        public static void WriteLogFile(string content)
+        {
+            string folderPath = @"C:\Users\minhchau.nguyen\Documents\Visual Studio 2022";
+            string fileName = "logs.txt";
+            string fullPath = Path.Combine(folderPath, fileName);
+            try
+            {
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                File.WriteAllText(fullPath, content);
+            }
+            catch (Exception)
+            {
+                //
+            }
+        }
         public static string HextoString(string inputText, Encoding encoding)
         {
             try
