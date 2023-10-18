@@ -1,4 +1,7 @@
-﻿using System;
+﻿using App.PVCFC_RFID.Controller;
+using App.PVCFC_RFID.Controller.ViewModels;
+using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +23,33 @@ namespace App.PVCFC_RFID.Design.XAMLViews
     /// </summary>
     public partial class ucStationStatus : UserControl
     {
-        public int SignalColorId { get; set; }
+        
         public static int StationID { get; set; }
-        public ucStationStatus()
+        public EventHandler checkConnectionEvent;
+        public ucStationStatus(int index)
         {
             InitializeComponent();
-            DataContext = this;
+            DataContext = new StationStatusViewModel(index);
             InitUIParameter();
-            // SignalColorId = 3;
+            checkConnectionEvent?.Invoke(this, EventArgs.Empty);
+        }
+        public void CallbackCommand(Action<StationStatusViewModel> execute)
+        {
+            try
+            {
+                if (DataContext is StationStatusViewModel model)
+                {
+                    execute.Invoke(model);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
         private void InitUIParameter()
         {

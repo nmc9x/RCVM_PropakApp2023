@@ -241,6 +241,7 @@ namespace ML.SDK.DM60X.Controller
         private void DeviceStatusChecking()
         {
             ConnectionEvents.RaiseDeviceStatusChanged(_ConnectionStatus, EventArgs.Empty);
+            CommonFunctions.SetToMemoryFile("mmf_connectStatus_camera" + _SocketIndex, 1, StatusToNum(_ConnectionStatus).ToString()); // mmf
             while (true)
             {
                 try
@@ -298,7 +299,9 @@ namespace ML.SDK.DM60X.Controller
                     {
                         _ConnectionStatus = newStatus;
                         ConnectionEvents.RaiseDeviceStatusChanged(_ConnectionStatus, EventArgs.Empty);
-                        
+                       
+                        CommonFunctions.SetToMemoryFile("mmf_connectStatus_camera" + _SocketIndex, 1, StatusToNum(_ConnectionStatus).ToString()); // mmf
+
 #if DEBUG
                         Console.WriteLine("DeviceStatusChecking: " + newStatus);
 #endif
@@ -318,7 +321,27 @@ namespace ML.SDK.DM60X.Controller
             }
         }
         #endregion
-
+        private int StatusToNum(ConnectionsType.StatusEnum _connSts)
+        {
+            int connectionNumStat;
+            switch (_connSts)
+            {
+                case ConnectionsType.StatusEnum.Connected:
+                    connectionNumStat = 1;
+                    break;
+                case ConnectionsType.StatusEnum.Processing:
+                    connectionNumStat = 2;
+                    break;
+                case ConnectionsType.StatusEnum.DisConnected:
+                    connectionNumStat = 3;
+                    break;
+                case ConnectionsType.StatusEnum.Unknown:
+                default:
+                    connectionNumStat = 0;
+                    break;
+            }
+            return connectionNumStat;
+        }
         #region DM60X Read Data
         private void Results_ComplexResultCompleted(object sender, ComplexResult e)
         {

@@ -16,29 +16,13 @@ using System.Windows.Shapes;
 namespace App.PVCFC_RFID.Design.XAMLViews
 {
     /// <summary>
-    /// Interaction logic for ucCurrentJobs.xaml
+    /// Interaction logic for ucJobItems.xaml
     /// </summary>
-    public partial class ucCurrentJobs : UserControl
+    public partial class ucJobItems : UserControl
     {
-        public static int Index { get; set; }
-
-
-        private string _StationTagName;
-        public string StationTagName
-        {
-            get { return _StationTagName; }
-            set { _StationTagName = value; }
-        }
-
-        public ucCurrentJobs() : this(Index)
+        public ucJobItems()
         {
             InitializeComponent();
-            DataContext = this;
-        }
-        public ucCurrentJobs(int index)
-        {
-            Index = index;
         }
     }
-
 }

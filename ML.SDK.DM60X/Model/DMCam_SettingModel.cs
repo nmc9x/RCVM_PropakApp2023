@@ -14,7 +14,7 @@ namespace ML.SDK.DM60X.Model
         public string DeviceTransferName { get; set; } = "ML.DeviceTransfer.PVCFCDM60X";
         public string IPAddress { get; set; } = "169.254.10.11";
         public string Port { get; set; } = "21";
-        public string SubnetMask { get; set; } = "255.255.0.0";
+        public string SubnetMask { get; set; } = "255.255.255.0";
         public int TriggerTypeIndex { get; set; } = 0;
         public int DelayTypeIndex { get; set; } = 0;
         public int DelayTime { get; set; } = 2000;
@@ -26,8 +26,8 @@ namespace ML.SDK.DM60X.Model
         //public Dictionary<string, bool> SymbolSelecList { get; set; }
         public bool[] SymbolState { get; set; }
 
-        public string PrinterPort { get; set; } = "192.168.15.154";
-        public string PrinterIP { get; set; } = "12500";
+        public string PrinterIP { get; set; } = "192.168.15.152";
+        public string PrinterPort { get; set; } = "12500";
         public DMCam_SettingModel()
         {
             #region Init Par

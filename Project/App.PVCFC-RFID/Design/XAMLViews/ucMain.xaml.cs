@@ -1,4 +1,5 @@
-﻿using System;
+﻿using App.PVCFC_RFID.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,12 +23,13 @@ namespace App.PVCFC_RFID.Design.XAMLViews
     {
         private Point scrollStartPoint;
         private double scrollStartOffset;
-        public static int NumberOfStation = Properties.Settings.Default.NumberOfStation;
+        
         public ucMain()
         {
 
             InitializeComponent();
-            InitUIStationStatus(NumberOfStation);
+            InitUIStationStatus(SharedControlHandler.NumberOfStation);
+            InitDeviceTransferStations();
 
         }
         private void InitUIStationStatus(int numStation)
@@ -35,11 +37,21 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             for (int i = 0; i < numStation; i++)
             {
                 ucStationStatus.StationID = i + 1;
-                var stationStatusUC = new ucStationStatus();
+                var stationStatusUC = new ucStationStatus(i);
                 StackPanelStatus.Children.Add(stationStatusUC);
             }
         }
-
+        private void InitDeviceTransferStations()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                var ucStation = new ucCurrentJobs();
+                StackPanelStation.Children.Add(ucStation);
+            }
+           
+            //SharedControlHandler.KillDeviceTransferBefore();
+            SharedControlHandler.InitDeviceTransfer();
+        }
 
         #region ScrollViewer Status Station
         private void MyScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -87,14 +99,29 @@ namespace App.PVCFC_RFID.Design.XAMLViews
 
         private void HomeClick(object sender, MouseButtonEventArgs e)
         {
-            if ((ucHomePage)FrameContent.Content == null)
-                FrameContent.Content = new ucHomePage();
+            for (int i = 0; i < 4; i++)
+            {
+                var ucStation = new ucCurrentJobs();
+                StackPanelStation.Children.Add(ucStation);
+            }
+            //if ((ucHomePage)FrameContent.Content == null)
+            //    FrameContent.Content = new ucHomePage();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if ((ucHomePage)FrameContent.Content == null)
-                FrameContent.Content = new ucHomePage();
+            //if ((ucHomePage)FrameContent.Content == null)
+            //    FrameContent.Content = new ucHomePage();
+        }
+
+        private void JobItemsClick(object sender, MouseButtonEventArgs e)
+        {
+            StackPanelStation.Children.Clear();
+            //if ((ucHomePage)FrameContent.Content != null)
+            //    FrameContent.Content = null;
+
+            //    if (FrameContent.Content == null)
+            //    FrameContent.Content = new JobsConfig();
         }
     }
 }

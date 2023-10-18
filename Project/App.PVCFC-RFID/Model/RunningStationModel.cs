@@ -1,17 +1,8 @@
-﻿using ML.Common.Enum;
-using ML.DeviceTransfer.PVCFCRFID.Model;
+﻿using ML.DeviceTransfer.PVCFCRFID.Model;
 using ML.SDK.DM60X.Controller;
 using ML.SDK.DM60X.Model;
-using ML.SDK.RDIF_FX9600.Controller;
 using ML.SDK.RDIF_FX9600.Model;
-using System;
-using System.CodeDom;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.PVCFC_RFID.Model
 {

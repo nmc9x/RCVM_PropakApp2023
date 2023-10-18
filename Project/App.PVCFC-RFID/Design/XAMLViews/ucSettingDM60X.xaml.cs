@@ -48,7 +48,6 @@ namespace App.PVCFC_RFID.Design
             {
                 return;
             }
-
         }
         #region Control Event
 

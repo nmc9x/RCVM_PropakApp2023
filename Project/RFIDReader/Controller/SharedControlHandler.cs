@@ -13,6 +13,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data;
+using System.Drawing;
+using System.Linq.Expressions;
 
 namespace App.DevCodeActivatorRFID.Controller
 {
@@ -24,6 +26,7 @@ namespace App.DevCodeActivatorRFID.Controller
         //
          private static Thread _ThreadCheckDeviceTransferAliving;
         private static Thread _ThreadListenDeviceTransferListenning;
+        private static Thread _ThreadListenDeviceTransferMmf;
         //
         private static bool _IsStopThreadRunWhenStarting = false;
         private static DateTime _DatetimeCheckTimeOutScanData = DateTime.Now;
@@ -47,6 +50,13 @@ namespace App.DevCodeActivatorRFID.Controller
             _ThreadListenDeviceTransferListenning.Priority = ThreadPriority.Highest;
             _ThreadListenDeviceTransferListenning.Start();
             //End Run Thread
+
+            #region Memory Map File
+            _ThreadListenDeviceTransferMmf = new Thread(DeviceTransferListenMmf);
+            _ThreadListenDeviceTransferMmf.IsBackground = true;
+            _ThreadListenDeviceTransferMmf.Priority = ThreadPriority.Highest;
+            _ThreadListenDeviceTransferMmf.Start();
+            #endregion
 
             #region Run Stations - Device transfer
             for (int i = 0; i < SharedValues.Running.NumberOfStation; i++)
@@ -76,6 +86,21 @@ namespace App.DevCodeActivatorRFID.Controller
             }
             #endregion//End Run Stations - Device transfers
             #endregion//End Station
+        }
+
+        private static void DeviceTransferListenMmf()
+        {
+            try
+            {
+                while (true)
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         public static void KillDeviceTransfer(int index = -1)

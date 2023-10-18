@@ -19,19 +19,19 @@ namespace ML.DeviceTransfer.PVCFCDM60X
             try
             {
 #if DEBUG
-                args = new string[12];
-                args[0] = "ML.DeviceTransfer.PVCFCDM60X"; // socketName
-                args[1] = "0";                                // socketIndex
-                args[2] = "20400";                            // uiSocketPort
-                args[3] = "20401";                            // bridgeSocketPort
-                args[4] = "169.254.10.11";                    // deviceIP
-                args[5] = "21";                             // port
-                args[6] = "0";                                // timeout
-                //args[7] = "http://113.163.69.8";              // Link API
-                //args[8] = "9594";                             // port
-                //args[9] = "true";                                // isOffline
-                args[7] = "192.168.15.154"; // Printer IP
-                args[8] = "12500"; // Printer Port
+                //args = new string[12];
+                //args[0] = "ML.DeviceTransfer.PVCFCDM60X"; // socketName
+                //args[1] = "0";                                // socketIndex
+                //args[2] = "20400";                            // uiSocketPort
+                //args[3] = "20401";                            // bridgeSocketPort
+                //args[4] = "169.254.10.11";                    // deviceIP
+                //args[5] = "21";                             // port
+                //args[6] = "0";                                // timeout
+                ////args[7] = "http://113.163.69.8";              // Link API
+                ////args[8] = "9594";                             // port
+                ////args[9] = "true";                                // isOffline
+                //args[7] = "192.168.15.154"; // Printer IP
+                //args[8] = "12500"; // Printer Port
 #endif
 
                 #region Arguments

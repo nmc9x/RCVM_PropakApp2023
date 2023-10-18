@@ -1,14 +1,11 @@
 ﻿using ML.Common.Controller;
 using ML.Connections.Controller;
-using ML.Connections.DataType;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,6 +36,9 @@ namespace ML.SDK.PRINTER.Controller
             _Port = port;
             _SocketIndex = socketIndex;
 
+#if DEBUG
+            Console.WriteLine($"Printer IP: {_IP}, Port: {_Port}, SocketIndex: {_SocketIndex}");
+#endif
 
             //Thread checking status
             _ThreadDeviceStatusChecking = new Thread(DeviceStatusChecking)
@@ -165,7 +165,7 @@ namespace ML.SDK.PRINTER.Controller
             catch
             {
 #if DEBUG
-                Console.WriteLine("PingIP ERROR: You have Some TIMEOUT issue");
+                Console.WriteLine($"Printer PingIP ERROR : {_IP}");
 #endif
             }
             return IPStatus.Unknown;
@@ -342,20 +342,12 @@ namespace ML.SDK.PRINTER.Controller
 
         private void DeviceStatusChecking()
         {
-
             int oldConnectionSts;
             int newConnectedSts;
-            string tempRes;
             while (true)
             {
                 oldConnectionSts = _ConnectionStatus;
-                CommonFunctions.GetFromMemoryFile("mmf_conn_" + _SocketIndex, 1, out string res, out _);
-                if (res != null)
-                {
-                    tempRes = res.ToString();
-                    Console.WriteLine(tempRes);
-                }
-
+                CommonFunctions.SetToMemoryFile("mmf_connectStatus_printer" + _SocketIndex, 1, _ConnectionStatus.ToString());
                 var printerConnSts = PingIP();
                 if (printerConnSts == IPStatus.Success)
                 {
@@ -363,12 +355,12 @@ namespace ML.SDK.PRINTER.Controller
                 }
                 else
                 {
-                    newConnectedSts = 0;
+                    newConnectedSts = 3;
                 }
                 if (oldConnectionSts != newConnectedSts)
                 {
                     _ConnectionStatus = newConnectedSts;
-                    CommonFunctions.SetToMemoryFile("mmf_conn_" + _SocketIndex, 1, _ConnectionStatus.ToString());
+                    CommonFunctions.SetToMemoryFile("mmf_connectStatus_printer" + _SocketIndex, 1, _ConnectionStatus.ToString());
                 }
                 Thread.Sleep(1000);
             }

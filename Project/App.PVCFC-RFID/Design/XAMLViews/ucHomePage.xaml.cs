@@ -1,5 +1,7 @@
-﻿using System;
+﻿using App.PVCFC_RFID.Controller;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,12 +29,20 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             get { return _Index; }
             set { _Index = value; }
         }
+        private ObservableCollection<string> _ItemStation = new ObservableCollection<string>();
+        public ObservableCollection<string> ItemStation
+        {
+            get => _ItemStation;
+            set { _ItemStation = value; }   
+        }
+
+        
 
         public ucHomePage()
         {
             InitializeComponent();
             DataContext = this;
-            CreateItemJob(12);
+            CreateItemJob(SharedControlHandler.NumberOfStation);
             Index = "2";
         }
 
@@ -42,13 +52,13 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             {
                 //create
                 ucCurrentJobs.Index = i;
-                ucCurrentJobs job = new ucCurrentJobs();
-                Grid grid1 = new Grid();
+                var job = new ucCurrentJobs();
+                job.StationTagName = "Station " + (i+1).ToString();
+                var grid1 = new Grid();
                 grid1.Children.Add(job);
                 grid1.MouseUp += Grid1_MouseUp;
                 StackPanelJob.Children.Add(grid1);
-                // Add to combobox
-                ComboBoxItemJob.Items.Add("Station " + (i + 1));
+                ItemStation.Add("Station " + (i + 1));
             }
         }
 

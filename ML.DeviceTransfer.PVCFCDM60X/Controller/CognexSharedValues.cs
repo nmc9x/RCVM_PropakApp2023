@@ -21,7 +21,7 @@ namespace ML.DeviceTransfer.PVCFCDM60X.Controller
         public static int SendPort = 20400;
 
         //Printer
-        public static string PrinterIP = "192.168.15.154";
+        public static string PrinterIP = "192.168.15.152";
         public static string PrinterPort = "12500";
         
 

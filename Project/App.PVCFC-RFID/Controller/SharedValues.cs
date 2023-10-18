@@ -13,7 +13,7 @@ namespace App.PVCFC_RFID.Controller
     {
         public static string DisShInfoPath = "";
         //
-        public static RunningModel Running = new RunningModel(2); //Properties.Settings.Default.NumberOfStation
+        public static RunningModel Running = new RunningModel(SharedControlHandler.NumberOfStation); //Properties.Settings.Default.NumberOfStation
         public static SettingsModel Settings = new SettingsModel();
         public static ConnectionDatabase DatabaseObj = new ConnectionDatabase();
     }

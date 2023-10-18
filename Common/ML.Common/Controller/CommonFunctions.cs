@@ -456,9 +456,9 @@ namespace ML.Common.Controller
                 processInfo = new ProcessStartInfo(fullPath);
                 processInfo.Arguments = arguments;
                 processInfo.Verb = "runas";//Run as administrators => Thử với máy anh LÝ => Linh add on 04/10/2017
-                processInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                processInfo.WindowStyle = ProcessWindowStyle.Hidden;
 #if DEBUG
-                processInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                processInfo.WindowStyle = ProcessWindowStyle.Normal;
 #endif
                 //
                 process = new System.Diagnostics.Process();

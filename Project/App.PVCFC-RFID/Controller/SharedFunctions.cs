@@ -48,13 +48,13 @@ namespace App.PVCFC_RFID.Controller
         {
             try
             {
-                int numberOfStations = 2; //MinhChau09102323 Properties.Settings.Default.NumberOfStation
+                int numberOfStations = SharedControlHandler.NumberOfStation;
                 //String path = settingsPath + "Settings\\";
                 string fullPath = GetSettingsName();
                 //
                 var loadSettings = SettingsModel.LoadSetting(fullPath);
                 //
-                if (loadSettings.StationList == null)
+                if (loadSettings.StationList != null)
                 {
                     loadSettings.StationList = new List<SettingsStationModel>(numberOfStations);
                 }

@@ -38,6 +38,7 @@ namespace App.PVCFC_RFID.Controller
         private static DateTime _DatetimeCheckTimeOutScanData = DateTime.Now;
         public static readonly object LockObject = new object();
         //
+        public static int NumberOfStation = Properties.Settings.Default.NumberOfStation;
         public static void InitDeviceTransfer()
         {
             #region Thread check alive device transfer
@@ -61,9 +62,9 @@ namespace App.PVCFC_RFID.Controller
             _ThreadListenDeviceTransferListenning.Priority = ThreadPriority.Highest;
             _ThreadListenDeviceTransferListenning.Start();
             //End Run Thread
-            StationType[] stationSet = { StationType.COGNEX_DATAMAN, StationType.COGNEX_DATAMAN };
+            StationType[] stationSet = { StationType.COGNEX_DATAMAN, StationType.COGNEX_DATAMAN, StationType.COGNEX_DATAMAN, StationType.COGNEX_DATAMAN };
             #region Run Stations - Device transfer
-            for (int i = 0; i < SharedValues.Running.NumberOfStation; i++)
+            for (int i = 0; i < NumberOfStation; i++)
             {
                 //string socketName = Properties.Settings.Default.DeviceTransferName;
                 var stationType = stationSet[i];

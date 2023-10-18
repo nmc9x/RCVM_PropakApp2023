@@ -17,14 +17,14 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             switch (number)
             {
                 case 1:
-                    return new SolidColorBrush(Colors.Green); ;
+                    return new SolidColorBrush(Colors.Green); // connected
                 case 2:
-                    return new SolidColorBrush(Colors.Yellow); ;
+                    return new SolidColorBrush(Colors.Yellow); // processing
                 case 3:
-                    return new SolidColorBrush(Colors.Red); ;
+                    return new SolidColorBrush(Colors.Red); // disconnected
                 case 0:
                 default:
-                    return new SolidColorBrush(Colors.Gray); ;
+                    return new SolidColorBrush(Colors.Gray); // unknown
             }
         }
 

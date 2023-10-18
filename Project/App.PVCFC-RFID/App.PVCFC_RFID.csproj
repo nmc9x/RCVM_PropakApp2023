@@ -121,6 +121,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\ViewModels\StationStatusViewModel.cs" />
     <Compile Include="Design\MainPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -201,11 +202,17 @@
     <Compile Include="Design\ucSettingAccounts.Designer.cs">
       <DependentUpon>ucSettingAccounts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Design\XAMLViews\JobsConfig.xaml.cs">
+      <DependentUpon>JobsConfig.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Design\XAMLViews\ucCurrentJobs.xaml.cs">
       <DependentUpon>ucCurrentJobs.xaml</DependentUpon>
     </Compile>
     <Compile Include="Design\XAMLViews\ucHomePage.xaml.cs">
       <DependentUpon>ucHomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Design\XAMLViews\ucJobItems.xaml.cs">
+      <DependentUpon>ucJobItems.xaml</DependentUpon>
     </Compile>
     <Compile Include="Design\XAMLViews\ucMain.xaml.cs">
       <DependentUpon>ucMain.xaml</DependentUpon>
@@ -600,11 +607,19 @@
     <None Include="Resources\gif-load.gif" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Design\XAMLViews\JobsConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Design\XAMLViews\ucCurrentJobs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Design\XAMLViews\ucHomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Design\XAMLViews\ucJobItems.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
