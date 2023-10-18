@@ -11,6 +11,7 @@ using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.Remoting.Channels;
+using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
 using static ML.SDK.DM60X.DataType.DM60XDataType;
@@ -241,7 +242,10 @@ namespace ML.SDK.DM60X.Controller
         private void DeviceStatusChecking()
         {
             ConnectionEvents.RaiseDeviceStatusChanged(_ConnectionStatus, EventArgs.Empty);
-            CommonFunctions.SetToMemoryFile("mmf_connectStatus_camera" + _SocketIndex, 1, StatusToNum(_ConnectionStatus).ToString()); // mmf
+            var mmf = new MemoryMapHelper("mmf_connectStatus_camera" + _SocketIndex, 1);
+            mmf.WriteData(Encoding.ASCII.GetBytes(StatusToNum(_ConnectionStatus).ToString()),0);
+            var test = mmf.ReadData(0, 1);
+           // CommonFunctions.SetToMemoryFile("mmf_connectStatus_camera" + _SocketIndex, 1, StatusToNum(_ConnectionStatus).ToString()); // mmf
             while (true)
             {
                 try
@@ -299,8 +303,8 @@ namespace ML.SDK.DM60X.Controller
                     {
                         _ConnectionStatus = newStatus;
                         ConnectionEvents.RaiseDeviceStatusChanged(_ConnectionStatus, EventArgs.Empty);
-                       
-                        CommonFunctions.SetToMemoryFile("mmf_connectStatus_camera" + _SocketIndex, 1, StatusToNum(_ConnectionStatus).ToString()); // mmf
+                        mmf.WriteData(Encoding.ASCII.GetBytes(StatusToNum(_ConnectionStatus).ToString()), 0);
+                        //CommonFunctions.SetToMemoryFile("mmf_connectStatus_camera" + _SocketIndex, 1, StatusToNum(_ConnectionStatus).ToString()); // mmf
 
 #if DEBUG
                         Console.WriteLine("DeviceStatusChecking: " + newStatus);

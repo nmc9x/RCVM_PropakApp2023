@@ -547,9 +547,12 @@ namespace ML.Common.Controller
         }
         #endregion//End Device transfer
 
+
+
         #region Memory Mapping File
         public static void SetToMemoryFile(string mapName, long capacity, string dataString, byte[] dataBytes = null)
         {
+
             using (var mutexSync = new Mutex(true, "MMFMutex", out bool mutexCreated))
             {
                 try
@@ -594,12 +597,14 @@ namespace ML.Common.Controller
                 }
             }
         }
-        
-       
+
+
         public static void GetFromMemoryFile(string mapName, long capacity, out string dataString, out byte[] dataBytes)
         {
             dataString = null;
             dataBytes = null;
+
+
             using (var mutexSync = new Mutex(false, "MMFMutex"))
             {
                 try

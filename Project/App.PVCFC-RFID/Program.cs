@@ -1,5 +1,6 @@
 ﻿using App.PVCFC_RFID.Controller;
 using App.PVCFC_RFID.Design;
+using App.PVCFC_RFID.Design.XAMLViews;
 using ML.AccountManagements.Controller;
 using ML.AccountManagements.Design;
 using ML.Common.Controller;

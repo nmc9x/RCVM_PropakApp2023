@@ -126,6 +126,8 @@
                
                 <!--<Frame x:Name="FrameContent" />-->
             </Grid>
+            
+            <!--Footer-->
             <Grid
                 x:Name="GridFooter"
                 Grid.Row="2"

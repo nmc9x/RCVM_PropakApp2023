@@ -1,18 +1,13 @@
 ﻿using App.PVCFC_RFID.Controller;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ControlzEx.Theming;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+
 
 namespace App.PVCFC_RFID.Design.XAMLViews
 {
@@ -21,9 +16,24 @@ namespace App.PVCFC_RFID.Design.XAMLViews
     /// </summary>
     public partial class ucMain : UserControl
     {
-        private Point scrollStartPoint;
+        private System.Windows.Point scrollStartPoint;
         private double scrollStartOffset;
-        
+        private int _StatusCamera;
+
+        public int StatusCamera
+        {
+            get { return _StatusCamera; }
+            set { _StatusCamera = value; }
+        }
+        private int _StatusPrinter;
+
+        public int StatusPrinter
+        {
+            get { return _StatusPrinter; }
+            set { _StatusPrinter = value; }
+        }
+        //private Thread _ThreadCheckStatusConnection = null;
+
         public ucMain()
         {
 
@@ -41,16 +51,40 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                 StackPanelStatus.Children.Add(stationStatusUC);
             }
         }
+
+        private void GridCover_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var clickedGrid = sender as Grid;
+            if (clickedGrid != null)
+            {
+                foreach (var child in StackPanelStation.Children)
+                {
+                    if (child is Grid grid)
+                    {
+                        grid.Background = System.Windows.Media.Brushes.Transparent;
+                    }
+                }
+                clickedGrid.Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#e3b330"));
+            }
+        }
+
         private void InitDeviceTransferStations()
         {
             for (int i = 0; i < 4; i++)
             {
                 var ucStation = new ucCurrentJobs();
-                StackPanelStation.Children.Add(ucStation);
+                var gridCover = new Grid();
+                gridCover.Background = System.Windows.Media.Brushes.Red;
+                gridCover.Name = "GridCover" + i;
+                gridCover.Children.Add(ucStation);
+                gridCover.MouseLeftButtonDown += GridCover_MouseLeftButtonDown;
+                StackPanelStation.Children.Add(gridCover);
+               
             }
            
             //SharedControlHandler.KillDeviceTransferBefore();
             SharedControlHandler.InitDeviceTransfer();
+
         }
 
         #region ScrollViewer Status Station
@@ -123,5 +157,6 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             //    if (FrameContent.Content == null)
             //    FrameContent.Content = new JobsConfig();
         }
+        
     }
 }

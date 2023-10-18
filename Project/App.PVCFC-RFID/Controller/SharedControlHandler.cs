@@ -320,7 +320,6 @@ namespace App.PVCFC_RFID.Controller
                         MessageBox.Show("DeviceTransferProcessMessages: " + ex.Message);
 #endif
                     }
-
                 }
                 System.Threading.Thread.Sleep(1);
             }

@@ -1,6 +1,8 @@
 ﻿using ML.Common.Controller;
 using System;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace App.PVCFC_RFID.Controller.ViewModels
 {
@@ -11,6 +13,7 @@ namespace App.PVCFC_RFID.Controller.ViewModels
         public static EventHandler CheckStatusEvent = null;
         private Thread _ThreadCheckStatusConnection;
         public static int Index { get; set; }
+        private int _Index;
 
         #region DataBinding
         private int _StatusPrinter;
@@ -35,43 +38,46 @@ namespace App.PVCFC_RFID.Controller.ViewModels
 
         public StationStatusViewModel(int index)
         {
-            //Status Checking Thread
-            _ThreadCheckStatusConnection = new Thread(new ParameterizedThreadStart(StatusChecking));
+            _Index = index;
+            _ThreadCheckStatusConnection = new Thread(StatusChecking);
             _ThreadCheckStatusConnection.IsBackground = true;
-            _ThreadCheckStatusConnection.Start(index);
-
+            _ThreadCheckStatusConnection.Start();
         }
       
 
-        private void StatusChecking(object index)
+        private void StatusChecking()
         {
             try
             {
-                while(true)
+                while (true)
                 {
-                    CommonFunctions.GetFromMemoryFile("mmf_connectStatus_printer" + index, 1, out string status_printer, out _);
-                    if(status_printer != null)
-                    switch (int.Parse(status_printer))
-                    {
-                        case 0:
-                            StatusPrinter = 0;
-                            break;
-                        case 1:
-                            StatusPrinter = 1;
-                            break;
-                        case 2:
-                            StatusPrinter = 2;
-                            break;
-                        case 3:
-                            StatusPrinter = 3;
-                            break;
-                        default:
-                            break;
-                    }
+                    var mmfPrint = new MemoryMapHelper("mmf_connectStatus_printer" + _Index, 1);
+                    var status_printer = Encoding.ASCII.GetString(mmfPrint.ReadData(0, 1));
+               
+                    if (status_printer != null && status_printer != "\0")
+                        switch (int.Parse(status_printer))
+                        {
+                            case 0:
+                                StatusPrinter = 0;
+                                break;
+                            case 1:
+                                StatusPrinter = 1;
+                                break;
+                            case 2:
+                                StatusPrinter = 2;
+                                break;
+                            case 3:
+                                StatusPrinter = 3;
+                                break;
+                            default:
+                                break;
+                        }
 
-                    //mmf_connectStatus_camera
-                    CommonFunctions.GetFromMemoryFile("mmf_connectStatus_camera" + index, 1, out string status_camera, out _);
-                    if (status_camera != null)
+
+                    var mmfCam = new MemoryMapHelper("mmf_connectStatus_camera" + _Index, 1);
+                    var status_camera = Encoding.ASCII.GetString(mmfCam.ReadData(0, 1));
+
+                    if (status_camera != null && status_camera != "\0")
                         switch (int.Parse(status_camera))
                         {
                             case 0:
@@ -89,13 +95,13 @@ namespace App.PVCFC_RFID.Controller.ViewModels
                             default:
                                 break;
                         }
-                    Thread.Sleep(10);
+                    Thread.Sleep(1000);
                 }
             }
             catch (Exception)
             {
 
-                
+
             }
         }
 
