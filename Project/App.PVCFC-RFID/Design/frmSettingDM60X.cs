@@ -11,7 +11,7 @@ namespace App.PVCFC_RFID.Design
         }
         public frmSettingDM60X(int index)
         {
-            App.PVCFC_RFID.Design.ucSettingDM60X.Index = index;
+            ucSettingDM60X.Index = index;
             InitializeComponent();
             
         }

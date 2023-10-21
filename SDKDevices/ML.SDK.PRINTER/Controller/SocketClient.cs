@@ -12,11 +12,6 @@ namespace ML.SDK.PRINTER.Controller
         
 
        
-        public abstract bool Connect();
-        public abstract Task Send(string message);
-        public abstract string Receive();
-        public abstract Task StopPrinting();
-        public abstract Task StartAndLoadData();
-        public abstract void Disconnect();
+    
     }
 }

@@ -121,6 +121,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\ViewModels\MainTabViewModel.cs" />
     <Compile Include="Controller\ViewModels\StationStatusViewModel.cs" />
     <Compile Include="Design\MainPage.cs">
       <SubType>Form</SubType>
@@ -128,6 +129,13 @@
     <Compile Include="Design\MainPage.Designer.cs">
       <DependentUpon>MainPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Design\puGood.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\puGood.Designer.cs">
+      <DependentUpon>puGood.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\XAMLViews\Converters\NumberToVisibilityConverter.cs" />
     <Compile Include="Design\XAMLViews\Converters\NumToColorConverter.cs" />
     <Compile Include="Controller\ViewModels\SettingViewModel.cs" />
     <Compile Include="Controller\SharedControlHandler.cs" />
@@ -166,12 +174,6 @@
     <Compile Include="Design\frmTrigger.designer.cs">
       <DependentUpon>frmTrigger.cs</DependentUpon>
     </Compile>
-    <Compile Include="Design\frmTriggerFormDM.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Design\frmTriggerFormDM.Designer.cs">
-      <DependentUpon>frmTriggerFormDM.cs</DependentUpon>
-    </Compile>
     <Compile Include="Design\frmWebView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -202,14 +204,11 @@
     <Compile Include="Design\ucSettingAccounts.Designer.cs">
       <DependentUpon>ucSettingAccounts.cs</DependentUpon>
     </Compile>
-    <Compile Include="Design\XAMLViews\JobsConfig.xaml.cs">
-      <DependentUpon>JobsConfig.xaml</DependentUpon>
+    <Compile Include="Design\XAMLViews\PopupGood.xaml.cs">
+      <DependentUpon>PopupGood.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Design\XAMLViews\ucCurrentJobs.xaml.cs">
-      <DependentUpon>ucCurrentJobs.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Design\XAMLViews\ucHomePage.xaml.cs">
-      <DependentUpon>ucHomePage.xaml</DependentUpon>
+    <Compile Include="Design\XAMLViews\ucCurrentStation.xaml.cs">
+      <DependentUpon>ucCurrentStation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Design\XAMLViews\ucJobItems.xaml.cs">
       <DependentUpon>ucJobItems.xaml</DependentUpon>
@@ -259,8 +258,8 @@
     <Compile Include="Design\XAMLViews\ucStationStatus.xaml.cs">
       <DependentUpon>ucStationStatus.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Design\XAMLViews\ucTriggerView.xaml.cs">
-      <DependentUpon>ucTriggerView.xaml</DependentUpon>
+    <Compile Include="Design\XAMLViews\ucTrigger.xaml.cs">
+      <DependentUpon>ucTrigger.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\RunningModel.cs" />
     <Compile Include="Model\SettingsModel.cs" />
@@ -301,14 +300,14 @@
     <EmbeddedResource Include="Design\frmTrigger.resx">
       <DependentUpon>frmTrigger.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Design\frmTriggerFormDM.resx">
-      <DependentUpon>frmTriggerFormDM.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Design\frmWebView.resx">
       <DependentUpon>frmWebView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Design\MainPage.resx">
       <DependentUpon>MainPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\puGood.resx">
+      <DependentUpon>puGood.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Design\ucAbout.resx">
       <DependentUpon>ucAbout.cs</DependentUpon>
@@ -607,15 +606,11 @@
     <None Include="Resources\gif-load.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Design\XAMLViews\JobsConfig.xaml">
+    <Page Include="Design\XAMLViews\PopupGood.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Design\XAMLViews\ucCurrentJobs.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Design\XAMLViews\ucHomePage.xaml">
+    <Page Include="Design\XAMLViews\ucCurrentStation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -639,7 +634,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Design\XAMLViews\ucTriggerView.xaml">
+    <Page Include="Design\XAMLViews\ucTrigger.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

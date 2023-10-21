@@ -20,7 +20,7 @@ namespace ML.SDK.Transfer
         private string _SocketName = "";
         private int _SocketIndex = 0;
         private int _UISocketPort = 20400;//Printer: 10400; BarcodeReader: 10410
-        private int _BridgeSocketPort = 20401;
+        private int _StationSocketPort = 20401;
         //
         private int _SendPort = 20400;
         private Thread _ThreadUIListenning;
@@ -33,18 +33,18 @@ namespace ML.SDK.Transfer
             _SocketIndex = socketIndex;
         }
 
-        public void Connect(string socketName, int socketIndex, int socketPort, int uiSocketPort)
+        public void Connect(string devTransName, int socketIndex, int stationSocketPort, int uiSocketPort)
         {
-            _SocketName = socketName;
+            _SocketName = devTransName;
             _SocketIndex = socketIndex;
-            _BridgeSocketPort = socketPort;
+            _StationSocketPort = stationSocketPort;
             _UISocketPort = uiSocketPort;
             //
 #if DEBUG
-            Console.WriteLine("_SocketName: " + _SocketName.ToString());
-            Console.WriteLine("_SocketIndex: " + _SocketIndex.ToString());
-            Console.WriteLine("_UISocketPort: " + _UISocketPort.ToString());
-            Console.WriteLine("_BridgeSocketPort: " + _BridgeSocketPort.ToString());
+            Console.WriteLine("Device Transfer Name: " + _SocketName.ToString());
+            Console.WriteLine("Socket Index: " + _SocketIndex.ToString());
+            Console.WriteLine("Station Socket Port: " + _StationSocketPort.ToString());
+            Console.WriteLine("UI Socket Port: " + _UISocketPort.ToString()+"\n");
 #endif
             //
             ConnectionEvents.DeviceStatusChanged+=ConnectionEvents_DeviceStatusChanged;
@@ -87,9 +87,9 @@ namespace ML.SDK.Transfer
         private void UISocketListenning()
         {
 #if DEBUG
-            Console.WriteLine("Listen port: " + _BridgeSocketPort.ToString());
+           // Console.WriteLine("Listen port: " + _BridgeSocketPort.ToString());
 #endif
-            UdpClient socketManager = new UdpClient(_BridgeSocketPort);
+            UdpClient socketManager = new UdpClient(_StationSocketPort);
             IPEndPoint remoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
             while (true)
             {
@@ -149,7 +149,7 @@ namespace ML.SDK.Transfer
                 catch { }
                 udpClient.Close();
 #if DEBUG
-                Console.WriteLine("Send to UI (HEX): " + BitConverter.ToString(commandBytes, 0, commandBytes.Length) + "\n");
+               // Console.WriteLine("Send to UI (HEX): " + BitConverter.ToString(commandBytes, 0, commandBytes.Length) + "\n");
 #endif
 
             });
@@ -174,7 +174,7 @@ namespace ML.SDK.Transfer
                 //
                 SendCommandToUI(command);
 #if DEBUG
-                Console.WriteLine("SW UI: " + "SendDeviceStatusToUI" + "-" + status.ToString());
+               // Console.WriteLine("SW UI: " + "SendDeviceStatusToUI" + "-" + status.ToString());
                 /*
                 if (byteArr[0] == 0x05)
                 {

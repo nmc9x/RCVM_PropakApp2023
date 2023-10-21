@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,26 +13,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace App.PVCFC_RFID.Design.XAMLViews
+namespace App.PVCFC_RFID.Design
 {
     /// <summary>
-    /// Interaction logic for ucJobItems.xaml
+    /// Interaction logic for PopupGood.xaml
     /// </summary>
-    public partial class ucJobItems : UserControl
+    public partial class PopupGood : UserControl
     {
-     
-        public static int Index { get; set; }
-        private int _Index { get; set; }
-        public ucJobItems(): this(Index)
+        public PopupGood(int index, string title = "Detail View")
         {
             InitializeComponent();
+            LabelTitle.Content = title;
         }
 
-        public ucJobItems(int index)
+        private void DataGrid1_Loaded(object sender, RoutedEventArgs e)
         {
-            _Index = index;
+
         }
 
-        
+        private void DataGrid1_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+
+        }
     }
 }

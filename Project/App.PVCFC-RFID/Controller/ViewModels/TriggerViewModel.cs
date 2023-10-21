@@ -41,7 +41,7 @@ namespace App.PVCFC_RFID.Controller
         {
             CustomEvt?.Invoke(this, e);
         }
-        public TriggerViewModel()
+        public TriggerViewModel(int index)
         {
             SharedControlHandler._dispatcher = Dispatcher.CurrentDispatcher;
             SharedControlHandler._dispatcher?.Invoke(() =>
@@ -64,14 +64,14 @@ namespace App.PVCFC_RFID.Controller
             
             SharedControlHandler._dispatcher?.Invoke(() =>
             {
-                CommonFunctions.GetFromMemoryFile("mmf_ImageByteLength", 5, out _, out byte[] lengthData);
-                var len = int.Parse(Encoding.ASCII.GetString(lengthData));
-                CommonFunctions.GetFromMemoryFile("mmf_ImageTrigger", len, out _, out byte[] imageData);
-               
-                if (imageData != null)
-                {
-                    ImgSrc = CommonFunctions.ByteArrayToBitmapImage(imageData);
-                }
+                //CommonFunctions.GetFromMemoryFile("mmf_ImageByteLength", 5, out _, out byte[] lengthData);
+                //var len = int.Parse(Encoding.ASCII.GetString(lengthData));
+                //CommonFunctions.GetFromMemoryFile("mmf_ImageTrigger", len, out _, out byte[] imageData);
+
+                //if (imageData != null)
+                //{
+                //    ImgSrc = CommonFunctions.ByteArrayToBitmapImage(imageData);
+                //}
                 CodeList = new ObservableCollection<GotCodeModel>(SharedValues.Running.StationList[(int)sender].DataRawList);
             });
             

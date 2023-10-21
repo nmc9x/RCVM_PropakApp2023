@@ -3,49 +3,24 @@ using System;
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Media;
-using Button = System.Windows.Controls.Button;
-using UserControl = System.Windows.Controls.UserControl;
 
 namespace App.PVCFC_RFID.Design.XAMLViews
 {
     /// <summary>
-    /// Interaction logic for ucTriggerView.xaml
+    /// Interaction logic for ucTrigger.xaml
     /// </summary>
-    public partial class ucTriggerView : UserControl
+    public partial class ucTrigger : UserControl
     {
-        public static int Index { get; set; }
-        public ucTriggerView():this(Index){}
-        public ucTriggerView(int index)
+        public ucTrigger(int index)
         {
             InitializeComponent();
-            DataContext = new TriggerViewModel();
+            DataContext = new TriggerViewModel(index);
             if (DataContext is TriggerViewModel trgm)
             {
                 trgm.Index = index;
             }
             TriggerViewModel.CustomEvt += DataGridItemsChanged;
-        }
-
-        private void DataGridItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (DataGrid1.Items.Count > 0)
-            {
-                var border = VisualTreeHelper.GetChild(DataGrid1, 0) as Decorator;
-                if (border != null)
-                {
-                    var scroll = border.Child as ScrollViewer;
-                    if (scroll != null) scroll.ScrollToEnd();
-                }
-            }
-        }
-
-      
-
-        public void NotifyFormClosing()
-        {
-            CallbackCommand(vm=>vm.CloseForm());    
         }
         public void CallbackCommand(Action<TriggerViewModel> execute)
         {
@@ -66,11 +41,25 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             }
 
         }
-        private void DataGrid1_LoadingRow(object sender, DataGridRowEventArgs e)
+        //Event 
+        public void NotifyFormClosing()
         {
-            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            CallbackCommand(vm => vm.CloseForm());
         }
+        //Data Grid
 
+        private void DataGridItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (DataGrid1.Items.Count > 0)
+            {
+                var border = VisualTreeHelper.GetChild(DataGrid1, 0) as Decorator;
+                if (border != null)
+                {
+                    var scroll = border.Child as ScrollViewer;
+                    if (scroll != null) scroll.ScrollToEnd();
+                }
+            }
+        }
         private void ControlDataGridButton_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
@@ -101,17 +90,6 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                 default: break;
             }
         }
-
-        private void ClearDataGrid_Click(object sender, RoutedEventArgs e)
-        {
-            CallbackCommand(vm => vm.ClearDataRawList());
-        }
-
-        private void TriggerClick(object sender, RoutedEventArgs e)
-        {
-            CallbackCommand(vm => vm.SoftwareTrigger());
-        }
-
         private void DataGrid1_Loaded(object sender, RoutedEventArgs e)
         {
             if (DataGrid1.Items.Count > 0)
@@ -119,6 +97,20 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                 var lastItem = DataGrid1.Items[DataGrid1.Items.Count - 1];
                 DataGrid1.ScrollIntoView(lastItem);
             }
+        }
+        private void DataGrid1_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        }
+
+        // COntrol
+        private void TriggerClick(object sender, RoutedEventArgs e)
+        {
+            CallbackCommand(vm => vm.SoftwareTrigger());
+        }
+        private void ClearDataGrid_Click(object sender, RoutedEventArgs e)
+        {
+            CallbackCommand(vm => vm.ClearDataRawList());
         }
     }
 }

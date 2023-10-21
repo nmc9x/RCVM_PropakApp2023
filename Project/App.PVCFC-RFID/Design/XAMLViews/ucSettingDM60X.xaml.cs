@@ -16,7 +16,6 @@ namespace App.PVCFC_RFID.Design
     {
         #region Properties
         private static readonly string IPv4Pattern = @"^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
-
         public static int Index { get; set; }
         #endregion
 

@@ -13,6 +13,7 @@ using ML.LoggingControls.View;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -31,10 +32,12 @@ namespace App.PVCFC_RFID.Design
         //
         private frmSyncDataWithServer _FrmSyncData = null;
         private frmViewLogs _FrmViewLogs = null;
+        public static int HeightFrm;
         #endregion//End Properties
 
         public frmMain()
         {
+            this.SizeChanged += FrmMain_SizeChanged;
             ControlFunctions.ShowLoading(new Point(0, 0), new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
             InitializeComponent();
             //
@@ -44,6 +47,11 @@ namespace App.PVCFC_RFID.Design
             InitData();
             InitStations();
             InitDebug();
+        }
+
+        private void FrmMain_SizeChanged(object sender, EventArgs e)
+        {
+            HeightFrm = this.Height;
         }
 
         #region Inits
@@ -698,9 +706,9 @@ namespace App.PVCFC_RFID.Design
                             //MinhChau05102023
                             //frmTrigger frm = new frmTrigger(tuple.Item1, SharedValues.Running.DetailsFormLocations, SharedValues.Running.DetailsFormSize);
                             //frm.ShowDialog(); 
-                            var frmTrigger = new frmTriggerFormDM(tuple.Item1);
+                            //var frmTrigger = new frmTriggerFormDM(tuple.Item1);
                            
-                            frmTrigger.ShowDialog();
+                            //frmTrigger.ShowDialog();
                             break;
                     }
                 }

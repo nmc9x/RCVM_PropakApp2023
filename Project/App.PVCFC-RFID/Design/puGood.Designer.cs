@@ -1,6 +1,6 @@
 ﻿namespace App.PVCFC_RFID.Design
 {
-    partial class frmTriggerFormDM
+    partial class puGood
     {
         /// <summary>
         /// Required designer variable.
@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.ucTriggerView = new App.PVCFC_RFID.Design.XAMLViews.ucTriggerView();
-           
             this.SuspendLayout();
             // 
             // elementHost1
@@ -38,26 +36,25 @@
             this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.elementHost1.Location = new System.Drawing.Point(0, 0);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(1264, 681);
+            this.elementHost1.Size = new System.Drawing.Size(800, 450);
             this.elementHost1.TabIndex = 0;
             this.elementHost1.Text = "elementHost1";
-            this.elementHost1.Child = this.ucTriggerView;
+            this.elementHost1.Child = null;
             // 
-            // frmTriggerFormDM
+            // puGood
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.elementHost1);
-            this.Name = "frmTriggerFormDM";
-            this.Text = "frmTriggerFormDM";
+            this.Name = "puGood";
+            this.Text = "puGood";
             this.ResumeLayout(false);
 
         }
 
-        private System.Windows.Forms.Integration.ElementHost elementHost1;
         #endregion
-        private XAMLViews.ucTriggerView ucTriggerView;
 
+        private System.Windows.Forms.Integration.ElementHost elementHost1;
     }
 }

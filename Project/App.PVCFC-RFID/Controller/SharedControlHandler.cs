@@ -9,7 +9,6 @@ using ML.SDK.DM60X.Model;
 using ML.SDK.RDIF_FX9600.DataType;
 using System;
 using System.Collections.Concurrent;
-using System.Drawing.Text;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -17,7 +16,6 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using System.Xml.Linq;
 using static ML.SDK.DM60X.DataType.DM60XDataType;
 
 namespace App.PVCFC_RFID.Controller
@@ -39,6 +37,10 @@ namespace App.PVCFC_RFID.Controller
         public static readonly object LockObject = new object();
         //
         public static int NumberOfStation = Properties.Settings.Default.NumberOfStation;
+
+        
+
+       
         public static void InitDeviceTransfer()
         {
             #region Thread check alive device transfer
@@ -50,6 +52,8 @@ namespace App.PVCFC_RFID.Controller
 
             #region Station
             //
+            SharedControlHandler SCHObject = new SharedControlHandler();
+           
             Thread threadProccessExcMessage = new Thread(DeviceTransferExcMessages);
             threadProccessExcMessage.IsBackground = true;
             threadProccessExcMessage.Priority = ThreadPriority.Highest;
@@ -87,10 +91,20 @@ namespace App.PVCFC_RFID.Controller
                 int uiSocketPort = _UISocketPort;//Port received
                 int stationsSocketPort = _StationSocketPort + i;//Port send
                 //
-                string deviceIP = dynamicCurStation.IPAddress;//Properties.Settings.Default.RFIDIP + (i + 1).ToString();
-                int devicePort = int.Parse(dynamicCurStation.Port); 
+                string deviceIP = "169.254.10.1" + (i + 1); //dynamicCurStation.IPAddress;//Properties.Settings.Default.RFIDIP + (i + 1).ToString();
+                int devicePort =  int.Parse(dynamicCurStation.Port); 
                 byte timeout = 0;
-                string printerIP = dynamicCurStation.PrinterIP;
+                string printerIP = "127.0.0.1";
+                if (i==0)
+                {
+                     printerIP = "192.168.15.152";
+                    //string printerIP = "192.168.15.15" + (i + 2); //dynamicCurStation.PrinterIP+1;
+                }
+                else if (i==1)
+                {
+                     printerIP = "192.168.15.163";
+                }
+               
                 string printerPort = dynamicCurStation.PrinterPort;
                 //
                 string fullPath = Application.StartupPath + "\\" + deviceTransferName + ".exe";
@@ -239,53 +253,23 @@ namespace App.PVCFC_RFID.Controller
                                         {
                                             case (byte)ConnectionsType.UISocketCommandEnum.DeviceStatus:
                                                 #region Device status
-                                                SharedValues.Running.StationList[socketIndex].TransferStatus = (ConnectionsType.StatusEnum)receiveBytes[4];
-                                                SharedValues.Running.StationList[socketIndex].Status = SharedValues.Running.StationList[socketIndex].RefreshStatus(null);
-
-
-                                                SharedEvents.RaiseStationDeviceStatusChanged(socketIndex);
+                                               
                                                 #endregion//End Device status
                                                 break;
                                             case (byte)ConnectionsType.UISocketCommandEnum.Start:
-                                                SharedValues.Running.StationList[socketIndex].IsReplyStart = true;
+                                               
                                                 #region Start - Linh.Tran_230910
-                                                bool isResult = (receiveBytes[4] != 0);
-                                                int lengthStr = CommonFunctions.ConvertByteArrayToNumber(new byte[] { receiveBytes[5], receiveBytes[6] });
-                                                string strErrors = CommonFunctions.ConvertByteArrayToString(receiveBytes.Skip(7).Take(lengthStr).ToArray());//3 + 
+                                                
                                                 #endregion//End Start - Linh.Tran_230910
-                                                SharedEvents.RaiseStartFeedbackFromTransferEvents(new Tuple<int, bool, string>(socketIndex, isResult, strErrors));
+                                              
                                                 break;
                                             case (byte)ConnectionsType.UISocketCommandEnum.Page:
                                                 #region Get pages
-                                                int scanSucess = 0;
-                                                int scanFailed = 0;
-                                                int activeSuccess = 0;
-                                                int activeFailed = 0;
-                                                int total = 0;
-                                                PVCFCProductItemModel product = PVCFCProductItemModel.GetProductTagItems(receiveBytes.Skip(4).ToArray(), ref scanSucess, ref scanFailed, ref activeSuccess, ref activeFailed, ref total);
-                                                SharedValues.Running.StationList[socketIndex].Schedules.ProductItemsList.Add(product);
-                                                SharedValues.Running.StationList[socketIndex].Schedules.ScanSucess = scanSucess;
-                                                SharedValues.Running.StationList[socketIndex].Schedules.ScanFailed = scanFailed;
-                                                SharedValues.Running.StationList[socketIndex].Schedules.ActiveSuccess = activeSuccess;
-                                                SharedValues.Running.StationList[socketIndex].Schedules.ActiveFailed = activeFailed;
-                                                SharedValues.Running.StationList[socketIndex].Schedules.Total = total;
-                                                //
-                                                //
-                                                switch (SharedValues.Running.StationList[socketIndex].Status)
-                                                {
-                                                    case ML.Common.Enum.RunningStatusEnum.Processing:
-                                                    case ML.Common.Enum.RunningStatusEnum.Ready:
-                                                        SharedValues.Running.StationList[socketIndex].Status = ML.Common.Enum.RunningStatusEnum.Starting;
-                                                        SharedEvents.RaiseStationDeviceStatusChanged(socketIndex);
-                                                        break;
-                                                }
-                                                SharedEvents.RaisePageFeedbackFromTransferEvents(socketIndex);
-                                                //
+                                                
                                                 #endregion//End Get pages
                                                 break;
                                             case (byte)ConnectionsType.UISocketCommandEnum.Stop:
-                                                SharedValues.Running.StationList[socketIndex].IsReplyStop = true;
-                                                SharedEvents.RaiseStopFeedbackFromTransferEvents(socketIndex);
+                                            
                                                 break;
                                         }
                                         #endregion//End UI
@@ -421,6 +405,7 @@ namespace App.PVCFC_RFID.Controller
             return false; // add temp;
             #endregion
         }
+        
         private static void GetRawDataToUI(int index, byte[] receiveByte)
         {
             try
@@ -458,16 +443,22 @@ namespace App.PVCFC_RFID.Controller
 
                               }
                               ) ;
-                    //}
-                    //else
-                    //{
-                    //    int foundItemsIndex = SharedValues.Running.StationList[index].DataRawList.ToList().FindIndex(x => x.Code == code && x.Symbol == symb);
-                    //    SharedValues.Running.StationList[index].DataRawList[foundItemsIndex].Count++;
-                    //}
-                    CommonFunctions.SetToMemoryFile("mmf_CurrentCodeData_" + index, 20, code);
+                    var codeBytes = Encoding.ASCII.GetBytes(code);
+                    if (codeBytes.Length < 1 || codeBytes == null)
+                    {
+                        var tempArr = new byte[1] {1};
+                        codeBytes = new byte[100];
+                        Array.Copy(tempArr, 0, codeBytes, 0,1);
+                    }
+                    var mmfCodeData = new MemoryMapHelper("mmf_CurrentCodeData_" + index, 100);
+                    mmfCodeData.WriteData(codeBytes, 0);
+                    
+
                     DataRawListChanged?.Invoke(index, EventArgs.Empty);
                 });
                 
+               
+
 #if DEBUG
 
                 Console.WriteLine("code: " + code);

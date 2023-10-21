@@ -44,7 +44,7 @@ namespace ML.SDK.DM60X.Controller
             _SocketIndex = socketIndex;
 
 #if DEBUG
-            Console.WriteLine("Init IP & Port: " + _IP + "/" + _Port);
+            Console.WriteLine("Camera IP: " + _IP + ", Port: " + _Port);
 #endif
             //Thread checking status
             _ThreadDeviceStatusChecking = new Thread(DeviceStatusChecking)
@@ -118,11 +118,11 @@ namespace ML.SDK.DM60X.Controller
                     StartReadding();
 
                     //Thread Listen Config via MMF
-                    var threadListenConfig = new Thread(ListenConfig)
-                    {
-                        IsBackground = true
-                    };
-                    threadListenConfig.Start();
+                    //var threadListenConfig = new Thread(ListenConfig)
+                    //{
+                    //    IsBackground = true
+                    //};
+                    //threadListenConfig.Start();
 
                     //Thread Dequeue Data
                     var threadProccessExcMessage = new Thread(ProccessExcMessage)
@@ -223,10 +223,10 @@ namespace ML.SDK.DM60X.Controller
 
                     }
 #if DEBUG
-                    Console.WriteLine("PingIP Camera :  " +
-                        reply.Status + ", Time : " +
-                        reply.RoundtripTime.ToString() + ", Address : " +
-                        reply.Address + ", Reconnect...");
+                    //Console.WriteLine("PingIP Camera :  " +
+                    //    reply.Status + ", Time : " +
+                    //    reply.RoundtripTime.ToString() + ", Address : " +
+                    //    reply.Address + ", Reconnect...");
 #endif
                     return reply.Status;
                 }
@@ -244,8 +244,7 @@ namespace ML.SDK.DM60X.Controller
             ConnectionEvents.RaiseDeviceStatusChanged(_ConnectionStatus, EventArgs.Empty);
             var mmf = new MemoryMapHelper("mmf_connectStatus_camera" + _SocketIndex, 1);
             mmf.WriteData(Encoding.ASCII.GetBytes(StatusToNum(_ConnectionStatus).ToString()),0);
-            var test = mmf.ReadData(0, 1);
-           // CommonFunctions.SetToMemoryFile("mmf_connectStatus_camera" + _SocketIndex, 1, StatusToNum(_ConnectionStatus).ToString()); // mmf
+
             while (true)
             {
                 try
@@ -307,7 +306,7 @@ namespace ML.SDK.DM60X.Controller
                         //CommonFunctions.SetToMemoryFile("mmf_connectStatus_camera" + _SocketIndex, 1, StatusToNum(_ConnectionStatus).ToString()); // mmf
 
 #if DEBUG
-                        Console.WriteLine("DeviceStatusChecking: " + newStatus);
+                        Console.WriteLine("Camera Status: " + newStatus);
 #endif
                     }
                 }

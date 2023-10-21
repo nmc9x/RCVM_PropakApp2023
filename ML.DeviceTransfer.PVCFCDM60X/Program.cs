@@ -27,9 +27,9 @@ namespace ML.DeviceTransfer.PVCFCDM60X
                 //args[4] = "169.254.10.11";                    // deviceIP
                 //args[5] = "21";                             // port
                 //args[6] = "0";                                // timeout
-                ////args[7] = "http://113.163.69.8";              // Link API
-                ////args[8] = "9594";                             // port
-                ////args[9] = "true";                                // isOffline
+                //args[7] = "http://113.163.69.8";              // Link API
+                //args[8] = "9594";                             // port
+                //args[9] = "true";                                // isOffline
                 //args[7] = "192.168.15.152"; // Printer IP
                 //args[8] = "12500"; // Printer Port
 #endif
@@ -59,17 +59,14 @@ namespace ML.DeviceTransfer.PVCFCDM60X
                 #endregion//End Init UI Socket
 
                 #region Init Device handler
-                Task.Run(() =>
-                {
-                    CognexSharedValues.DeviceHandler = new SDK.DM60X.Controller.DM60XDeviceHandler(CognexSharedValues.DeviceIP, CognexSharedValues.DevicePort, CognexSharedValues.SocketIndex);
-                });
-                Task.Run(() =>
-                {
-                    CognexSharedValues.PrinterHandler = new SDK.PRINTER.Controller.PrinterHandler(CognexSharedValues.PrinterIP, CognexSharedValues.PrinterPort, CognexSharedValues.SocketIndex);
-                });
+                
+                CognexSharedValues.DeviceHandler = new SDK.DM60X.Controller.DM60XDeviceHandler(CognexSharedValues.DeviceIP, CognexSharedValues.DevicePort, CognexSharedValues.SocketIndex);
+                CognexSharedValues.PrinterHandler = new SDK.PRINTER.Controller.PrinterHandler(CognexSharedValues.PrinterIP, CognexSharedValues.PrinterPort, CognexSharedValues.SocketIndex);
+
+
 
                 #endregion//End Init Device handler
-                
+
             }
             catch (Exception ex)
             {

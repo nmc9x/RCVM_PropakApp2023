@@ -66,6 +66,7 @@
     <Compile Include="Controller\CommonFunctions.cs" />
     <Compile Include="Controller\CommonValues.cs" />
     <Compile Include="Controller\MemoryMapHelper.cs" />
+    <Compile Include="Controller\TcpClientHelper.cs" />
     <Compile Include="Controller\ViewModelBase.cs" />
     <Compile Include="Enum\CommonEnum.cs" />
     <Compile Include="Model\ObservableObjectBindingModelBindingModel.cs" />
