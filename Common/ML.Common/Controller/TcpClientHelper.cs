@@ -30,7 +30,7 @@ namespace ML.Common.Controller
             _sendThread = new Thread(SendLoop);
             _receiveThread = new Thread(ReceiveLoop);
 
-            _sendThread.Start();
+            //_sendThread.Start();
             _receiveThread.Start();
             _sendIntervalMilliseconds = sendIntervalMilliseconds;
         }
@@ -82,6 +82,7 @@ namespace ML.Common.Controller
                     Disconnect();
                     return;
                 }
+                Thread.Sleep(1);
             }
         }
 

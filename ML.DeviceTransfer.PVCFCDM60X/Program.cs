@@ -59,9 +59,12 @@ namespace ML.DeviceTransfer.PVCFCDM60X
                 #endregion//End Init UI Socket
 
                 #region Init Device handler
+
+
                 
-                CognexSharedValues.DeviceHandler = new SDK.DM60X.Controller.DM60XDeviceHandler(CognexSharedValues.DeviceIP, CognexSharedValues.DevicePort, CognexSharedValues.SocketIndex);
-                CognexSharedValues.PrinterHandler = new SDK.PRINTER.Controller.PrinterHandler(CognexSharedValues.PrinterIP, CognexSharedValues.PrinterPort, CognexSharedValues.SocketIndex);
+               Task.Run(() => { CognexSharedValues.DeviceHandler = new SDK.DM60X.Controller.DM60XDeviceHandler(CognexSharedValues.DeviceIP, CognexSharedValues.DevicePort, CognexSharedValues.SocketIndex); });
+               Task.Run(() => { CognexSharedValues.PrinterHandler = new SDK.PRINTER.Controller.PrinterHandler(CognexSharedValues.PrinterIP, CognexSharedValues.PrinterPort, CognexSharedValues.SocketIndex); });
+                
 
 
 

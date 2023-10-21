@@ -10,17 +10,22 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace App.PVCFC_RFID.Design
 {
     public partial class MainPage : Form
     {
-        public static int MainPageHeight;
+       
+        private double initialWidth;
+        private double initialHeight;
+        public static ScaleTransform ScaleTransform;
         public MainPage()
         {
 
             InitializeComponent();
-            MainPageHeight = this.Height;
+            this.initialWidth = this.Width;
+            this.initialHeight = this.Height;
             this.SizeChanged += MainPage_SizeChanged;
             elementHost1.Child = new ucMain();
            
@@ -28,7 +33,10 @@ namespace App.PVCFC_RFID.Design
 
         private void MainPage_SizeChanged(object sender, EventArgs e)
         {
-            MainPageHeight = this.Height;
+            double xScale = this.Width / initialWidth/1.5;
+            double yScale = this.Height / initialHeight/1.5;
+
+            ScaleTransform = new ScaleTransform(xScale, yScale);
         }
     }
 }

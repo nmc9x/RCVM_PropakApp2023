@@ -86,7 +86,7 @@ namespace ML.SDK.PRINTER.Controller
                 IsBackground = true,
                 Priority = ThreadPriority.Highest
             };
-            _ThreadDeviceStatusChecking.Start();
+            //_ThreadDeviceStatusChecking.Start();
 
 
 
@@ -234,6 +234,7 @@ namespace ML.SDK.PRINTER.Controller
                         {
                             Thread.Sleep(1000);
                         }
+                        Thread.Sleep(1);
                     }
                     #region ProcessData
                     Thread.Sleep(2000);

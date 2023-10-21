@@ -24,7 +24,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="NumberOfStation" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">2</Value>
+      <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="DeviceTransferName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">ML.DeviceTransfer.PVCFCDM60X</Value>
