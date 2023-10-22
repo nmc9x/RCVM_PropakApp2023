@@ -405,7 +405,8 @@ namespace App.PVCFC_RFID.Controller
             return false; // add temp;
             #endregion
         }
-        
+
+        public static GotCodeModel newCodeItem;
         private static void GetRawDataToUI(int index, byte[] receiveByte)
         {
             try
@@ -428,21 +429,17 @@ namespace App.PVCFC_RFID.Controller
                 // Get Result List
                 _dispatcher.Invoke(() =>
                 {
-                    //var foundItem = SharedValues.Running.StationList[index].DataRawList.FirstOrDefault(x => x.Code == code && x.Symbol == symb);
-                    //if (foundItem == null)
-                    //{
+                    newCodeItem = new GotCodeModel
+                    {
+                        Code = code,
+                        Symbol = symb,
+                        DecodeTime = dec,
+                        Status = sts,
+                        DateTimeStr = DateTime.Now.ToString("yyyy-MM-dd") + "/" + DateTime.Now.ToString("HH:mm:ss"),
+                        ErrorStr = "Origin"
 
-                    SharedValues.Running.StationList[index].DataRawList.Add(
-                              new GotCodeModel
-                              {
-                                  Code = code,
-                                  Symbol = symb,
-                                  DecodeTime = dec,
-                                  Status = sts,
-                                  DateTimeStr = DateTime.Now.ToString("yyyy-MM-dd") + "/" + DateTime.Now.ToString("HH:mm:ss")
-
-                              }
-                              ) ;
+                    };
+                    SharedValues.Running.StationList[index].DataRawList.Add(newCodeItem) ;
                     var codeBytes = Encoding.ASCII.GetBytes(code);
                     if (codeBytes.Length < 1 || codeBytes == null)
                     {
@@ -452,8 +449,6 @@ namespace App.PVCFC_RFID.Controller
                     }
                     var mmfCodeData = new MemoryMapHelper("mmf_CurrentCodeData_" + index, 100);
                     mmfCodeData.WriteData(codeBytes, 0);
-                    
-
                     DataRawListChanged?.Invoke(index, EventArgs.Empty);
                 });
                 

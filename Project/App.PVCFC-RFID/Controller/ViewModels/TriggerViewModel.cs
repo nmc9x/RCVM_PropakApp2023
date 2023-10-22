@@ -46,7 +46,8 @@ namespace App.PVCFC_RFID.Controller
             SharedControlHandler._dispatcher = Dispatcher.CurrentDispatcher;
             SharedControlHandler._dispatcher?.Invoke(() =>
             {
-                CodeList = SharedValues.Running.StationList[Index].DataRawList;  
+                CodeList = SharedValues.Running.StationList[Index].DataRawList;
+                
             });
             SharedControlHandler.DataRawListChanged += OnDataRawListChanged;
             CodeList.CollectionChanged += CodeList_CollectionChanged;

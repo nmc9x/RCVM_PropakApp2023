@@ -1,6 +1,6 @@
 ﻿namespace App.PVCFC_RFID.Design
 {
-    partial class puGood
+    partial class frmDetailList
     {
         /// <summary>
         /// Required designer variable.

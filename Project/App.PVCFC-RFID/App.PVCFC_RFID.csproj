@@ -135,11 +135,11 @@
     <Compile Include="Design\MainPage.Designer.cs">
       <DependentUpon>MainPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Design\puGood.cs">
+    <Compile Include="Design\frmDetailList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Design\puGood.Designer.cs">
-      <DependentUpon>puGood.cs</DependentUpon>
+    <Compile Include="Design\frmDetailList.Designer.cs">
+      <DependentUpon>frmDetailList.cs</DependentUpon>
     </Compile>
     <Compile Include="Design\XAMLViews\Converters\NumberToVisibilityConverter.cs" />
     <Compile Include="Design\XAMLViews\Converters\NumToColorConverter.cs" />
@@ -210,8 +210,8 @@
     <Compile Include="Design\ucSettingAccounts.Designer.cs">
       <DependentUpon>ucSettingAccounts.cs</DependentUpon>
     </Compile>
-    <Compile Include="Design\XAMLViews\PopupGood.xaml.cs">
-      <DependentUpon>PopupGood.xaml</DependentUpon>
+    <Compile Include="Design\XAMLViews\PopupDetails.xaml.cs">
+      <DependentUpon>PopupDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="Design\XAMLViews\ucCurrentStation.xaml.cs">
       <DependentUpon>ucCurrentStation.xaml</DependentUpon>
@@ -312,8 +312,8 @@
     <EmbeddedResource Include="Design\MainPage.resx">
       <DependentUpon>MainPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Design\puGood.resx">
-      <DependentUpon>puGood.cs</DependentUpon>
+    <EmbeddedResource Include="Design\frmDetailList.resx">
+      <DependentUpon>frmDetailList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Design\ucAbout.resx">
       <DependentUpon>ucAbout.cs</DependentUpon>
@@ -600,6 +600,7 @@
     <Resource Include="Images\Image_QR.png" />
     <Resource Include="Images\Image_UPCEAN.png" />
     <Resource Include="Images\Image_upu.png" />
+    <Resource Include="Images\chart-sample.png" />
     <Content Include="Label\Readme.vi-VN.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -612,7 +613,7 @@
     <None Include="Resources\gif-load.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Design\XAMLViews\PopupGood.xaml">
+    <Page Include="Design\XAMLViews\PopupDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

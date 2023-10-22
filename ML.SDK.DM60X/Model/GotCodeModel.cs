@@ -59,6 +59,14 @@ namespace ML.SDK.DM60X.Model
             set { SetProperty(ref _DateTimeStr, value); }
         }
 
+        private string _ErrorStr;
+
+        public string ErrorStr
+        {
+            get { return _ErrorStr; }
+            set { SetProperty(ref _ErrorStr, value); }
+        }
+
         public GotCodeModel() 
         {
             ID = null; Code = null; Symbol = null; DecodeTime = null; Status = null; DateTimeStr = "";

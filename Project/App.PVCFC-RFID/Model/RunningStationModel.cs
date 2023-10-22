@@ -51,6 +51,36 @@ namespace App.PVCFC_RFID.Model
             }
         }
 
+        private ObservableCollection<GotCodeModel> _DataGoodList = new ObservableCollection<GotCodeModel>();
+        public ObservableCollection<GotCodeModel> DataGoodList
+        {
+            get { return _DataGoodList; }
+            set
+            {
+                _DataGoodList = value;
+            }
+        }
+
+        private ObservableCollection<GotCodeModel> _DataFailList = new ObservableCollection<GotCodeModel>();
+        public ObservableCollection<GotCodeModel> DataFailList
+        {
+            get { return _DataFailList; }
+            set
+            {
+                _DataFailList = value;
+            }
+        }
+
+        private ObservableCollection<GotCodeModel> _DataPrintedList = new ObservableCollection<GotCodeModel>();
+        public ObservableCollection<GotCodeModel> DataPrintedList
+        {
+            get { return _DataPrintedList; }
+            set
+            {
+                _DataPrintedList = value;
+            }
+        }
+
         private DM60XUIBridgeSocketHandler _UIBridgeSocket = new DM60XUIBridgeSocketHandler();
         public DM60XUIBridgeSocketHandler UIBridgeSocket
         {

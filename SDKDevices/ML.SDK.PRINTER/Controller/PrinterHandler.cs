@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace ML.SDK.PRINTER.Controller
         private int failCount = 0;
         private MemoryMapHelper mmfCamCounting;
         private MemoryMapHelper mmfCountPrintedPage;
+        private MemoryMapHelper mmf_classifyCode;
         private TcpClientHelper _TcpClient;
         private readonly int _sendIntervalMilliseconds = 1000; // Thời gian giữa các lần gửi tin (1 giây)
         private string _ReceivedMessage;
@@ -55,6 +57,7 @@ namespace ML.SDK.PRINTER.Controller
 
             mmfCamCounting = new MemoryMapHelper("mmf_VerifyCheckCode" + _SocketIndex, 20);
             mmfCountPrintedPage = new MemoryMapHelper("mmf_PrintedPage" + _SocketIndex, 5);
+            mmf_classifyCode = new MemoryMapHelper("mmf_CheckCodeFlag"+_SocketIndex, 1);
 
             try
             {
@@ -86,7 +89,7 @@ namespace ML.SDK.PRINTER.Controller
                 IsBackground = true,
                 Priority = ThreadPriority.Highest
             };
-            //_ThreadDeviceStatusChecking.Start();
+            _ThreadDeviceStatusChecking.Start();
 
 
 
@@ -99,8 +102,7 @@ namespace ML.SDK.PRINTER.Controller
             };
             threadListenUIAction.Start();
 
-            //_ThreadListenPrintedPage = new Thread(ListenData);
-            //_ThreadListenPrintedPage.Start();
+         
 
             var threadListenAndCompareData = new Thread(ListenAndCompareData)
             {
@@ -114,35 +116,31 @@ namespace ML.SDK.PRINTER.Controller
             _ReceivedMessage = obj;
             Console.WriteLine(_ReceivedMessage);
         }
-
         private void _TcpClient_SendMessage(string message)
         {
             Console.WriteLine("Mess Send: " + message);
             _TcpClient.Send(message);
         }
-
-
-        //private MemoryMapHelper mmfCodeData = new MemoryMapHelper("mmf_CurrentCodeData_", 100);
         private void ListenAndCompareData()
         {
             try
             {
-                var filePath = "C:\\Users\\minhchau.nguyen\\Documents\\MyLanGroup\\Projects\\Propak\\output.csv";
+                var emtyStr = Encoding.ASCII.GetString(new byte[100]);
+                var mmf_DBFilePath = new MemoryMapHelper("mmf_DBFilePath"+ _SocketIndex, 260);
+                var filePath = Encoding.ASCII.GetString(mmf_DBFilePath.ReadData(0, 260)).Trim('\0');
+                //var filePath = "C:\\Users\\minhchau.nguyen\\Documents\\MyLanGroup\\Projects\\Propak\\output.csv";
                 var db = File.ReadAllLines(filePath).Skip(1).ToArray();
+                var mmfCodeData = new MemoryMapHelper("mmf_CurrentCodeData_" + _SocketIndex, 100);
                 while (true)
                 {
-
-                    MemoryMapHelper mmfCodeData = new MemoryMapHelper("mmf_CurrentCodeData_" + _SocketIndex, 100);
-                    var emtyStr = Encoding.ASCII.GetString(new byte[100]);
                     var stringRes = Encoding.ASCII.GetString(mmfCodeData.ReadData(0, 100));
                     if (stringRes != null && stringRes != emtyStr)
                     {
                         Console.WriteLine(stringRes + stringRes.Length);
                         CompareData(db, stringRes.Trim('\0'));
-
                     }
                     mmfCodeData.WriteData(new byte[100], 0);
-                    Thread.Sleep(100);
+                    Thread.Sleep(1);
                 }
             }
             catch (Exception ex)
@@ -316,15 +314,44 @@ namespace ML.SDK.PRINTER.Controller
                 catch (Exception) { }
             }
         }
-      
+        public static int CheckCodeOccurrences(string filePath, string code)
+        {
+            var codeOccurrences = new Dictionary<string, int>();
+
+            using (var reader = new StreamReader(filePath))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(','); // Giả sử rằng bạn sử dụng dấu phẩy làm dấu phân tách
+
+                    foreach (var value in values)
+                    {
+                        if (codeOccurrences.ContainsKey(value))
+                        {
+                            codeOccurrences[value]++;
+                        }
+                        else
+                        {
+                            codeOccurrences[value] = 1;
+                        }
+                    }
+                }
+            }
+
+            return codeOccurrences.ContainsKey(code) ? codeOccurrences[code] : 0;
+        }
 
         public void CompareData(string[] sourceData, string sampleData = "CY170EQ0109", int colIndex = 2)
         {
+
+
             try
             {
                 var uniqueData = new HashSet<string>();
                 var duplicateData = new HashSet<string>();
                 var unknownData = new HashSet<string>();
+                var checkCodeFlag = 0;
                 foreach (string data in sourceData)
                 {
                     var col = data.Split(',');
@@ -339,21 +366,26 @@ namespace ML.SDK.PRINTER.Controller
                         }
                     }
                 }
-                if (duplicateData.Count > 0)
-                {
-                    //Fail: duplicate
-                    failCount++;
-                }
-                if (duplicateData.Count == 0 && uniqueData.Count == 0)
+                
+                //if (duplicateData.Count > 0)
+                //{
+                //    //Fail: duplicate
+                //    failCount++;
+                //    checkCodeFlag = 1;
+                //}
+                if ((duplicateData.Count == 0 && uniqueData.Count == 0) || (duplicateData.Count > 0))
                 {
                     //Fail: Unknow data
                     failCount++;
+                    checkCodeFlag = 1;
                 }
                 if (uniqueData.Count > 0)
                 {
                     //good count
                     goodCount++;
+                    checkCodeFlag = 2;
                 }
+                mmf_classifyCode.WriteData(Encoding.ASCII.GetBytes(checkCodeFlag.ToString()), 0);
                 Console.WriteLine("Count Print:" + "Good: " + goodCount.ToString() + "Fail: " + failCount.ToString());
                 mmfCamCounting.WriteData(Encoding.ASCII.GetBytes(goodCount.ToString() + "-" + failCount.ToString()), 0);
             }

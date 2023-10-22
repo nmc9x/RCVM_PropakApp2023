@@ -30,7 +30,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border 
+    <Border
         Background="#daf2c2"
         BorderBrush="#354754"
         BorderThickness="2"
@@ -45,25 +45,33 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="Transparent">
                     <Grid.RowDefinitions>
-                        <RowDefinition  Height="*" />
+                        <RowDefinition Height="1.3*" />
                         <RowDefinition Height="3*" />
                     </Grid.RowDefinitions>
-                   
-                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5 5 0 0" Background="Transparent">
-                        <Ellipse x:Name="EllipseTagName"
+
+                    <Grid
+                        Margin="5,5,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="Transparent">
+                        <Ellipse
+                            x:Name="EllipseTagName"
                             Width="60"
-                            Height="60"
-                            >
+                            Height="60">
                             <Ellipse.Fill>
                                 <RadialGradientBrush>
-                                    <GradientStop Color="#FFAED1E2" Offset="0.0"/>
-                                    <GradientStop Color="#FF6F9BA5" Offset="1.0"/>
+                                    <GradientStop Offset="0.0" Color="#FFAED1E2" />
+                                    <GradientStop Offset="1.0" Color="#FF6F9BA5" />
                                 </RadialGradientBrush>
                             </Ellipse.Fill>
                         </Ellipse>
-                        <TextBlock x:Name="TextBoxTagName"
+                        <TextBlock
+                            x:Name="TextBoxTagName"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontSize="20"
@@ -73,7 +81,57 @@
                     </Grid>
 
 
-                    <Grid Grid.Row="1" VerticalAlignment="Center" Background="Transparent">
+                    <Grid Grid.Row="1"  Margin="16">
+                        <!--  Tạo hình vuông màu xanh với hiệu ứng 3D  -->
+                        <Rectangle
+                            Width="200"
+                            Height="100"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="LightGreen" Offset="0.0" />
+                                    <GradientStop Color="DarkGreen" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <!--  Thêm chữ "start" ở trung tâm của hình vuông  -->
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            FontSize="30"
+                            Foreground="White" Text ="RUN">
+                            
+                        </TextBlock>
+                    </Grid>
+                    <Grid Grid.Row="1"  Margin="16" Visibility="Collapsed">
+                        <!--  Tạo hình vuông màu xanh với hiệu ứng 3D  -->
+                        <Rectangle
+                            Width="200"
+                            Height="100"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="LightCoral" Offset="0.0" />
+                                    <GradientStop Color="DarkRed" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <!--  Thêm chữ "start" ở trung tâm của hình vuông  -->
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            FontSize="30"
+                            Foreground="White" Text ="STOP">
+
+                        </TextBlock>
+                    </Grid>
+                    <!--<Grid Grid.Row="1" VerticalAlignment="Center" Background="Transparent">
                         <materialDesign:PackIcon x:Name ="IconRun"
                             Width="200"
                             Height="200"
@@ -88,7 +146,7 @@
                             Foreground="Gray"
                             Kind="StopCircleOutline"
                             Visibility="Collapsed" />
-                    </Grid>
+                    </Grid>-->
 
                     <!--<Border
                     Grid.Row="1"
@@ -119,17 +177,18 @@
                             Style="{StaticResource MaterialDesignCardGroupBox}">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition />
+                                    <RowDefinition Height="6*" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <TextBlock
                                     Grid.Row="0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    FontSize="20"
-                                    Foreground="Black"
+                                    FontSize="40"
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource PrimaryHueMidBrush}"
                                     Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
-                                    Text="{Binding GoodCount, FallbackValue=0}" />
+                                    Text="{Binding TotalCount, FallbackValue=0}" />
                                 <Button
                                     x:Name="BtnDetailTotal"
                                     Grid.Row="1"
@@ -137,7 +196,6 @@
                                     Height="30"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
-                                    Click="BtnDetailTotal_Click"
                                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                                     ToolTip="MaterialDesignFloatingActionDarkButton">
@@ -155,36 +213,37 @@
                 <Grid Grid.Column="2">
                     <Grid.Resources>
                         <ResourceDictionary>
-                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2cc743" />
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#3dc2eb" />
                         </ResourceDictionary>
                     </Grid.Resources>
                     <Border>
                         <GroupBox
                             Margin="16"
                             materialDesign:ElevationAssist.Elevation="Dp7"
-                            Header="GOOD"
+                            Header="PRINTED PAGE"
                             Style="{StaticResource MaterialDesignCardGroupBox}">
                             <Grid>
+
                                 <Grid.RowDefinitions>
-                                    <RowDefinition />
+                                    <RowDefinition Height="6*" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <TextBlock
                                     Grid.Row="0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    FontSize="20"
-                                    Foreground="Black"
+                                    FontSize="40"
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource PrimaryHueMidBrush}"
                                     Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
-                                    Text="{Binding FailCount, FallbackValue=0}" />
+                                    Text="{Binding PrintedCount, FallbackValue=0}" />
                                 <Button
-                                    x:Name="BtnDetailGood"
+                                    x:Name="BtnDetailPrinted"
                                     Grid.Row="1"
                                     Width="30"
                                     Height="30"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
-                                    Click="BtnDetailGood_Click"
                                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                                     ToolTip="MaterialDesignFloatingActionDarkButton">
@@ -202,37 +261,36 @@
                 <Grid Grid.Column="3">
                     <Grid.Resources>
                         <ResourceDictionary>
-                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#3dc2eb" />
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2cc743" />
                         </ResourceDictionary>
                     </Grid.Resources>
                     <Border>
                         <GroupBox
                             Margin="16"
                             materialDesign:ElevationAssist.Elevation="Dp7"
-                            Header="PRINTED PAGE"
+                            Header="GOOD"
                             Style="{StaticResource MaterialDesignCardGroupBox}">
                             <Grid>
-
                                 <Grid.RowDefinitions>
-                                    <RowDefinition />
+                                    <RowDefinition Height="6*" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <TextBlock
                                     Grid.Row="0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    FontSize="20"
-                                    Foreground="Black"
+                                    FontSize="40"
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource PrimaryHueMidBrush}"
                                     Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
-                                    Text="{Binding TotalCount, FallbackValue=0}" />
+                                    Text="{Binding GoodCount, FallbackValue=0}" />
                                 <Button
-                                    x:Name="BtnDetailFail"
+                                    x:Name="BtnDetailGood"
                                     Grid.Row="1"
                                     Width="30"
                                     Height="30"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
-                                    Click="BtnDetailFail_Click"
                                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                                     ToolTip="MaterialDesignFloatingActionDarkButton">
@@ -244,6 +302,7 @@
                             </Grid>
 
                         </GroupBox>
+
                     </Border>
                 </Grid>
 
@@ -262,19 +321,20 @@
                             Style="{StaticResource MaterialDesignCardGroupBox}">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition />
+                                    <RowDefinition Height="6*" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <TextBlock
                                     Grid.Row="0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    FontSize="20"
-                                    Foreground="Black"
+                                    FontSize="40"
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource PrimaryHueMidBrush}"
                                     Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
-                                    Text="{Binding PrintedCount, FallbackValue=0}" />
+                                    Text="{Binding FailCount, FallbackValue=0}" />
                                 <Button
-                                    x:Name="BtnDetailPrinted"
+                                    x:Name="BtnDetailFail"
                                     Grid.Row="1"
                                     Width="30"
                                     Height="30"

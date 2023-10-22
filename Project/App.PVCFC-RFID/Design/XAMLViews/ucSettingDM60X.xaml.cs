@@ -24,10 +24,6 @@ namespace App.PVCFC_RFID.Design
             InitializeComponent();
             SettingViewModel.Index = Index;
             DataContext = new SettingViewModel();
-            //if(DataContext is SettingViewModel sm)
-            //{
-            //    sm.Index = Index;
-            //}
         }
 
         public void CallbackCommand(Action<SettingViewModel> execute)

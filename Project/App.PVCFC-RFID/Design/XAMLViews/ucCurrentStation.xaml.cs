@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -37,18 +38,31 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             DataContext = new ucCurrentStationVM(index);
             this.Loaded += UcCurrentStation_Loaded;
             this.SizeChanged += UcCurrentStation_SizeChanged;
-          
+            MainPage.ScaleTransformChanged += MainPage_ScaleTransformChanged;
+            UpdateScaleTransform();
+        }
+        #region TransformScale
+        private void MainPage_ScaleTransformChanged(object sender, EventArgs e)
+        {
+            UpdateScaleTransform();
         }
 
         private void UcCurrentStation_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            IconRun.LayoutTransform = MainPage.ScaleTransform;
-            IconStop.LayoutTransform = MainPage.ScaleTransform;
+            UpdateScaleTransform();
+        }
+        private void UpdateScaleTransform()
+        {
+            //IconRun.LayoutTransform = MainPage.ScaleTransform;
+            //IconStop.LayoutTransform = MainPage.ScaleTransform;
+            BtnDetailTotal.LayoutTransform = MainPage.ScaleTransform;
+            BtnDetailGood.LayoutTransform = MainPage.ScaleTransform;
+            BtnDetailPrinted.LayoutTransform = MainPage.ScaleTransform;
+            BtnDetailFail.LayoutTransform = MainPage.ScaleTransform;
             EllipseTagName.LayoutTransform = MainPage.ScaleTransform;
             TextBoxTagName.LayoutTransform = MainPage.ScaleTransform;
-
         }
-
+        #endregion
         public void CallbackCommand(Action<ucCurrentStationVM> execute)
         {
             try
@@ -68,31 +82,15 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             }
         }
 
+        #region UI Event
         private void UcCurrentStation_Loaded(object sender, RoutedEventArgs e)
         {
-            CallbackCommand(vm => vm.StationTagName = _Index.ToString());
+            CallbackCommand(vm => vm.StationTagName = (_Index +1).ToString());
         }
+      
+        #endregion
 
-        private void BtnDetailGood_Click(object sender, RoutedEventArgs e)
-        {
-            puGood pug = new puGood(0, "");
-            pug.ShowDialog();
-        }
-
-        private void BtnDetailGood_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void BtnDetailFail_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void BtnDetailTotal_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+      
     }
     public class ucCurrentStationVM:ViewModelBase
     {
@@ -101,25 +99,24 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         public ucCurrentStationVM(int index)
         {
             _Index = index;
-            //_ThreadUpdateDataRealTime = new Thread(UpdateData);
-            //_ThreadUpdateDataRealTime.IsBackground = true;
-            //_ThreadUpdateDataRealTime.Start();
-            Task.Run(() => UpdateData()); // increase work efficiency
+            Task.Run(() => UpdateData()); // increase work efficiency by Task
         }
 
         private void UpdateData()
         {
-            
             try
             {
-                var mmfVerifyCheckSts = new MemoryMapHelper("mmf_VerifyCheckCode" + _Index, 20);
-                var mmfCountPrintedPage = new MemoryMapHelper("mmf_PrintedPage" + _Index, 5);
+               
                 while (true)
                 {
-                        
-                        var printedPage = Encoding.ASCII.GetString(mmfCountPrintedPage.ReadData(0, 5));
+                    var mmfVerifyCheckSts = new MemoryMapHelper("mmf_VerifyCheckCode" + _Index, 20);
+                    var mmfCountPrintedPage = new MemoryMapHelper("mmf_PrintedPage" + _Index, 5);
+                    var mmf_classifyCode = new MemoryMapHelper("mmf_CheckCodeFlag" + _Index, 1);
+                    var printedPage = Encoding.ASCII.GetString(mmfCountPrintedPage.ReadData(0, 5));
                         var countResult = Encoding.ASCII.GetString(mmfVerifyCheckSts.ReadData(0, 20));
+                        var codeChk = Encoding.ASCII.GetString(mmf_classifyCode.ReadData(0, 1));
                         string[] splitRes = countResult.Split('-');
+
                     if (splitRes.Length > 1)
                     {
                         SharedControlHandler._dispatcher?.Invoke(() => // Dispather for speed up update Value to UI
@@ -127,13 +124,33 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                             GoodCount = splitRes[0].ToString();
                             FailCount = Regex.Replace(splitRes[1], @"\0", "");
                             TotalCount = (int.Parse(GoodCount) + int.Parse(FailCount)).ToString();
-                            PrintedCount = Regex.Replace(printedPage, @"\0", "");
-                            PrintedCount = PrintedCount == "" ? "0" : PrintedCount;
+                           
+
+                            if(codeChk !="\0")
+                            {
+                                switch (codeChk)
+                                {
+                                    case "1": // dup
+                                        SharedControlHandler.newCodeItem.ErrorStr = "Fail";
+                                        SharedValues.Running.StationList[_Index].DataFailList.Add(SharedControlHandler.newCodeItem);
+                                        break;
+                                    case "2": // unk
+                                        SharedControlHandler.newCodeItem.ErrorStr = "Good";
+                                        SharedValues.Running.StationList[_Index].DataGoodList.Add(SharedControlHandler.newCodeItem);
+                                        break;
+                                    
+
+                                }
+                                mmf_classifyCode.WriteData(new byte[1], 0);
+                            }
+                            
                         });
 
 
                    }
-                    Thread.Sleep(10);
+                    //PrintedCount = Regex.Replace(printedPage, @"\0", "");
+                    //PrintedCount = PrintedCount == "" ? "0" : PrintedCount;
+                    Thread.Sleep(1);
                 }
             }
             catch (Exception)
@@ -151,7 +168,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             set { _StationTagName = value; OnPropertyChanged(); }
         }
 
-        private string _GoodCount = "0";
+        private string _GoodCount = "100,000";
 
         public string GoodCount
         {
@@ -159,7 +176,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             set { _GoodCount = value; OnPropertyChanged(); }
         }
 
-        private string _FailCount = "0";
+        private string _FailCount = "100,000";
 
         public string FailCount
         {
@@ -167,7 +184,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             set { _FailCount = value;OnPropertyChanged(); }
         }
 
-        private string _TotalCount = "0";
+        private string _TotalCount = "300,000";
 
         public string TotalCount
         {
@@ -175,7 +192,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             set { _TotalCount = value; OnPropertyChanged(); }
         }
 
-        private string _PrintedCount = "0";
+        private string _PrintedCount = "300,000";
         public string PrintedCount
         {
             get { return _PrintedCount; }

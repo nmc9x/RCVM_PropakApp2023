@@ -26,16 +26,52 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         private System.Windows.Point scrollStartPoint;
         private double scrollStartOffset;
         private static int _TotalStation = SharedControlHandler.NumberOfStation;
+
+        #region ModelWindowClick
+        public delegate void ButtonTotalClickHandler(object sender, EventArgs e);
+        public event ButtonTotalClickHandler ButtonTotalClickEvent;
+
+        public delegate void ButtonGoodClickHandler(object sender, EventArgs e);
+        public event ButtonGoodClickHandler ButtonGoodClickEvent;
+
+        public delegate void ButtonPrintedClickHandler(object sender, EventArgs e);
+        public event ButtonPrintedClickHandler ButtonPrintedClickEvent;
+
+        public delegate void ButtonFailClickHandler(object sender, EventArgs e);
+        public event ButtonFailClickHandler ButtonFailClickEvent;
+
+        #endregion
         public ucMain()
         {
 
             InitializeComponent();
-           
+
+            this.SizeChanged += UcCurrentStation_SizeChanged;
+            MainPage.ScaleTransformChanged += MainPage_ScaleTransformChanged;
+            UpdateScaleTransform();
             DataContext = new MainTabViewModel();
             InitStation();
 
 
         }
+
+        private void MainPage_ScaleTransformChanged(object sender, EventArgs e)
+        {
+            UpdateScaleTransform();
+        }
+
+        private void UcCurrentStation_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdateScaleTransform();
+        }
+        private void UpdateScaleTransform()
+        {
+            BtnStart.LayoutTransform = MainPage.ScaleTransform;
+            BtnStop.LayoutTransform = MainPage.ScaleTransform;
+            BtnTrigger.LayoutTransform = MainPage.ScaleTransform;
+          
+        }
+
         private void InitStation()
         {
             for (int i = 0; i < _TotalStation; i++)
@@ -77,12 +113,23 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         }
         private void InitItemCombobox(int i)
         {
-            ComboboxStation.Items.Add(i);
+            ComboboxStation.Items.Add("JOB "+(i+1));
         }
         private void InitDeviceTransferStations(int i)
         {
 
             var ucStation = new ucCurrentStation(i);
+
+            ucStation.BtnDetailTotal.Name = "BtnDetailTotal" + i;
+            ucStation.BtnDetailGood.Name = "BtnDetailGood" + i;
+            ucStation.BtnDetailPrinted.Name = "BtnDetailPrinted" + i;
+            ucStation.BtnDetailFail.Name = "BtnDetailFail" + i;
+
+            ucStation.BtnDetailTotal.Click += BtnDetailTotal_Click;
+            ucStation.BtnDetailGood.Click += BtnDetailGood_Click;
+            ucStation.BtnDetailPrinted.Click += BtnDetailPrinted_Click;
+            ucStation.BtnDetailFail.Click += BtnDetailFail_Click;
+
             ucStation.Margin = new Thickness(10);
 
             var gridCover = new Grid();
@@ -100,6 +147,35 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             
 
         }
+
+        private void BtnDetailFail_Click(object sender, RoutedEventArgs e)
+        {
+            var btnName = ((System.Windows.Controls.Button)sender).Name;
+            var id = int.Parse((btnName[btnName.Length - 1]).ToString());
+            ButtonFailClickEvent?.Invoke(id, EventArgs.Empty);
+        }
+
+        private void BtnDetailPrinted_Click(object sender, RoutedEventArgs e)
+        {
+            var btnName = ((System.Windows.Controls.Button)sender).Name;
+            var id = int.Parse((btnName[btnName.Length - 1]).ToString());
+            ButtonPrintedClickEvent?.Invoke(id, EventArgs.Empty);
+        }
+
+        private void BtnDetailTotal_Click(object sender, RoutedEventArgs e)
+        {
+            var btnName = ((System.Windows.Controls.Button)sender).Name;
+            var id = int.Parse((btnName[btnName.Length - 1]).ToString());
+            ButtonTotalClickEvent?.Invoke(id, EventArgs.Empty);
+        }
+
+        private void BtnDetailGood_Click(object sender, RoutedEventArgs e)
+        {
+           var btnName = ((System.Windows.Controls.Button)sender).Name;
+           var id = int.Parse((btnName[btnName.Length - 1]).ToString());
+           ButtonGoodClickEvent?.Invoke(id, EventArgs.Empty);
+        }
+
         private void InitTriggerTab(int index)
         {
             if (index < 0) index = 0;
@@ -137,7 +213,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                         grid.Background = System.Windows.Media.Brushes.Transparent;
                     }
                 }
-                clickedGrid.Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#e3b330"));
+                clickedGrid.Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#6ded8f"));
             }
         }
         private void BtnSetPrinter_Click(object sender, RoutedEventArgs e)
@@ -215,11 +291,11 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         private void JobItemsClick(object sender, MouseButtonEventArgs e)
         {
             CallbackCommand(vm => vm.TabIndex = 1);
-           
-            
-
         }
-
+        private void DatabaseClick(object sender, MouseButtonEventArgs e)
+        {
+            CallbackCommand(vm => vm.TabIndex = 4);
+        }
         private void ButtonTrigger_Click(object sender, RoutedEventArgs e)
         {
             CallbackCommand(vm=>vm.TabIndex = 3);
@@ -235,5 +311,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         {
             CallbackCommand(vm => vm.StopPrint());
         }
+
+      
     }
 }
