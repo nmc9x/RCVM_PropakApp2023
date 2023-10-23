@@ -19,11 +19,11 @@ namespace App.PVCFC_RFID.Design
         public static int Index { get; set; }
         #endregion
 
-        public ucSettingDM60X()
+        public ucSettingDM60X(int index)
         {
             InitializeComponent();
-            SettingViewModel.Index = Index;
-            DataContext = new SettingViewModel();
+            
+            DataContext = new SettingViewModel(index);
         }
 
         public void CallbackCommand(Action<SettingViewModel> execute)

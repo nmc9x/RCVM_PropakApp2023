@@ -53,7 +53,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         }
         private void InitUIParameter()
         {
-            TextBoxStationId.Text = StationID.ToString();
+            TextBoxStationId.Text = "Job "+StationID.ToString();
         }
     }
 }

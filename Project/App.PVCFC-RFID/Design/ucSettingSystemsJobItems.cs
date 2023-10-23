@@ -202,13 +202,13 @@ namespace App.PVCFC_RFID.Design
                 try
                 {
                     _IsBinding = true;
-                    frmSettingDM60X.Index = _Index;
-                    var frm = new frmSettingDM60X();
+                   
+                    //var frm = new frmSettingDM60X();
                     //frmSettingsRFIDZebra frm = new frmSettingsRFIDZebra(_Index);
-                    frm.StartPosition = FormStartPosition.Manual;
-                    frm.Location = SharedValues.Running.ChildFormLocations;
-                    frm.Size = SharedValues.Running.ChildFormSize;
-                    frm.ShowDialog();
+                    //frm.StartPosition = FormStartPosition.Manual;
+                    //frm.Location = SharedValues.Running.ChildFormLocations;
+                    //frm.Size = SharedValues.Running.ChildFormSize;
+                    //frm.ShowDialog();
                 }
                 catch (Exception ex)
                 {

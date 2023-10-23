@@ -22,222 +22,131 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Border
-            Margin="10"
-            BorderBrush="blue"
-            BorderThickness="1">
+        <GroupBox
+            x:Name="GroupBox1"
+            Margin="16"
+            Style="{StaticResource MaterialDesignCardGroupBox}">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="32"
+                            Height="32"
+                            VerticalAlignment="Center"
+                            Kind="Database" />
+                        <TextBlock
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                            Text="{Binding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-
-                <!--  CAM  -->
-                <Grid>
+                <Grid x:Name="GridCamSetting">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition Width="0.2*" />
                         <ColumnDefinition />
+                        <ColumnDefinition Width="0.2*" />
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
-                    <!--  Params  -->
-                    <Grid Background="#bdbbb3">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*" />
-                            <RowDefinition Height="3*" />
-                        </Grid.RowDefinitions>
-                        <Label
-                            HorizontalAlignment="Center"
-                            Content="CAMERA"
-                            FontSize="15"
-                            FontWeight="Bold" />
-                        <StackPanel Grid.Row="1">
-                            <Grid Margin="0,0,0,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="7*" />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="TYPE: " />
-
-
-
-                                <Grid Grid.Column="1">
-                                    <ComboBox  HorizontalAlignment="Stretch"
-                                            x:Name="OutlinedComboBox"
-                                            materialDesign:HintAssist.Hint=""
-                                            IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                                            ItemsSource="{Binding ShortStringList}"
-                                            Background="AliceBlue"
-                                            Style="{StaticResource MaterialDesignFilledComboBox}" >
-                                        <ComboBoxItem Content="COGNEX DM60"/>
-                                        <ComboBoxItem Content="COGNEX DM280"/>
-                                        <ComboBoxItem Content="KEYENCE CV-X"/>
-                                    </ComboBox>
-                                </Grid>
-                                       
-                                
-                       
-
-                            </Grid>
-
-                            <Grid Margin="0,0,0,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="7*" />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="IP: " />
-                                <TextBox
-                                    Grid.Column="1"
-                                    
-                                    VerticalAlignment="Center"
-                                    materialDesign:HintAssist.Hint="Camera IP Address"
-                           Background="AliceBlue"
-                                    BorderBrush="DimGray"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                            </Grid>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="7*" />
-
-                                </Grid.ColumnDefinitions>
-                                <Label Content="PORT: " />
-                                <TextBox
-                                    Grid.Column="1"
-                                
-                                    VerticalAlignment="Center"
-                                    materialDesign:HintAssist.Hint="Camera Port"
-                            Background="AliceBlue"
-                                    BorderBrush="DimGray"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                            </Grid>
-                        </StackPanel>
-                    </Grid>
-
-
-                    <!--  Setting  -->
-                    <Grid
-                        x:Name="GridSetting"
+                    <Label
                         Grid.Column="1"
-                        Background="#bdbbb3">
-
-
-
-                        <Button
-                            x:Name="BtnSetCam"
-                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-                            ToolTip="MaterialDesignFloatingActionLightButton">
-                            <materialDesign:PackIcon
-                                Width="50"
-                                Height="50"
-                                Kind="CogOutline" />
-                        </Button>
-
-
-
-
-
-
-                    </Grid>
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="IP"
+                        FontSize="16" />
+                    <TextBox
+                        x:Name="TextBoxIPCam"
+                        Grid.Column="2"
+                        Height="50"
+                        Margin="10"
+                        FontSize="18"
+                       
+                        Style="{StaticResource MaterialDesignFilledTextBox}"
+                        Text="{Binding FilePath}" />
+                    <Label
+                        Grid.Column="3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="Port"
+                        FontSize="16" />
+                    <TextBox
+                        x:Name="TextBoxPortCam"
+                        Grid.Column="4"
+                        Height="50"
+                        Margin="10"
+                        FontSize="18"
+                      
+                        Style="{StaticResource MaterialDesignFilledTextBox}"
+                        Text="{Binding FilePath}" />
+                    <Button
+                        x:Name="BtnSetCam"
+                        Grid.Column="5"
+                        Width="80"
+                        Content="Setting"
+                        Height="35" />
                 </Grid>
 
-                <!--  PRINTER  -->
-                <Grid Grid.Row="1">
+                <Grid x:Name="GridPrinterSetting" Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition Width="0.2*" />
                         <ColumnDefinition />
+                        <ColumnDefinition Width="0.2*" />
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
-                    <!--  Params  -->
-                    <Grid Background="#bdbbb3">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*" />
-                            <RowDefinition Height="3*" />
-                        </Grid.RowDefinitions>
-                        <Label
-                            HorizontalAlignment="Center"
-                            Content="PRINTER"
-                            FontSize="15"
-                            FontWeight="Bold" />
-                        <StackPanel Grid.Row="1">
-
-
-                            <Grid Margin="0,0,0,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="7*" />
-                                </Grid.ColumnDefinitions>
-                                <Label Content="IP: " />
-                                <TextBox
-                                    Grid.Column="1"
-                                   
-                                    VerticalAlignment="Center"
-                                    materialDesign:HintAssist.Hint="Printer IP Address"
-                                   Background="AliceBlue"
-                                    BorderBrush="DimGray"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                            </Grid>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="7*" />
-
-                                </Grid.ColumnDefinitions>
-                                <Label Content="PORT: " />
-                                <TextBox
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    materialDesign:HintAssist.Hint="Printer Port"
-                                  Background="AliceBlue"
-                                    BorderBrush="DimGray"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                            </Grid>
-                        </StackPanel>
-                    </Grid>
-
-
-                    <!--  Setting  -->
-                    <Grid Grid.Column="1" Background="#bdbbb3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-
-
-                        <Button
-                            x:Name="BtnSetPrinter"
-                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-                            ToolTip="MaterialDesignFloatingActionLightButton">
-                            <materialDesign:PackIcon
-                                Width="50"
-                                Height="50"
-                                Kind="CogOutline" />
-                        </Button>
-
-
-
-                        <Button
-                            x:Name="BtnWebPrinter"
-                            Grid.Column="1"
-                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-                            ToolTip="MaterialDesignFloatingActionLightButton">
-                            <materialDesign:PackIcon
-                                Width="50"
-                                Height="50"
-                                Foreground="CadetBlue"
-                                Kind="Web" />
-                        </Button>
-
-
-                    </Grid>
+                    <Label
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="IP"
+                        FontSize="16" />
+                    <TextBox
+                        x:Name="TextBoxIPPrinter"
+                        Grid.Column="2"
+                        Height="50"
+                        Margin="10"
+                        FontSize="18"
+                       
+                        Style="{StaticResource MaterialDesignFilledTextBox}"
+                        Text="{Binding FilePath}" />
+                    <Label
+                        Grid.Column="3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="Port"
+                        FontSize="16" />
+                    <TextBox
+                        x:Name="TextBoxPortPrinter"
+                        Grid.Column="4"
+                        Height="50"
+                        Margin="10"
+                        FontSize="18"
+                  
+                        Style="{StaticResource MaterialDesignFilledTextBox}"
+                        Text="{Binding FilePath}" />
+                    <Button
+                        x:Name="BtnSetPrinter"
+                        Grid.Column="5"
+                        Width="80"
+                        Content="Remote"
+                        Height="35" />
                 </Grid>
-
-
-
             </Grid>
 
-        </Border>
+
+
+
+        </GroupBox>
     </Grid>
 </UserControl>

@@ -1,11 +1,12 @@
 ﻿<UserControl
     x:Class="App.PVCFC_RFID.Design.ucSettingDM60X"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Lang="clr-namespace:ML.Languages;assembly=ML.Languages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:App.PVCFC_RFID.Controller"
-    xmlns:Lang="clr-namespace:ML.Languages;assembly=ML.Languages"
     d:DesignHeight="1050"
     d:DesignWidth="1000"
     Background="WhiteSmoke"
@@ -20,7 +21,11 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ResourceDictionary.xaml" />
+                <!--<ResourceDictionary Source="ResourceDictionary.xaml" />-->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -39,37 +44,34 @@
                 FontSize="15"
                 FontWeight="Bold" />
         </Grid>
-        <TabControl Grid.Row="1">
+        <TabControl Grid.Row="1" Style="{StaticResource MaterialDesignNavigatilRailTabControl}">
             <TabItem
+                Width="200"
                 FontSize="14"
-                Header="{x:Static Lang:Languages.BasicSetting}"
-                Style="{DynamicResource TabItemStyle1}">
+                Header="BASIC">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="220" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="1.4*" />
+                        <RowDefinition Height="3*" />
 
                     </Grid.RowDefinitions>
 
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
+                       
 
                         <GroupBox
                             Grid.Row="0"
-                            Height="200"
+                            Height="auto"
                             Margin="5,5,5,5"
                             VerticalAlignment="Top"
                             BorderBrush="LightGray"
-                            BorderThickness="0.5"
-                            Style="{DynamicResource GroupBoxStyle1}">
+                            BorderThickness="0.5">
                             <GroupBox.Header>
                                 <TextBlock
                                     FontSize="16"
                                     FontWeight="Bold"
-                                    Text="{x:Static Lang:Languages.TriggerSetting}" />
+                                    Foreground="White"
+                                    Text="Trigger Setting" />
                             </GroupBox.Header>
                             <Grid Margin="0,5,0,0">
                                 <Grid.RowDefinitions>
@@ -88,17 +90,16 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     HorizontalAlignment="Left"
-                                    Content="{x:Static Lang:Languages.TriggerType}" />
+                                    Content="Trigger Type" />
                                 <ComboBox
                                     x:Name="CbbTriggerType"
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     Height="30"
                                     HorizontalAlignment="Stretch"
-                                    SelectedIndex="{Binding CbbTriggerTypeIndex}"
-                                    Style="{DynamicResource ComboBoxStyle1}">
-                                    <ComboBoxItem Content="{x:Static Lang:Languages.SingleExternal}" IsSelected="True" />
-                                    <ComboBoxItem Content="{x:Static Lang:Languages.BrustExternal}"/>
+                                    SelectedIndex="{Binding CbbTriggerTypeIndex}">
+                                    <ComboBoxItem Content="SingleExternal" IsSelected="True" />
+                                    <ComboBoxItem Content="BrustExternal" />
 
                                 </ComboBox>
 
@@ -106,15 +107,14 @@
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     HorizontalAlignment="Left"
-                                    Content="{x:Static Lang:Languages.DelayType}" />
+                                    Content="Delay Type" />
                                 <ComboBox
                                     x:Name="CbbDelayType"
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     Height="30"
                                     HorizontalAlignment="Stretch"
-                                    SelectedIndex="{Binding CbbDelayTypeIndex}"
-                                    Style="{DynamicResource ComboBoxStyle1}">
+                                    SelectedIndex="{Binding CbbDelayTypeIndex}">
                                     <ComboBoxItem Content="None" IsSelected="True" />
                                     <ComboBoxItem Content="Time" />
                                 </ComboBox>
@@ -124,7 +124,7 @@
                                     Grid.Column="0"
                                     Width="Auto"
                                     HorizontalAlignment="Left"
-                                    Content="{x:Static Lang:Languages.DecodeTime}" />
+                                    Content="Decode Time" />
                                 <TextBox
                                     x:Name="TbDecodeTime"
                                     Grid.Row="2"
@@ -132,14 +132,13 @@
                                     Height="30"
                                     HorizontalAlignment="Stretch"
                                     LostFocus="TbDecodeTime_LostFocus"
-                                    Style="{StaticResource TextBoxStyle1}"
                                     Text="{Binding TbDecodeTimeValue}" />
                                 <Label
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     Width="Auto"
                                     HorizontalAlignment="Left"
-                                    Content="{x:Static Lang:Languages.DelayTimeMs}"
+                                    Content="Delay Time (ms)"
                                     Visibility="{Binding TbDelayTimeVis}" />
                                 <TextBox
                                     x:Name="TbDelayTime"
@@ -148,97 +147,21 @@
                                     Height="30"
                                     HorizontalAlignment="Stretch"
                                     LostFocus="TbDelayTime_LostFocus"
-                                    Style="{StaticResource TextBoxStyle1}"
                                     Text="{Binding TbDelayTimeValue}"
                                     Visibility="{Binding TbDelayTimeVis}" />
                             </Grid>
                         </GroupBox>
 
-                        <Border
-                            Grid.Column="1"
-                            Margin="5,13,5,5"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Top"
-                            BorderBrush="LightGray"
-                            BorderThickness="0.5,0.5,0.5,0.5"
-                            CornerRadius="10">
-                            <StackPanel Margin="5,5,5,5">
-                                <GroupBox BorderThickness="0.5">
-                                    <GroupBox.Header>
-                                        <TextBlock
-                                            FontSize="16"
-                                            FontWeight="Bold"
-                                            Text="{x:Static Lang:Languages.UseStaticIPAddress}" />
-                                    </GroupBox.Header>
-                                    <Grid
-                                        Grid.Column="1"
-                                        Margin="0,5,0,0"
-                                        VerticalAlignment="Center">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="40" />
-                                            <RowDefinition Height="40" />
-                                            <RowDefinition Height="40" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="120" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Label VerticalAlignment="Center" Content="{x:Static Lang:Languages.IPAddress}" />
-                                        <TextBox
-                                            x:Name="TbIPAddress"
-                                            Grid.Column="1"
-                                            Height="30"
-                                            HorizontalAlignment="Stretch"
-                                            LostFocus="TbIPAddress_LostFocus"
-                                            Style="{StaticResource TextBoxStyle1}"
-                                            Text="{Binding TbIPAddressValue}" />
-                                        <Label
-                                            Grid.Row="1"
-                                            VerticalAlignment="Center"
-                                            Content="{x:Static Lang:Languages.SubnetMask}" />
-                                        <TextBox
-                                            x:Name="TbSubnet"
-                                            Grid.Row="1"
-                                            Grid.Column="1"
-                                            Height="30"
-                                            HorizontalAlignment="Stretch"
-                                            LostFocus="TbSubnet_LostFocus"
-                                            Style="{StaticResource TextBoxStyle1}"
-                                            Text="{Binding TbSubnetValue}" />
-                                        <Label
-                                            Grid.Row="2"
-                                            VerticalAlignment="Center"
-                                            Content="{x:Static Lang:Languages.Port}" />
-                                        <TextBox
-                                            x:Name="TbPort"
-                                            Grid.Row="2"
-                                            Grid.Column="1"
-                                            Height="30"
-                                            HorizontalAlignment="Stretch"
-                                            LostFocus="TbPort_LostFocus"
-                                            Style="{StaticResource TextBoxStyle1}"
-                                            Text="{Binding TbPortValue}" />
-                                    </Grid>
-                                </GroupBox>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Browse Setting File: "/>
-                                    <Button Content="..." 
-                                        Height="30" 
-                                        Width="70" 
-                                        Click="BrowseSettingFileClick"/>
-                                </StackPanel>
-                                
-                            </StackPanel>
-                        </Border>
 
 
                     </Grid>
-                    <GroupBox Grid.Row="1">
+                    <GroupBox Grid.Row="1" Margin="5,5,5,5">
                         <GroupBox.Header>
                             <TextBlock
                                 FontSize="16"
                                 FontWeight="Bold"
-                                Text="{x:Static Lang:Languages.SymbolRead}" />
+                                Foreground="White"
+                                Text="Symbol" />
                         </GroupBox.Header>
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <Grid x:Name="Grid_Symbol" Margin="0,10,0,0">
@@ -1049,21 +972,18 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
+
             <TabItem
+                Width="200"
                 FontSize="14"
-                Header="{x:Static Lang:Languages.Operation}"
-                Style="{DynamicResource TabItemStyle1}">
+                Header="ADVANCED">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
-                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="7*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions />
+                    <!--<Grid Grid.Column="0" Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40" />
                             <RowDefinition Height="40" />
@@ -1073,7 +993,7 @@
                         <Label Grid.Row="1" Content="{x:Static Lang:Languages.ResetDevice}" />
                     </Grid>
 
-                    <Grid Grid.Column="1">
+                    <Grid Grid.Column="1" Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40" />
                             <RowDefinition Height="40" />
@@ -1083,19 +1003,81 @@
                             Width="80"
                             Height="30"
                             HorizontalAlignment="Left"
-                            Content="{Binding ButtonRebootText,Converter={vm:CapitalizationConverter}}"
-                            Style="{StaticResource ActionButton}" 
-                            Click="Reboot_Click"/>
+                            Click="Reboot_Click"
+                            Content="{Binding ButtonRebootText, Converter={vm:CapitalizationConverter}}" />
                         <Button
                             Grid.Row="1"
                             Width="80"
                             Height="30"
                             HorizontalAlignment="Left"
-                            Content="{Binding ButtonResetText,Converter={vm:CapitalizationConverter}}"
-                            Style="{StaticResource ActionButton}"
-                            Click="Reset_Click"/>
-                    </Grid>
+                            Click="Reset_Click"
+                            Content="{Binding ButtonResetText, Converter={vm:CapitalizationConverter}}" />
+                    </Grid>-->
+                    <StackPanel Margin="5,5,5,5">
+                        <GroupBox BorderThickness="0.5">
+                            <GroupBox.Header>
+                                <TextBlock
+                                    FontSize="16"
+                                    FontWeight="Bold" Foreground="White"
+                                    Text="Static IP Address" />
+                            </GroupBox.Header>
+                            <Grid
+                                Grid.Column="1"
+                                Margin="0,5,0,0"
+                                VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label VerticalAlignment="Center" Content="{x:Static Lang:Languages.IPAddress}" />
+                                <TextBox
+                                    x:Name="TbIPAddress"
+                                    Grid.Column="1"
+                                    Height="30"
+                                    HorizontalAlignment="Stretch"
+                                    LostFocus="TbIPAddress_LostFocus"
+                                    Text="{Binding TbIPAddressValue}" />
+                                <Label
+                                    Grid.Row="1"
+                                    VerticalAlignment="Center"
+                                    Content="{x:Static Lang:Languages.SubnetMask}" />
+                                <TextBox
+                                    x:Name="TbSubnet"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Height="30"
+                                    HorizontalAlignment="Stretch"
+                                    LostFocus="TbSubnet_LostFocus"
+                                    Text="{Binding TbSubnetValue}" />
+                                <Label
+                                    Grid.Row="2"
+                                    VerticalAlignment="Center"
+                                    Content="{x:Static Lang:Languages.Port}" />
+                                <TextBox
+                                    x:Name="TbPort"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Height="30"
+                                    HorizontalAlignment="Stretch"
+                                    LostFocus="TbPort_LostFocus"
+                                    Text="{Binding TbPortValue}" />
+                            </Grid>
+                        </GroupBox>
+                        <StackPanel Margin="10" Orientation="Horizontal">
+                            <Label Content="Browse Setting File: " />
+                            <Button
+                                Width="70"
+                                Height="30"
+                                Click="BrowseSettingFileClick"
+                                Content="..." />
+                        </StackPanel>
 
+                    </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>
@@ -1107,8 +1089,7 @@
             Margin="0,0,20,0"
             HorizontalAlignment="Right"
             Click="ApplySettingClick"
-            Content="{Binding ButtonApplyText, Converter={vm:CapitalizationConverter}}"
-            Style="{StaticResource ActionButton}" />
+            Content="APPLY" />
 
     </Grid>
 </UserControl>

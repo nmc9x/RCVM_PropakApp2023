@@ -10,10 +10,12 @@ namespace App.PVCFC_RFID.Controller
 {
     public class SettingViewModel : ViewModelBase
     {
-        public static int Index { get;set; }
-        public SettingViewModel()
+        private int _Index { get;set; }
+        public SettingViewModel(int index)
         {
+            _Index = index;
             GetSavedValueSettingToElement();
+           
         }
       
         #region Properties
@@ -383,18 +385,18 @@ namespace App.PVCFC_RFID.Controller
         public void UpdateCurrentSettingValue()
         {
             // Get Trigger Config
-            SharedValues.Settings.StationList[Index].DMCamera.TriggerTypeIndex = CbbTriggerTypeIndex;
-            SharedValues.Settings.StationList[Index].DMCamera.DelayTypeIndex = CbbDelayTypeIndex;
-            SharedValues.Settings.StationList[Index].DMCamera.DecodeTime = int.Parse(TbDecodeTimeValue);
-            SharedValues.Settings.StationList[Index].DMCamera.DelayTime = int.Parse(TbDelayTimeValue);
+            SharedValues.Settings.StationList[_Index].DMCamera.TriggerTypeIndex = CbbTriggerTypeIndex;
+            SharedValues.Settings.StationList[_Index].DMCamera.DelayTypeIndex = CbbDelayTypeIndex;
+            SharedValues.Settings.StationList[_Index].DMCamera.DecodeTime = int.Parse(TbDecodeTimeValue);
+            SharedValues.Settings.StationList[_Index].DMCamera.DelayTime = int.Parse(TbDelayTimeValue);
 
             // Get Network Parameter
-            SharedValues.Settings.StationList[Index].DMCamera.IPAddress = TbIPAddressValue;
-            SharedValues.Settings.StationList[Index].DMCamera.Port = TbPortValue;
-            SharedValues.Settings.StationList[Index].DMCamera.SubnetMask = TbSubnetValue;
+            SharedValues.Settings.StationList[_Index].DMCamera.IPAddress = TbIPAddressValue;
+            SharedValues.Settings.StationList[_Index].DMCamera.Port = TbPortValue;
+            SharedValues.Settings.StationList[_Index].DMCamera.SubnetMask = TbSubnetValue;
 
             // Get Symbol Config
-            SharedValues.Settings.StationList[Index].DMCamera.SymbolState = new bool[]
+            SharedValues.Settings.StationList[_Index].DMCamera.SymbolState = new bool[]
             {
                 CheckBoxDataMatrix_Sts,
                 CheckBoxQR_Sts,
@@ -427,117 +429,45 @@ namespace App.PVCFC_RFID.Controller
             };
         }
 
-        public void GetDeviceSettingValue()
-        {
-            //try
-            //{
-            //    var objectList = DM60XSharedValues.DeviceHandler.GetSettingValues();
-            //    if (objectList != null)
-            //    {
-            //        #region Trigger Type [0] 
-            //        if ((string)objectList[0] == "0")
-            //            CbbTriggerTypeIndex = 0;
-            //        else if ((string)objectList[0] == "3")
-            //            CbbTriggerTypeIndex = 1;
-            //        else
-            //            CbbTriggerTypeIndex = -1;
-            //        #endregion
-
-            //        #region Delay Type [1] 
-            //        if ((string)objectList[1] == "0")
-            //            CbbDelayTypeIndex = 0;
-            //        else if ((string)objectList[1] == "1")
-            //            CbbDelayTypeIndex = 1;
-            //        else
-            //            CbbTriggerTypeIndex = -1;
-            //        #endregion
-
-            //        #region Decoder Timeout [2]
-            //        TbDecodeTimeValue = (string)objectList[2];
-            //        #endregion
-
-            //        #region IP Address [3] 
-            //        TbIPAddressValue = (string)objectList[3];
-            //        #endregion
-
-            //        #region SubnetMask [4] 
-            //        TbSubnetValue = (string)(objectList[4]);
-            //        #endregion
-
-            //        #region Port [5] 
-            //        TbPortValue = (string)objectList[5];
-            //        #endregion
-
-            //        #region Port [6-28] 
-            //        _CheckBoxDataMatrix_Sts = (string)objectList[6] == "ON";
-            //        _CheckBoxQR_Sts = (string)objectList[7] == "ON";
-            //        _CheckBoxMaxi_Sts = (string)objectList[8] == "ON";
-            //        _CheckBoxAztec_Sts = (string)objectList[9] == "ON";
-            //        _CheckBox128_Sts = (string)objectList[10] == "ON";
-            //        _CheckBox25_Sts = (string)objectList[11] == "ON";
-            //        _CheckBox93_Sts = (string)objectList[12] == "ON";
-            //        _CheckBox39_Sts = (string)objectList[13] == "ON";
-            //        _CheckBoxPharma_Sts = (string)objectList[14] == "ON";
-            //        _CheckBoxCodabar_Sts = (string)objectList[15] == "ON";
-            //        _CheckBoxInterleaved_Sts = (string)objectList[16] == "ON";
-            //        _CheckBoxUPCEAN_Sts = (string)objectList[17] == "ON";
-            //        _CheckBoxMsi_Sts = (string)objectList[18] == "ON";
-            //        _CheckBoxPDF_Sts = (string)objectList[19] == "ON";
-            //        _CheckBoxEANUCC_Sts = (string)objectList[20] == "ON";
-            //        _CheckBoxMicro_Sts = (string)objectList[21] == "ON";
-            //        _CheckBoxGS1_Sts = (string)objectList[22] == "ON";
-            //        _CheckBoxPostnet_Sts = (string)objectList[23] == "ON";
-            //        _CheckBoxPlanet_Sts = (string)objectList[24] == "ON";
-            //        _CheckBoxJap_Sts = (string)objectList[25] == "ON";
-            //        _CheckBoxUPU_Sts = (string)objectList[26] == "ON";
-            //        _CheckBoxAus_Sts = (string)objectList[27] == "ON";
-            //        _CheckBoxIntel_Sts = (string)objectList[28] == "ON";
-            //        #endregion
-            //    }
-            //}
-            //catch (Exception)
-            //{
-            //}
-
-        }
+        
 
         internal void GetSavedValueSettingToElement()
         {
             // Get Trigger Config
-            CbbTriggerTypeIndex = SharedValues.Settings.StationList[Index].DMCamera.TriggerTypeIndex;
-            CbbDelayTypeIndex = SharedValues.Settings.StationList[Index].DMCamera.DelayTypeIndex;
-            TbDecodeTimeValue = SharedValues.Settings.StationList[Index].DMCamera.DecodeTime.ToString();
-            TbDelayTimeValue = SharedValues.Settings.StationList[Index].DMCamera.DelayTime.ToString();
+            CbbTriggerTypeIndex = SharedValues.Settings.StationList[_Index].DMCamera.TriggerTypeIndex;
+            CbbDelayTypeIndex = SharedValues.Settings.StationList[_Index].DMCamera.DelayTypeIndex;
+            TbDecodeTimeValue = SharedValues.Settings.StationList[_Index].DMCamera.DecodeTime.ToString();
+            TbDelayTimeValue = SharedValues.Settings.StationList[_Index].DMCamera.DelayTime.ToString();
 
             // Get Network Parameter
-            TbIPAddressValue = SharedValues.Settings.StationList[Index].DMCamera.IPAddress;
-            TbPortValue = SharedValues.Settings.StationList[Index].DMCamera.Port;
-            TbSubnetValue = SharedValues.Settings.StationList[Index].DMCamera.SubnetMask;
+            TbIPAddressValue = SharedValues.Settings.StationList[_Index].DMCamera.IPAddress;
+            TbPortValue = SharedValues.Settings.StationList[_Index].DMCamera.Port;
+            TbSubnetValue = SharedValues.Settings.StationList[_Index].DMCamera.SubnetMask;
 
             //GetSymbol
-            _CheckBoxDataMatrix_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[0];
-            _CheckBoxQR_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[1];
-            _CheckBoxMaxi_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[2];
-            _CheckBoxAztec_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[3];
-            _CheckBox128_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[4];
-            _CheckBox25_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[5];
-            _CheckBox93_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[6];
-            _CheckBox39_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[7];
-            _CheckBoxPharma_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[8];
-            _CheckBoxCodabar_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[9];
-            _CheckBoxInterleaved_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[10];
-            _CheckBoxUPCEAN_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[11];
-            _CheckBoxMsi_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[12];
-            _CheckBoxPDF_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[13];
-            _CheckBoxEANUCC_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[14];
-            _CheckBoxMicro_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[15];
-            _CheckBoxGS1_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[16];
-            _CheckBoxPostnet_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[17];
-            _CheckBoxPlanet_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[18];
-            _CheckBoxJap_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[19];
-            _CheckBoxUPU_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[20];
-            _CheckBoxAus_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[21];
-            _CheckBoxIntel_Sts = SharedValues.Settings.StationList[Index].DMCamera.SymbolState[22];
+            _CheckBoxDataMatrix_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[0];
+            _CheckBoxQR_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[1];
+            _CheckBoxMaxi_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[2];
+            _CheckBoxAztec_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[3];
+            _CheckBox128_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[4];
+            _CheckBox25_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[5];
+            _CheckBox93_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[6];
+            _CheckBox39_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[7];
+            _CheckBoxPharma_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[8];
+            _CheckBoxCodabar_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[9];
+            _CheckBoxInterleaved_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[10];
+            _CheckBoxUPCEAN_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[11];
+            _CheckBoxMsi_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[12];
+            _CheckBoxPDF_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[13];
+            _CheckBoxEANUCC_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[14];
+            _CheckBoxMicro_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[15];
+            _CheckBoxGS1_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[16];
+            _CheckBoxPostnet_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[17];
+            _CheckBoxPlanet_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[18];
+            _CheckBoxJap_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[19];
+            _CheckBoxUPU_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[20];
+            _CheckBoxAus_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[21];
+            _CheckBoxIntel_Sts = SharedValues.Settings.StationList[_Index].DMCamera.SymbolState[22];
         }
         internal void SymbolGroupSelectChecked(string groupName)
         {
@@ -580,20 +510,20 @@ namespace App.PVCFC_RFID.Controller
        
         internal void RebootDevice() 
         {
-            CommonFunctions.SetToMemoryFile("mmf_Reboot" + Index, 1, "1");
+            CommonFunctions.SetToMemoryFile("mmf_Reboot" + _Index, 1, "1");
         }
         internal void ResetParams()
         {
-            CommonFunctions.SetToMemoryFile("mmf_Reset" + Index, 1, "1");
+            CommonFunctions.SetToMemoryFile("mmf_Reset" + _Index, 1, "1");
         }
         public void ApplySettingFunction()
         {
             try
             {
                 UpdateCurrentSettingValue();
-                CommonFunctions.GetFromMemoryFile("mmf_IP"+Index, 15, out string ip,out _);
-                CommonFunctions.GetFromMemoryFile("mmf_Subnet"+Index, 15, out string subnet, out _);
-                CommonFunctions.GetFromMemoryFile("mmf_Port" + Index, 4, out string port, out _);
+                CommonFunctions.GetFromMemoryFile("mmf_IP"+_Index, 15, out string ip,out _);
+                CommonFunctions.GetFromMemoryFile("mmf_Subnet"+_Index, 15, out string subnet, out _);
+                CommonFunctions.GetFromMemoryFile("mmf_Port" + _Index, 4, out string port, out _);
                 if(TbIPAddressValue != ip || TbPortValue != port || TbSubnetValue != subnet) 
                 {
                     var dialougeRes = MessageBox.Show(
@@ -604,16 +534,16 @@ namespace App.PVCFC_RFID.Controller
 
                     if(dialougeRes == MessageBoxResult.Yes)
                     {
-                        CommonFunctions.SetToMemoryFile("mmf_isChangeNetwork"+Index, 1, "1");
+                        CommonFunctions.SetToMemoryFile("mmf_isChangeNetwork"+_Index, 1, "1");
                     }
                     else
                     {
-                        CommonFunctions.SetToMemoryFile("mmf_isChangeNetwork" + Index, 1, "0");
+                        CommonFunctions.SetToMemoryFile("mmf_isChangeNetwork" + _Index, 1, "0");
                     }
                 }
-                SharedControlHandler.SendDM60XSettings(Index);
+                SharedControlHandler.SendDM60XSettings(_Index);
                 Thread.Sleep(1500);
-                SharedFunctions.DM60XConfigResultNotify(Index, true);
+                SharedFunctions.DM60XConfigResultNotify(_Index, true);
             }
             catch (Exception)
             {

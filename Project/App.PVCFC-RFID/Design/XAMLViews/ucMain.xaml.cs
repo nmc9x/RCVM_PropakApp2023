@@ -76,7 +76,10 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             BtnStart.LayoutTransform = MainPage.ScaleTransform;
             BtnStop.LayoutTransform = MainPage.ScaleTransform;
             BtnTrigger.LayoutTransform = MainPage.ScaleTransform;
-          
+            LabelSelect.LayoutTransform = MainPage.ScaleTransform;
+            ComboboxStation.LayoutTransform = MainPage.ScaleTransform;
+
+
         }
 
         private void InitStation()
@@ -202,12 +205,13 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         private void InitJob(int i)
         {
            
-                var ucJob = new ucJobItems();
+                var ucJob = new ucJobItems(i);
                 ucJob.BtnSetCam.Click += BtnSetCam_Click;
                 ucJob.BtnSetPrinter.Click += BtnSetPrinter_Click;
-                ucJob.BtnWebPrinter.Click += BtnWebPrinter_Click;
+                //ucJob.BtnWebPrinter.Click += BtnWebPrinter_Click;
                 ucJob.BtnSetPrinter.Name = "BtnSetPrinter" + i;
-                StackPanelJob.Children.Add(ucJob);
+                ucJob.BtnSetCam.Name = "BtnSetCam" + i;
+            StackPanelJob.Children.Add(ucJob);
         }
         
         private List<string> listPathDb = new List<string>();
@@ -290,17 +294,16 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         }
         private void BtnSetPrinter_Click(object sender, RoutedEventArgs e)
         {
-            var btn = (System.Windows.Controls.Button)sender;
-            CallbackCommand(vm => vm.TabIndex = 2);
-            var index = btn.Name.Substring(13);
-            ucSettingDM60X.Index = int.Parse(index);
-            var ucSetCam = new ucSettingDM60X();
-            GridSetting.Children.Add(ucSetCam);
+            
         }
 
         private void BtnSetCam_Click(object sender, RoutedEventArgs e)
         {
-            
+            var btn = (System.Windows.Controls.Button)sender;
+            CallbackCommand(vm => vm.TabIndex = 2);
+            var index = btn.Name.Substring(btn.Name.Length-1);
+            var ucSetCam = new ucSettingDM60X(int.Parse(index));
+            GridSetting.Children.Add(ucSetCam);
         }
 
         #region ScrollViewer Status Station

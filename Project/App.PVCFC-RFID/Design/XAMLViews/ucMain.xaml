@@ -154,7 +154,7 @@
                                 <ColumnDefinition Width="1.2*" />
                                 <ColumnDefinition Width="3.5*" />
                             </Grid.ColumnDefinitions>
-                            <Label
+                            <Label x:Name="LabelSelect"
                                 Margin="5,0,0,0"
                                 VerticalAlignment="Center"
                                 Content="SELECT :"
@@ -163,9 +163,11 @@
                             <ComboBox
                                 x:Name="ComboboxStation"
                                 Grid.Column="1"
-                                Margin="0,0,5,10"
+                                Margin="0,0,5,0"
+                                FontSize="25"
                                 HorizontalAlignment="Stretch"
-                                Background="LightYellow"
+                                VerticalAlignment="Center"
+                                Background="Transparent"
                                 BorderThickness="1"
                                 SelectedIndex="{Binding SelectedStationIndex}"
                                 Style="{StaticResource MaterialDesignOutlinedComboBox}" />
@@ -353,7 +355,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition Height="5*" />
-                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="1*" />
                         </Grid.RowDefinitions>
                         <TextBlock
                             Padding="0,16"

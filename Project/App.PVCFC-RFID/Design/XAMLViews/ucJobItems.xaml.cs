@@ -22,18 +22,11 @@ namespace App.PVCFC_RFID.Design.XAMLViews
     public partial class ucJobItems : UserControl
     {
      
-        public static int Index { get; set; }
-        private int _Index { get; set; }
-        public ucJobItems(): this(Index)
-        {
-            InitializeComponent();
-        }
 
         public ucJobItems(int index)
         {
-            _Index = index;
-        }
-
-        
+            InitializeComponent();
+            GroupBox1.Header = "Job " + index + " Setting";
+        }   
     }
 }

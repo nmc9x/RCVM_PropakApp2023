@@ -100,8 +100,8 @@ namespace App.PVCFC_RFID.Design
         }
         private void UpdateScaleTransform()
         {
-            double xScale = this.Width / initialWidth / 1.5;
-            double yScale = this.Height / initialHeight / 1.5;
+            double xScale = this.Width / initialWidth / 2;
+            double yScale = this.Height / initialHeight / 2;
             ScaleTransform = new ScaleTransform(xScale, yScale);
         }
     }
