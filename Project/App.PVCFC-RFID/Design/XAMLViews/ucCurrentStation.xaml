@@ -82,12 +82,13 @@
 
 
                     <Grid Grid.Row="1"  Margin="16">
-                        <!--  Tạo hình vuông màu xanh với hiệu ứng 3D  -->
+                      
                         <Rectangle
-                            Width="200"
-                            Height="100"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
+                            Width="auto"
+                            Height="auto"
+                            
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
                             <Rectangle.Fill>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                     <GradientStop Color="LightGreen" Offset="0.0" />
@@ -96,8 +97,8 @@
                             </Rectangle.Fill>
                         </Rectangle>
 
-                        <!--  Thêm chữ "start" ở trung tâm của hình vuông  -->
-                        <TextBlock
+                       
+                        <TextBlock x:Name="TextBoxRUN"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontWeight="Bold"
@@ -107,7 +108,7 @@
                         </TextBlock>
                     </Grid>
                     <Grid Grid.Row="1"  Margin="16" Visibility="Collapsed">
-                        <!--  Tạo hình vuông màu xanh với hiệu ứng 3D  -->
+                       
                         <Rectangle
                             Width="200"
                             Height="100"
@@ -121,8 +122,8 @@
                             </Rectangle.Fill>
                         </Rectangle>
 
-                        <!--  Thêm chữ "start" ở trung tâm của hình vuông  -->
-                        <TextBlock
+
+                        <TextBlock x:Name="TextBoxSTOP"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontWeight="Bold"
@@ -131,34 +132,7 @@
 
                         </TextBlock>
                     </Grid>
-                    <!--<Grid Grid.Row="1" VerticalAlignment="Center" Background="Transparent">
-                        <materialDesign:PackIcon x:Name ="IconRun"
-                            Width="200"
-                            Height="200"
-                            HorizontalAlignment="Center"
-                            Foreground="#2cc743"
-                            Kind="PlayCircleOutline"
-                            Visibility="Visible" />
-                        <materialDesign:PackIcon x:Name ="IconStop"
-                            Width="200"
-                            Height="200"
-                            HorizontalAlignment="Center"
-                            Foreground="Gray"
-                            Kind="StopCircleOutline"
-                            Visibility="Collapsed" />
-                    </Grid>-->
-
-                    <!--<Border
-                    Grid.Row="1"
-                    Margin="16"
-                    Background="Green">
-                        <TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Foreground="WhiteSmoke"
-                        Style="{StaticResource MaterialDesignHeadline3TextBlock}"
-                        Text="RUN" />
-                    </Border>-->
+                   
 
                 </Grid>
 
@@ -178,9 +152,9 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="6*" />
-                                    <RowDefinition />
+                                    <RowDefinition Height="2*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock
+                                <TextBlock x:Name="TextBlockTotal"
                                     Grid.Row="0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
@@ -226,9 +200,9 @@
 
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="6*" />
-                                    <RowDefinition />
+                                    <RowDefinition Height="2*"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock
+                                <TextBlock x:Name="TextBlockPrinted"
                                     Grid.Row="0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
@@ -273,9 +247,9 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="6*" />
-                                    <RowDefinition />
+                                    <RowDefinition Height="2*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock
+                                <TextBlock x:Name="TextBlockGood"
                                     Grid.Row="0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
@@ -322,9 +296,9 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="6*" />
-                                    <RowDefinition />
+                                    <RowDefinition Height="2*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock
+                                <TextBlock x:Name="TextBlockFail"
                                     Grid.Row="0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"

@@ -1,8 +1,12 @@
 ﻿using App.PVCFC_RFID.Controller;
 using App.PVCFC_RFID.Controller.ViewModels;
 using ControlzEx.Theming;
+using Microsoft.VisualBasic.FileIO;
 using ML.Common.Controller;
+using Symbol.RFID3;
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -40,6 +44,8 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         public delegate void ButtonFailClickHandler(object sender, EventArgs e);
         public event ButtonFailClickHandler ButtonFailClickEvent;
 
+        private List<DatabaseSetting> listucDB;
+
         #endregion
         public ucMain()
         {
@@ -50,6 +56,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             MainPage.ScaleTransformChanged += MainPage_ScaleTransformChanged;
             UpdateScaleTransform();
             DataContext = new MainTabViewModel();
+            listucDB = new List<DatabaseSetting>();
             InitStation();
 
 
@@ -80,7 +87,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                 InitItemCombobox(i);
                 InitDeviceTransferStations(i);
                 InitJob(i);
-                InitTriggerTab(i);
+                InitDbItem(i);
             }
             SharedControlHandler.InitDeviceTransfer();
 
@@ -113,7 +120,9 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         }
         private void InitItemCombobox(int i)
         {
+            ComboboxStation.FontSize = 25;
             ComboboxStation.Items.Add("JOB "+(i+1));
+           
         }
         private void InitDeviceTransferStations(int i)
         {
@@ -175,12 +184,20 @@ namespace App.PVCFC_RFID.Design.XAMLViews
            var id = int.Parse((btnName[btnName.Length - 1]).ToString());
            ButtonGoodClickEvent?.Invoke(id, EventArgs.Empty);
         }
-
+        static int TempIndex;
+        ucTrigger tempUctrigger ;
         private void InitTriggerTab(int index)
         {
-            if (index < 0) index = 0;
-                var ucTrigger = new ucTrigger(index);
-                GridTrigger.Children.Add(ucTrigger); 
+            if (index < 0) 
+            {
+                index = 0;
+            };
+            var ucTrigger = new ucTrigger(index);
+            
+                GridTrigger.Children.Clear();
+                GridTrigger.Children.Add(ucTrigger);
+                
+               
         }
         private void InitJob(int i)
         {
@@ -189,10 +206,65 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                 ucJob.BtnSetCam.Click += BtnSetCam_Click;
                 ucJob.BtnSetPrinter.Click += BtnSetPrinter_Click;
                 ucJob.BtnWebPrinter.Click += BtnWebPrinter_Click;
-
                 ucJob.BtnSetPrinter.Name = "BtnSetPrinter" + i;
-
                 StackPanelJob.Children.Add(ucJob);
+        }
+        
+        private List<string> listPathDb = new List<string>();
+        void InitDbItem(int i)
+        {
+            var rowDef = new RowDefinition();
+            GridSetPath.RowDefinitions.Add(rowDef);
+            var dbset = new DatabaseSetting(i);
+            
+            dbset.BtnReview.Name = "BtnReview" + i;
+            dbset.BtnReview.Click += BtnReview_Click;
+            Grid.SetRow(dbset, i);
+            GridSetPath.Children.Add(dbset);
+            listucDB.Add(dbset);
+        }
+
+        private void BtnReview_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = (System.Windows.Controls.Button)sender;
+            var index = int.Parse(btn.Name.Substring(btn.Name.Length-1));
+            var viewModel = (DatabaseSettingVM)listucDB[index].DataContext;
+            LoadCsvIntoDataGrid(viewModel.FilePath);
+
+
+        }
+        private void LoadCsvIntoDataGrid(string csvFilePath)
+        {
+            try
+            {
+                DataTable dataTable = new DataTable();
+
+                using (TextFieldParser parser = new TextFieldParser(csvFilePath))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(",");
+                    if (!parser.EndOfData)
+                    {
+                        string[] fields = parser.ReadFields();
+                        foreach (string field in fields)
+                        {
+                            dataTable.Columns.Add(field);
+                        }
+                    }
+
+                    while (!parser.EndOfData)
+                    {
+                        string[] values = parser.ReadFields();
+                        dataTable.Rows.Add(values);
+                    }
+                }
+
+                DataGridPreview.ItemsSource = dataTable.DefaultView;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Database Not Found","",MessageBoxButton.OK,MessageBoxImage.Error);
+            }
             
         }
         #endregion
@@ -223,12 +295,12 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             var index = btn.Name.Substring(13);
             ucSettingDM60X.Index = int.Parse(index);
             var ucSetCam = new ucSettingDM60X();
-            GridSettingPrinter.Children.Add(ucSetCam);
+            GridSetting.Children.Add(ucSetCam);
         }
 
         private void BtnSetCam_Click(object sender, RoutedEventArgs e)
         {
-           
+            
         }
 
         #region ScrollViewer Status Station

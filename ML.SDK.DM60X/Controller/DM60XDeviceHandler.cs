@@ -6,6 +6,7 @@ using ML.Connections.DataType;
 using ML.SDK.DM60X.Model;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Net;
@@ -16,6 +17,7 @@ using System.Threading;
 using System.Xml.Serialization;
 using static ML.SDK.DM60X.DataType.DM60XDataType;
 using static ML.SDK.DM60X.Model.CodeModel;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ML.SDK.DM60X.Controller
 {
@@ -118,11 +120,11 @@ namespace ML.SDK.DM60X.Controller
                     StartReadding();
 
                     //Thread Listen Config via MMF
-                    //var threadListenConfig = new Thread(ListenConfig)
-                    //{
-                    //    IsBackground = true
-                    //};
-                    //threadListenConfig.Start();
+                    var threadListenConfig = new Thread(ListenConfig)
+                    {
+                        IsBackground = true
+                    };
+                    threadListenConfig.Start();
 
                     //Thread Dequeue Data
                     var threadProccessExcMessage = new Thread(ProccessExcMessage)
@@ -150,9 +152,11 @@ namespace ML.SDK.DM60X.Controller
         {
             try
             {
+                
                 while (true)
                 {
-                    
+                    var mmf_TriggerClick = new MemoryMapHelper("mmf_TriggerClick" + _SocketIndex, 1);
+
                     CommonFunctions.GetFromMemoryFile("mmf_Reboot"+_SocketIndex, 1,out string isRebootStr,out _);
                     if(isRebootStr == "1")
                     {
@@ -172,11 +176,12 @@ namespace ML.SDK.DM60X.Controller
                         Console.WriteLine("Reset params to default !");
 #endif
                     }
-                    CommonFunctions.GetFromMemoryFile("mmf_TriggerClick"+ _SocketIndex, 1, out string isTriggerClickStr, out _);
-                    if (isTriggerClickStr == "1")
+                    var triggerClickSts = Encoding.ASCII.GetString(mmf_TriggerClick.ReadData(0, 1));
+                    
+                    if (triggerClickSts == "1")
                     {
                         SoftwareTrigger();
-
+                        mmf_TriggerClick.WriteData(Encoding.ASCII.GetBytes("0"),0);
 #if DEBUG
                         Console.WriteLine("Software Trigger is Action at Socket Index: "+ _SocketIndex);
 #endif
@@ -360,6 +365,8 @@ namespace ML.SDK.DM60X.Controller
             {
                 var complexResult = obj as ComplexResult;
                 var codeModel = new CodeModel();
+                System.Drawing.Image img = null;
+                List<string> imgGrap = new List<string>();
                 lock (_ObjectSyncLock)
                 {
                     foreach (var simResult in complexResult.SimpleResults)
@@ -370,22 +377,11 @@ namespace ML.SDK.DM60X.Controller
                         switch (simResult.Id.Type)
                         {
                             case ResultTypes.Image:
-                                var image = ImageArrivedEventArgs.GetImageFromImageBytes(simResult.Data);
-                               
-                                if (image != null)
-                                {
-                                    codeModel.ImageList.Add(image);
-                                    var first_image = codeModel.ImageList[0];
-                                    var image_size = Gui.FitImageInControl(first_image.Size, new Size(300, 300));
-                                    var fitted_image = Gui.ResizeImageToBitmap(first_image, image_size);
-                                    var byteImage = CommonFunctions.ImageToByteArray(fitted_image);
-                                    CommonFunctions.SetToMemoryFile("mmf_ImageByteLength", 5, byteImage.Length.ToString());
-                                    CommonFunctions.SetToMemoryFile("mmf_ImageTrigger", byteImage.Length, "", byteImage);
-                                }
-                                    
+                                img = ImageArrivedEventArgs.GetImageFromImageBytes(simResult.Data);              
                                 break;
                             case ResultTypes.ImageGraphics:
-                                codeModel.ImageGraphList.Add(simResult.GetDataAsString());
+                                //codeModel.ImageGraphList.Add(simResult.GetDataAsString());
+                                imgGrap.Add(simResult.GetDataAsString());
                                 break;
                             case ResultTypes.ReadXml:
                                 codeModel.XmlResult = GetObjectFrXmlReader(simResult.GetDataAsString());
@@ -395,38 +391,27 @@ namespace ML.SDK.DM60X.Controller
                         }
 
                         // Processing IMG
-                      
-                        //if (codeModel.ImageList.Count > 0)
-                        //{
-                        //    Image first_image = codeModel.ImageList[0];
-
-                        //    Size image_size = Gui.FitImageInControl(first_image.Size, new Size(400, 400));
-                        //    Image fitted_image = Gui.ResizeImageToBitmap(first_image, image_size);
-
-                        //    if (codeModel.ImageGraphList.Count > 0)
-                        //    {
-                        //        using (Graphics g = Graphics.FromImage(fitted_image))
-                        //        {
-                        //            foreach (var graphics in codeModel.ImageGraphList)
-                        //            {
-                        //                ResultGraphics rg = GraphicsResultParser.Parse(graphics, new Rectangle(0, 0, image_size.Width, image_size.Height));
-                        //                ResultGraphicsRenderer.PaintResults(g, rg);
-                        //            }
-                        //        }
-                        //    }
-
-                          
-//#if DEBUG
-//                            //  Console.WriteLine("Size byte image: " + byteImage.Length);
-//#endif
-//                            //  StorageImageFile(fitted_image);
-//                        }
-
+                        if (img != null)
+                        {
+                            var image_size = Gui.FitImageInControl(img.Size, new Size(300, 300));
+                            var fitted_image = Gui.ResizeImageToBitmap(img, image_size);
+                            if (imgGrap.Count > 0)
+                            {
+                                using (Graphics g = Graphics.FromImage(fitted_image))
+                                {
+                                    foreach (var graphics in imgGrap)
+                                    {
+                                        ResultGraphics rg = GraphicsResultParser.Parse(graphics, new Rectangle(0, 0, image_size.Width, image_size.Height));
+                                        ResultGraphicsRenderer.PaintResults(g, rg);
+                                    }
+                                    var byteImage = CommonFunctions.ImageToByteArray(fitted_image);
+                                    var mmf_ImageTrigger = new MemoryMapHelper("mmf_ImageTrigger" + _SocketIndex, 100000);
+                                    mmf_ImageTrigger.WriteData(byteImage, 0);
+                                }
+                            }
+                        }
                     }
                     new Thread(() => ProccessReceivedMessage(codeModel)).Start();
-#if DEBUG
-                    //Console.WriteLine("Data Read: "+"ID: " + codeModel.ID + " Code: "+ codeModel.Code);
-#endif
                 }
               
                

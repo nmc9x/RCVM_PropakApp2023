@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -22,10 +23,12 @@ namespace App.PVCFC_RFID.Design
         private double initialHeight;
         public static ScaleTransform ScaleTransform;
         public static event EventHandler ScaleTransformChanged;
+        private static string ProcessName_1 = Properties.Settings.Default.DeviceTransferName;
         public MainPage()
         {
-
+            KillProcess();
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
             this.initialWidth = this.Width;
             this.initialHeight = this.Height;
             this.SizeChanged += MainPage_SizeChanged;
@@ -37,8 +40,21 @@ namespace App.PVCFC_RFID.Design
             mainChild.ButtonFailClickEvent += MainChild_ButtonFailClickEvent;
             mainChild.ButtonPrintedClickEvent += MainChild_ButtonPrintedClickEvent;
             UpdateScaleTransform();
+            this.FormClosed += MainPage_FormClosed;
+            
         }
 
+        private void MainPage_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            KillProcess();
+        }
+        void KillProcess()
+        {
+            foreach (var process in Process.GetProcessesByName(ProcessName_1))
+            {
+                process.Kill();
+            }
+        }
         private void MainChild_ButtonPrintedClickEvent(object sender, EventArgs e)
         {
             var index = (int)sender;

@@ -30,7 +30,7 @@
         <Grid
             x:Name="GridNav"
             HorizontalAlignment="Stretch"
-            Background="CadetBlue">
+            Background="#0bb5a1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
@@ -75,7 +75,7 @@
                     </StackPanel>
                 </ListBoxItem>
 
-                <ListBoxItem>
+                <!--<ListBoxItem>
                     <StackPanel Margin="10,0,0,0">
                         <materialDesign:PackIcon
                             Width="50"
@@ -84,7 +84,7 @@
                             Kind="Login" />
                         <TextBlock HorizontalAlignment="Center" Text="LOGIN" />
                     </StackPanel>
-                </ListBoxItem>
+                </ListBoxItem>-->
 
                 <ListBoxItem>
                     <StackPanel Margin="10,0,0,0">
@@ -116,7 +116,17 @@
                 <RowDefinition />
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
-            <Grid x:Name="GridHeader" />
+            <Grid x:Name="GridHeader" Background="#0bb5a1">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="ARIAL"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Text="PROPAK 2023" />
+
+            </Grid>
             <Grid
                 x:Name="GridBody"
                 Grid.Row="1"
@@ -141,17 +151,19 @@
 
                         <Grid Margin="0,0,0,0" HorizontalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1.1*" />
-                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="1.2*" />
+                                <ColumnDefinition Width="3.5*" />
                             </Grid.ColumnDefinitions>
-                            <Label Margin="5 0 0 0"
+                            <Label
+                                Margin="5,0,0,0"
                                 VerticalAlignment="Center"
-                                Content="SELECT :" FontSize="20"
+                                Content="SELECT :"
+                                FontSize="25"
                                 FontWeight="Bold" />
                             <ComboBox
                                 x:Name="ComboboxStation"
                                 Grid.Column="1"
-                                Margin="0,0,10,0"
+                                Margin="0,0,5,10"
                                 HorizontalAlignment="Stretch"
                                 Background="LightYellow"
                                 BorderThickness="1"
@@ -166,8 +178,15 @@
                             Margin="2"
                             materialDesign:ElevationAssist.Elevation="Dp7"
                             Style="{StaticResource MaterialDesignCardGroupBox}">
+                            <GroupBox.Resources>
+                                <ResourceDictionary>
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0bb5a1" />
+                                </ResourceDictionary>
+                            </GroupBox.Resources>
                             <GroupBox.Header>
                                 <Grid>
+
+
                                     <TextBlock
                                         HorizontalAlignment="Center"
                                         FontWeight="Bold"
@@ -178,7 +197,7 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="1*" />
-                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition Height="3*" />
                                     <RowDefinition Height="1*" />
 
                                 </Grid.RowDefinitions>
@@ -192,7 +211,7 @@
                                         <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="3*" />
                                     </Grid.ColumnDefinitions>
-                                    <Label
+                                    <!--<Label
                                         VerticalAlignment="Center"
                                         Content="SELECT DATA"
                                         FontWeight="Bold" />
@@ -207,10 +226,14 @@
                                         Margin="5,0,5,0"
                                         materialDesign:HintAssist.Hint="File path"
                                         IsEnabled="False"
-                                        TextAlignment="Right" />
+                                        TextAlignment="Right" />-->
                                 </Grid>
 
-                                <Image Grid.Row="1" Source="/Images/chart-sample.png" Width="300" Height="400"/>
+                                <Image
+                                    Grid.Row="1"
+                                    Width="300"
+                                    Height="400"
+                                    Source="/Images/chart-sample.png" />
 
 
                                 <Grid Grid.Row="2" Background="Transparent">
@@ -284,13 +307,6 @@
                             </Grid>
                         </GroupBox>
 
-
-
-
-
-
-
-
                     </Grid>
                     <Grid
                         x:Name="GridStation"
@@ -323,9 +339,69 @@
 
                 </Grid>
 
-                <Grid x:Name="GridSettingPrinter" Visibility="{Binding TabIndex, Converter={StaticResource OptToVis}, ConverterParameter=2}" />
+                <Grid x:Name="GridSetting" Visibility="{Binding TabIndex, Converter={StaticResource OptToVis}, ConverterParameter=2}" />
 
                 <Grid x:Name="GridTrigger" Visibility="{Binding TabIndex, Converter={StaticResource OptToVis}, ConverterParameter=3}" />
+
+                <Grid x:Name="GridDB" Visibility="{Binding TabIndex, Converter={StaticResource OptToVis}, ConverterParameter=4}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid x:Name="GridSetPath" Grid.Column="0" />
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="2*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Padding="0,16"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                            Text="PREVIEW DATABASE" />
+
+                        <DataGrid
+                            x:Name="DataGridPreview"
+                            Grid.Row="1"
+                            Margin="0,0,20,0"
+                            BorderBrush="Gray"
+                            BorderThickness="1"
+                            CanUserResizeColumns="False"
+                            IsReadOnly="True" />
+
+                        <Grid Grid.Row="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Button
+                                    Grid.Column="1"
+                                    Width="100"
+                                    Height="50"
+                                    Margin="0,0,20,10"
+                                    HorizontalAlignment="Right"
+                                    materialDesign:ButtonAssist.CornerRadius="25"
+                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                    >
+                                    <TextBlock Margin="0,0,0,0" Text="SAVE" />
+                                </Button>
+                            </Grid>
+
+
+
+
+                        </Grid>
+                    </Grid>
+
+
+
+                </Grid>
+
             </Grid>
 
             <!--  Footer  -->

@@ -61,6 +61,21 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             BtnDetailFail.LayoutTransform = MainPage.ScaleTransform;
             EllipseTagName.LayoutTransform = MainPage.ScaleTransform;
             TextBoxTagName.LayoutTransform = MainPage.ScaleTransform;
+            TextBoxRUN.LayoutTransform = MainPage.ScaleTransform;
+            TextBoxSTOP.LayoutTransform = MainPage.ScaleTransform;
+            BtnDetailTotal.LayoutTransform = MainPage.ScaleTransform;
+            BtnDetailPrinted.LayoutTransform = MainPage.ScaleTransform;
+            BtnDetailGood.LayoutTransform = MainPage.ScaleTransform;
+            BtnDetailFail.LayoutTransform = MainPage.ScaleTransform;
+            TextBlockTotal.LayoutTransform = MainPage.ScaleTransform;
+            TextBlockPrinted.LayoutTransform = MainPage.ScaleTransform;
+            TextBlockGood.LayoutTransform = MainPage.ScaleTransform;
+            
+
+            TextBlockFail.LayoutTransform = MainPage.ScaleTransform;
+
+
+
         }
         #endregion
         public void CallbackCommand(Action<ucCurrentStationVM> execute)
@@ -85,7 +100,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         #region UI Event
         private void UcCurrentStation_Loaded(object sender, RoutedEventArgs e)
         {
-            CallbackCommand(vm => vm.StationTagName = (_Index +1).ToString());
+            CallbackCommand(vm => vm.StationTagName = "JOB " + (_Index +1).ToString());
         }
       
         #endregion

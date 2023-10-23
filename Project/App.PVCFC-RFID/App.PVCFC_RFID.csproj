@@ -76,6 +76,7 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.9.0.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MaterialDesignThemes.4.9.0\lib\net462\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.Web.WebView2.Core">
       <HintPath>..\..\ML.SolutionsProject\Common\dll\WebView\Microsoft.Web.WebView2.Core.dll</HintPath>
     </Reference>
@@ -129,6 +130,12 @@
   <ItemGroup>
     <Compile Include="Controller\ViewModels\MainTabViewModel.cs" />
     <Compile Include="Controller\ViewModels\StationStatusViewModel.cs" />
+    <Compile Include="Design\frmDialogue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Design\frmDialogue.Designer.cs">
+      <DependentUpon>frmDialogue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Design\MainPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -210,11 +217,17 @@
     <Compile Include="Design\ucSettingAccounts.Designer.cs">
       <DependentUpon>ucSettingAccounts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Design\XAMLViews\DatabaseSetting.xaml.cs">
+      <DependentUpon>DatabaseSetting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Design\XAMLViews\PopupDetails.xaml.cs">
       <DependentUpon>PopupDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="Design\XAMLViews\ucCurrentStation.xaml.cs">
       <DependentUpon>ucCurrentStation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Design\XAMLViews\ucDialogue.xaml.cs">
+      <DependentUpon>ucDialogue.xaml</DependentUpon>
     </Compile>
     <Compile Include="Design\XAMLViews\ucJobItems.xaml.cs">
       <DependentUpon>ucJobItems.xaml</DependentUpon>
@@ -291,6 +304,9 @@
     <Compile Include="Design\ucSettingsItemsRFIDZebraFX9600.Designer.cs">
       <DependentUpon>ucSettingsItemsRFIDZebraFX9600.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Design\frmDialogue.resx">
+      <DependentUpon>frmDialogue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Design\frmProductDetails.resx">
       <DependentUpon>frmProductDetails.cs</DependentUpon>
     </EmbeddedResource>
@@ -613,11 +629,19 @@
     <None Include="Resources\gif-load.gif" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Design\XAMLViews\DatabaseSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Design\XAMLViews\PopupDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Design\XAMLViews\ucCurrentStation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Design\XAMLViews\ucDialogue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

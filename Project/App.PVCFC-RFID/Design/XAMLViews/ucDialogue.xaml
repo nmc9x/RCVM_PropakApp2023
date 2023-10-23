@@ -1,0 +1,57 @@
+﻿<UserControl
+    x:Class="App.PVCFC_RFID.Design.XAMLViews.ucDialogue"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:App.PVCFC_RFID.Design.XAMLViews"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:Background="Aqua"
+    d:DesignHeight="200"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="GridTitle">
+            <TextBlock
+                x:Name="TextBlockTitle"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontWeight="Bold"
+                FontSize="16"
+                Foreground="Brown"
+                Text="Error Code" />
+        </Grid>
+        <Grid x:Name="GridMess" Grid.Row="1">
+            <TextBlock
+                x:Name="TextBlockMess"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+              
+                FontSize="16"
+                Foreground="Black"
+                Text="Error Code" />
+        </Grid>
+        <Button x:Name="ButtonClose"
+            Grid.Row="2"
+            Width="100"
+            Content="CLOSE"
+            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+            Style="{StaticResource MaterialDesignFlatLightBgButton}" />
+    </Grid>
+</UserControl>

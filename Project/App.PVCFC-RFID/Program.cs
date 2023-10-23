@@ -136,16 +136,16 @@ namespace App.PVCFC_RFID
             //
             ControlFunctions.CloseLoading();
             //
-            AccountController.InitAccount(SharedValues.RootPath + "User\\", "SYSTEM\\PCVFC_RFID\\", Properties.Settings.Default.SoftwareName, Properties.Settings.Default.Version, APIController.LinkAPI);
-            frmLogin loginform = new frmLogin();
-            DialogResult result = loginform.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                SharedValues.Running.IsOffline = !AccountController.Settings.IsOnlineUser;
+           // AccountController.InitAccount(SharedValues.RootPath + "User\\", "SYSTEM\\PCVFC_RFID\\", Properties.Settings.Default.SoftwareName, Properties.Settings.Default.Version, APIController.LinkAPI);
+           // frmLogin loginform = new frmLogin();
+           // DialogResult result = loginform.ShowDialog();
+            //if (result == DialogResult.OK)
+            //{
+              //  SharedValues.Running.IsOffline = !AccountController.Settings.IsOnlineUser;
                 //
                 //SharedValues.Running.IsOffline = true;//Every account have functions
                 Application.Run(new MainPage());
-            }
+           // }
         }
     }
 }

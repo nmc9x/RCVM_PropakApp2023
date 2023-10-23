@@ -1,6 +1,6 @@
 ﻿namespace App.PVCFC_RFID.Design
 {
-    partial class MainPage
+    partial class frmDialogue
     {
         /// <summary>
         /// Required designer variable.
@@ -33,22 +33,21 @@
             // 
             // elementHost1
             // 
-            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.elementHost1.Location = new System.Drawing.Point(0, 0);
+            this.elementHost1.Location = new System.Drawing.Point(0, 25);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(1184, 661);
+            this.elementHost1.Size = new System.Drawing.Size(382, 136);
             this.elementHost1.TabIndex = 0;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = null;
             // 
-            // MainPage
+            // frmDialogue
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 661);
+            this.ClientSize = new System.Drawing.Size(384, 161);
             this.Controls.Add(this.elementHost1);
-            this.Name = "MainPage";
-            this.ShowIcon = false;
+            this.Name = "frmDialogue";
+            this.Text = "frmDialogue";
             this.ResumeLayout(false);
 
         }

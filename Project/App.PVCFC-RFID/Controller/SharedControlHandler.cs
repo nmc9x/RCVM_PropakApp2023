@@ -12,9 +12,11 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Media;
 using System.Windows.Threading;
 using static ML.SDK.DM60X.DataType.DM60XDataType;
 
@@ -407,6 +409,9 @@ namespace App.PVCFC_RFID.Controller
         }
 
         public static GotCodeModel newCodeItem;
+
+        public static ImageSource ImgSrc { get; private set; }
+
         private static void GetRawDataToUI(int index, byte[] receiveByte)
         {
             try
@@ -449,6 +454,7 @@ namespace App.PVCFC_RFID.Controller
                     }
                     var mmfCodeData = new MemoryMapHelper("mmf_CurrentCodeData_" + index, 100);
                     mmfCodeData.WriteData(codeBytes, 0);
+                    OnDataRawListChanged(index);
                     DataRawListChanged?.Invoke(index, EventArgs.Empty);
                 });
                 
@@ -470,8 +476,19 @@ namespace App.PVCFC_RFID.Controller
 #endif
             }
         }
+        private static void OnDataRawListChanged(int index)
+        {
+            //var mmf_ImageByteLength = new MemoryMapHelper("mmf_ImageByteLength", 5); // max 5 numbers
+            //var lennum = Encoding.ASCII.GetString(mmf_ImageByteLength.ReadData(0, 5)).Trim('\0');
+            var mmf_ImageTrigger = new MemoryMapHelper("mmf_ImageTrigger" + index, 100000);
+            var imgBytes = mmf_ImageTrigger.ReadData(0, 100000);
+            if (imgBytes != null)
+            {
+                ImgSrc = CommonFunctions.ByteArrayToBitmapImage(imgBytes);
+            }
 
-       
+        }
+
 
         private static void FeedbackConfigProcess(int index, byte[] receiveByte)
         {

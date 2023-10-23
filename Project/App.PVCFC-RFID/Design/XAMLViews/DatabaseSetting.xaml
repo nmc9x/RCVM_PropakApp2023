@@ -1,0 +1,120 @@
+﻿<UserControl
+    x:Class="App.PVCFC_RFID.Design.XAMLViews.DatabaseSetting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:App.PVCFC_RFID.Design.XAMLViews"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:Background="White"
+    d:DesignHeight="200"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+    <Grid>
+        <GroupBox x:Name="GroupBox1"
+            Margin="16"
+         
+            Style="{StaticResource MaterialDesignCardGroupBox}">
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="32"
+                            Height="32"
+                            VerticalAlignment="Center"
+                            Kind="Database" />
+                        <TextBlock
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                            Text="{Binding}" />
+                        <!--<TextBlock x:Name="TextBlockJobId"
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                             />-->
+                    </StackPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBox
+                        x:Name="TextBoxPath"
+                        Height="50"
+                        Margin="10"
+                        FontSize="18"
+                        IsReadOnly="True"
+                        Style="{StaticResource MaterialDesignFilledTextBox}"
+                        Text="{Binding FilePath}" />
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock VerticalAlignment="Center" FontSize="20">
+                            Select POD Compare
+                        </TextBlock>
+                        <ComboBox
+                            Grid.Column="1"
+                            Height="60"
+                            Margin="0,0,10,0"
+                            FontSize="18"
+                            ItemsSource="{Binding CollectionHeaderCsv}"
+                            SelectedIndex="{Binding SelectedPODId}"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+
+                    </Grid.RowDefinitions>
+                    <Button
+                        x:Name="BtnBrowse"
+                        Width="100"
+                        Click="BrowseClick"
+                        Content="Browse ..."
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignOutlinedLightButton}"
+                        ToolTip="MaterialDesignFlatAccentBackgroundButton" />
+
+                    <Button x:Name="BtnReview"
+                       
+                        Grid.Row="1"
+                        Width="100"
+                        Content="REVIEW"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+                </Grid>
+
+
+            </Grid>
+
+        </GroupBox>
+
+
+
+    </Grid>
+</UserControl>

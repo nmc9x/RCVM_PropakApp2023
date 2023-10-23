@@ -16,10 +16,6 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         {
             InitializeComponent();
             DataContext = new TriggerViewModel(index);
-            if (DataContext is TriggerViewModel trgm)
-            {
-                trgm.Index = index;
-            }
             TriggerViewModel.CustomEvt += DataGridItemsChanged;
         }
         public void CallbackCommand(Action<TriggerViewModel> execute)

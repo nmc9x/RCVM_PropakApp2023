@@ -1,36 +1,50 @@
 ﻿using ML.Common.Controller;
 using ML.SDK.DM60X.Model;
-using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace App.PVCFC_RFID.Controller
 {
-    public class TriggerViewModel: ViewModelBase
+    public class TriggerViewModel : ViewModelBase
     {
 
         #region Define
-        public int Index { get; set; }
-        private int _MaxImageByteSize = 100000;
+        private int Index;
+
         private ObservableCollection<GotCodeModel> _CodeList = new ObservableCollection<GotCodeModel>();
         public ObservableCollection<GotCodeModel> CodeList
         {
             get => _CodeList;
-            set=> SetProperty(ref _CodeList, value);
+            set
+            {
+                SetProperty(ref _CodeList, value);
+
+            }
         }
 
         private ImageSource _ImgSrc;
         public ImageSource ImgSrc
         {
             get { return _ImgSrc; }
-            set { _ImgSrc = value; OnPropertyChanged(); }
+            set
+            {
+                if (ImgSrc != value)
+                {
+                    _ImgSrc = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _TotalValue;
+
+        public string TotalValue
+        {
+            get { return _TotalValue; }
+            set { _TotalValue = value; OnPropertyChanged(); }
         }
 
         public delegate void CustomEvtHandler(object sender, NotifyCollectionChangedEventArgs e);
@@ -43,48 +57,50 @@ namespace App.PVCFC_RFID.Controller
         }
         public TriggerViewModel(int index)
         {
+            var ThreadListenImgData = new Thread(GetImageData);
+            ThreadListenImgData.IsBackground = true;
+            ThreadListenImgData.Start();
+            Index = index;
             SharedControlHandler._dispatcher = Dispatcher.CurrentDispatcher;
             SharedControlHandler._dispatcher?.Invoke(() =>
             {
-                CodeList = SharedValues.Running.StationList[Index].DataRawList;
-                
+                CodeList = SharedValues.Running.StationList[index].DataRawList;
+
             });
-            SharedControlHandler.DataRawListChanged += OnDataRawListChanged;
             CodeList.CollectionChanged += CodeList_CollectionChanged;
+            TotalValue = _CodeList.Count.ToString();
+
+        }
+
+        private void GetImageData()
+        {
+            while (true)
+            {
+                ImgSrc = SharedControlHandler.ImgSrc;
+                Thread.Sleep(10);
+            }
+
         }
 
         private void CodeList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+
             RaiseCustomEvent(e);
-           
+            TotalValue = _CodeList.Count.ToString();
+
+
         }
 
-        private void OnDataRawListChanged(object sender, EventArgs e)
-        {
-    
-            
-            SharedControlHandler._dispatcher?.Invoke(() =>
-            {
-                //CommonFunctions.GetFromMemoryFile("mmf_ImageByteLength", 5, out _, out byte[] lengthData);
-                //var len = int.Parse(Encoding.ASCII.GetString(lengthData));
-                //CommonFunctions.GetFromMemoryFile("mmf_ImageTrigger", len, out _, out byte[] imageData);
 
-                //if (imageData != null)
-                //{
-                //    ImgSrc = CommonFunctions.ByteArrayToBitmapImage(imageData);
-                //}
-                CodeList = new ObservableCollection<GotCodeModel>(SharedValues.Running.StationList[(int)sender].DataRawList);
-            });
-            
-        }
-       
 
         internal void CloseForm()
         {
-            SharedControlHandler.DataRawListChanged -= OnDataRawListChanged;
+            //SharedControlHandler.DataRawListChanged -= OnDataRawListChanged;
             CodeList.CollectionChanged -= CodeList_CollectionChanged;
             ClearDataRawList();
         }
+
+
         internal void ClearDataRawList()
         {
             SharedControlHandler._dispatcher?.Invoke(() =>
@@ -94,10 +110,12 @@ namespace App.PVCFC_RFID.Controller
             });
         }
 
+
         internal void SoftwareTrigger()
         {
-            CommonFunctions.SetToMemoryFile("mmf_TriggerClick"+Index, 1, "1");
-          
+            var mmf_TriggerClick = new MemoryMapHelper("mmf_TriggerClick" + Index, 1);
+            mmf_TriggerClick.WriteData(Encoding.UTF8.GetBytes("1"), 0);
+
         }
     }
 }
