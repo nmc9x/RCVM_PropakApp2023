@@ -243,10 +243,10 @@ namespace ML.SDK.RDIF_FX9600.Controller
                 if (reply != null)
                 {
 #if DEBUG
-                    Console.WriteLine("PingIP Status :  " +
-                        reply.Status + ", Time : " +
-                        reply.RoundtripTime.ToString() + ", Address : " +
-                        reply.Address + ", Reconnect...");
+                    //Console.WriteLine("PingIP Status :  " +
+                    //    reply.Status + ", Time : " +
+                    //    reply.RoundtripTime.ToString() + ", Address : " +
+                    //    reply.Address + ", Reconnect...");
 #endif
                     return reply.Status;
                 }
@@ -254,7 +254,7 @@ namespace ML.SDK.RDIF_FX9600.Controller
             catch
             {
 #if DEBUG
-                Console.WriteLine("PingIP ERROR: You have Some TIMEOUT issue");
+               // Console.WriteLine("PingIP ERROR: You have Some TIMEOUT issue");
 #endif
             }
             return IPStatus.Unknown;

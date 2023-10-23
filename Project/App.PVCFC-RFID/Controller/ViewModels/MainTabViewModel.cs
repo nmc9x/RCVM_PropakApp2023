@@ -1,12 +1,15 @@
 ﻿using ML.Common.Controller;
+using System;
 using System.Text;
 using System.Threading;
+using System.Windows.Documents;
 
 namespace App.PVCFC_RFID.Controller.ViewModels
 {
     public class MainTabViewModel:ViewModelBase
     {
         MemoryMapHelper mmf;
+        MemoryMapHelper mmf_DBFilePath;
         #region DataBinding
 
         private int _SelectedStationIndex;
@@ -46,6 +49,7 @@ namespace App.PVCFC_RFID.Controller.ViewModels
         public MainTabViewModel()
         {
             mmf = new MemoryMapHelper("mmf_StartProcess_" + SelectedStationIndex, 1);
+            
         }
         internal void StartPrint()
         {
@@ -54,6 +58,18 @@ namespace App.PVCFC_RFID.Controller.ViewModels
         internal void StopPrint()
         {
             mmf.WriteData(Encoding.ASCII.GetBytes("0"), 0);
+        }
+
+        internal void SaveDB(System.Collections.Generic.List<string> listpath)
+        {
+            int index = 0;
+            foreach (var item in listpath)
+            {
+                mmf_DBFilePath = new MemoryMapHelper("mmf_DBFilePath" + index, 260);
+                mmf_DBFilePath.WriteData(Encoding.ASCII.GetBytes(item), 0);
+                index++;
+            }
+           
         }
         #endregion
     }

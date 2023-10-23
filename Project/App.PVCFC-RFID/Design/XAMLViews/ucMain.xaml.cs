@@ -359,8 +359,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             CallbackCommand(vm => vm.TabIndex = 0);
-            //if ((ucHomePage)FrameContent.Content == null)
-            //    FrameContent.Content = new ucHomePage();
+           
         }
 
         private void JobItemsClick(object sender, MouseButtonEventArgs e)
@@ -387,6 +386,15 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             CallbackCommand(vm => vm.StopPrint());
         }
 
-      
+        private void ButtonSaveDB_Click(object sender, RoutedEventArgs e)
+        {
+           
+            List<string> listFilePath = new List<string>();
+            foreach(var item in listucDB)
+            {
+                listFilePath.Add(((DatabaseSettingVM)item.DataContext).FilePath); 
+            }
+            CallbackCommand(vm => vm.SaveDB(listFilePath));
+        }
     }
 }

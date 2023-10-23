@@ -239,7 +239,7 @@ namespace ML.SDK.DM60X.Controller
             catch
             {
 #if DEBUG
-                Console.WriteLine("PingIP ERROR: You have Some TIMEOUT issue");
+               // Console.WriteLine("PingIP ERROR: You have Some TIMEOUT issue");
 #endif
             }
             return IPStatus.Unknown;

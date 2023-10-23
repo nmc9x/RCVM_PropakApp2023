@@ -104,11 +104,7 @@ namespace ML.SDK.PRINTER.Controller
 
          
 
-            var threadListenAndCompareData = new Thread(ListenAndCompareData)
-            {
-                IsBackground = true
-            };
-            threadListenAndCompareData.Start();
+           
         }
 
         private void _TcpClient_MessageReceived(string obj)
@@ -127,8 +123,10 @@ namespace ML.SDK.PRINTER.Controller
             {
                 var emtyStr = Encoding.ASCII.GetString(new byte[100]);
                 var mmf_DBFilePath = new MemoryMapHelper("mmf_DBFilePath"+ _SocketIndex, 260);
+                var mmf_PODIndex = new MemoryMapHelper("mmf_PODIndex" + _SocketIndex, 2); // max 20
                 var filePath = Encoding.ASCII.GetString(mmf_DBFilePath.ReadData(0, 260)).Trim('\0');
-                //var filePath = "C:\\Users\\minhchau.nguyen\\Documents\\MyLanGroup\\Projects\\Propak\\output.csv";
+                var podIndex = Encoding.ASCII.GetString(mmf_PODIndex.ReadData(0, 2)).Trim('\0');
+                
                 var db = File.ReadAllLines(filePath).Skip(1).ToArray();
                 var mmfCodeData = new MemoryMapHelper("mmf_CurrentCodeData_" + _SocketIndex, 100);
                 while (true)
@@ -137,11 +135,15 @@ namespace ML.SDK.PRINTER.Controller
                     if (stringRes != null && stringRes != emtyStr)
                     {
                         Console.WriteLine(stringRes + stringRes.Length);
-                        CompareData(db, stringRes.Trim('\0'));
+                        CompareData(db, stringRes.Trim('\0'),int.Parse(podIndex));
                     }
                     mmfCodeData.WriteData(new byte[100], 0);
                     Thread.Sleep(1);
                 }
+            }
+            catch (FileNotFoundException)
+            {
+               //
             }
             catch (Exception ex)
             {
@@ -170,6 +172,11 @@ namespace ML.SDK.PRINTER.Controller
 #if DEBUG
                         //Console.WriteLine("Start Print ...");
 #endif
+                        var threadListenAndCompareData = new Thread(ListenAndCompareData)
+                        {
+                            IsBackground = true
+                        };
+                        threadListenAndCompareData.Start();
 
                         StartAndSenData();
 
