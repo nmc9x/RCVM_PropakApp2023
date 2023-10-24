@@ -223,9 +223,23 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             
             dbset.BtnReview.Name = "BtnReview" + i;
             dbset.BtnReview.Click += BtnReview_Click;
+            dbset.BtnUpdateTemplate.Name = "BtnUpdateTemplate" + i;
+            dbset.BtnUpdateTemplate.Click += BtnUpdateTemplate_Click;
             Grid.SetRow(dbset, i);
             GridSetPath.Children.Add(dbset);
             listucDB.Add(dbset);
+        }
+
+        private void BtnUpdateTemplate_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = (System.Windows.Controls.Button)sender;
+            var index = int.Parse(btn.Name.Substring(btn.Name.Length - 1));
+            var viewModel = (DatabaseSettingVM)listucDB[index].DataContext;
+            var mmf = new MemoryMapHelper("mmf_UpdateTemplate" + index, 1);
+            mmf.WriteData(Encoding.ASCII.GetBytes("1"),0);
+           
+            var tempList = CommonFunctions.GetTemplatePod("C:\\Users\\minhchau.nguyen\\AppData\\Roaming\\MLSolutions\\Template" + index + ".txt");
+            viewModel.TemplateList = new System.Collections.ObjectModel.ObservableCollection<string>(tempList);
         }
 
         private void BtnReview_Click(object sender, RoutedEventArgs e)
@@ -388,13 +402,17 @@ namespace App.PVCFC_RFID.Design.XAMLViews
 
         private void ButtonSaveDB_Click(object sender, RoutedEventArgs e)
         {
-           
-            List<string> listFilePath = new List<string>();
+            var listFilePath = new List<string>();
+            var listPodId = new List<string>();
+            var listTemplate = new List<string>();
+            
             foreach(var item in listucDB)
             {
-                listFilePath.Add(((DatabaseSettingVM)item.DataContext).FilePath); 
+                listFilePath.Add(((DatabaseSettingVM)item.DataContext).FilePath);
+                listPodId.Add(((DatabaseSettingVM)item.DataContext).SelectedPODId.ToString());
+                listTemplate.Add(((DatabaseSettingVM)item.DataContext).SelectedTemplate);
             }
-            CallbackCommand(vm => vm.SaveDB(listFilePath));
+            CallbackCommand(vm => vm.SaveDB(listFilePath, listPodId, listTemplate));
         }
     }
 }

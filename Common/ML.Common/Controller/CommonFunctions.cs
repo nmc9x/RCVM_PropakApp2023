@@ -206,6 +206,20 @@ namespace ML.Common.Controller
         #endregion//End Firewall
 
         #region Common
+        
+
+        public static List<string> GetTemplatePod(string path)
+        {
+            var templates = File.ReadAllText(path).Split(';').ToList();
+            return ProcessItems(templates.Skip(1).Take(templates.Count - 2).ToList());
+        }
+
+        static List<string> ProcessItems(List<string> items)
+        {
+            items = items.Select(item => item.EndsWith(".dsj") ? item.Substring(0, item.Length - 4) : item).ToList();
+            return items.Count > 2 ? items.Skip(1).Take(items.Count - 2).ToList() : new List<string>();
+        }
+
         public static void WriteLogFile(string content)
         {
             string folderPath = @"C:\Users\minhchau.nguyen\Documents\Visual Studio 2022";

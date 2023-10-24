@@ -21,6 +21,10 @@ namespace App.PVCFC_RFID.DataType
         COGNEX_DATAMAN,
         KEYENCE
     }
+    public enum ErrorStatus
+    {
+
+    }
     #endregion//End Enum
 
     #region Extensions

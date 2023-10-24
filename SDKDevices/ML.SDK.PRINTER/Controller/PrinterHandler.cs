@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.SqlServer.Server;
+using Microsoft.Win32;
 using ML.Common.Controller;
 using ML.Connections.Controller;
 using System;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace ML.SDK.PRINTER.Controller
 {
-    public class PrinterHandler: SocketClient
+    public class PrinterHandler : SocketClient
     {
         #region Declaration
 
@@ -41,9 +42,15 @@ namespace ML.SDK.PRINTER.Controller
         private MemoryMapHelper mmfCamCounting;
         private MemoryMapHelper mmfCountPrintedPage;
         private MemoryMapHelper mmf_classifyCode;
+        private MemoryMapHelper mmf_TemplateName;
+        private MemoryMapHelper mmf_DBFilePath;
         private TcpClientHelper _TcpClient;
+        private static bool isStopPress;
+        private Thread threadSendStart;
         private readonly int _sendIntervalMilliseconds = 1000; // Thời gian giữa các lần gửi tin (1 giây)
         private string _ReceivedMessage;
+        private string tempStr = "";
+        private string _TemplateName;
         #endregion
         public PrinterHandler(string ip, string port, int socketIndex)
         {
@@ -57,7 +64,9 @@ namespace ML.SDK.PRINTER.Controller
 
             mmfCamCounting = new MemoryMapHelper("mmf_VerifyCheckCode" + _SocketIndex, 20);
             mmfCountPrintedPage = new MemoryMapHelper("mmf_PrintedPage" + _SocketIndex, 5);
-            mmf_classifyCode = new MemoryMapHelper("mmf_CheckCodeFlag"+_SocketIndex, 1);
+            mmf_classifyCode = new MemoryMapHelper("mmf_CheckCodeFlag" + _SocketIndex, 1);
+            mmf_TemplateName = new MemoryMapHelper("mmf_TemplateName" + _SocketIndex,100);
+            mmf_DBFilePath = new MemoryMapHelper("mmf_DBFilePath" + _SocketIndex, 260);
 
             try
             {
@@ -67,7 +76,7 @@ namespace ML.SDK.PRINTER.Controller
             catch (Exception)
             {
 #if DEBUG
-                Console.WriteLine($"Printer IP not found !");
+               // Console.WriteLine($"Printer IP not found !");
 #endif
                 _ConnectionStatus = 0;
                 var mmf = new MemoryMapHelper("mmf_connectStatus_printer" + _SocketIndex, 1);
@@ -80,8 +89,6 @@ namespace ML.SDK.PRINTER.Controller
             _ThreadListenPrintedPage = new Thread(ListenDataFeedback);
             _ThreadListenPrintedPage.Start();
 
-
-
             //Thread checking status
             _ThreadDeviceStatusChecking = new Thread(DeviceStatusChecking)
             {
@@ -91,10 +98,6 @@ namespace ML.SDK.PRINTER.Controller
             };
             _ThreadDeviceStatusChecking.Start();
 
-
-
-            //End Thread checking status
-
             //Thread Listen Config via MMF
             var threadListenUIAction = new Thread(ListenUIACtion)
             {
@@ -102,58 +105,84 @@ namespace ML.SDK.PRINTER.Controller
             };
             threadListenUIAction.Start();
 
-         
 
-           
+            //Thread get and update template
+            var threadUpdateTemplate = new Thread(GetTemplate)
+            {
+                IsBackground = true
+            };
+            threadUpdateTemplate.Start();
+
+
+            var threadListenAndCompareData = new Thread(ListenAndCompareData)
+            {
+                IsBackground = true
+            };
+            threadListenAndCompareData.Start();
         }
-
+        #region TCP
         private void _TcpClient_MessageReceived(string obj)
         {
-            _ReceivedMessage = obj;
-            Console.WriteLine(_ReceivedMessage);
+            _ReceivedMessage = null;
+            byte endPackage = 0x03;
+            tempStr += obj;
+            int indexEndPackages = tempStr.IndexOf(Convert.ToChar(endPackage).ToString());
+            if (indexEndPackages > 0)
+            {
+                _ReceivedMessage = tempStr.Substring(0, indexEndPackages + 1);
+                tempStr = tempStr.Substring(indexEndPackages + 1);
+            }
         }
         private void _TcpClient_SendMessage(string message)
         {
             Console.WriteLine("Mess Send: " + message);
             _TcpClient.Send(message);
         }
-        private void ListenAndCompareData()
+        #endregion
+
+
+        #region Get Template
+        public void SaveTemplateList(string data)
+        {
+
+            string directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\MLSolutions";
+            string filePath = Path.Combine(directoryPath, "Template" + _SocketIndex + ".txt");
+            try
+            {
+                Directory.CreateDirectory(directoryPath);
+                File.WriteAllText(filePath, data);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        private void GetTemplate()
         {
             try
             {
-                var emtyStr = Encoding.ASCII.GetString(new byte[100]);
-                var mmf_DBFilePath = new MemoryMapHelper("mmf_DBFilePath"+ _SocketIndex, 260);
-                var mmf_PODIndex = new MemoryMapHelper("mmf_PODIndex" + _SocketIndex, 2); // max 20
-                var filePath = Encoding.ASCII.GetString(mmf_DBFilePath.ReadData(0, 260)).Trim('\0');
-                var podIndex = Encoding.ASCII.GetString(mmf_PODIndex.ReadData(0, 2)).Trim('\0');
-                
-                var db = File.ReadAllLines(filePath).Skip(1).ToArray();
-                var mmfCodeData = new MemoryMapHelper("mmf_CurrentCodeData_" + _SocketIndex, 100);
                 while (true)
                 {
-                    var stringRes = Encoding.ASCII.GetString(mmfCodeData.ReadData(0, 100));
-                    if (stringRes != null && stringRes != emtyStr)
+
+                    var mmf = new MemoryMapHelper("mmf_UpdateTemplate" + _SocketIndex, 1);
+                    var state = Encoding.ASCII.GetString(mmf.ReadData(0, 1));
+                    if (state == "1")
                     {
-                        Console.WriteLine(stringRes + stringRes.Length);
-                        CompareData(db, stringRes.Trim('\0'),int.Parse(podIndex));
+                        _TcpClient_SendMessage((char)2 + "RQLI" + (char)3);
+                        SaveTemplateList(_ReceivedMessage);
                     }
-                    mmfCodeData.WriteData(new byte[100], 0);
+                    mmf.WriteData(new byte[1] { 0 }, 0); // change another value
                     Thread.Sleep(1);
                 }
             }
-            catch (FileNotFoundException)
+            catch (Exception)
             {
-               //
-            }
-            catch (Exception ex)
-            {
-
-#if DEBUG
-                Console.WriteLine("Fail :" + ex.Message);
-#endif
+                //Console.WriteLine("Loi Gưi TemPlate: "+ ex.Message);
             }
         }
+        #endregion
 
+        #region Data Processing
         private void ListenUIACtion()
         {
 
@@ -172,13 +201,9 @@ namespace ML.SDK.PRINTER.Controller
 #if DEBUG
                         //Console.WriteLine("Start Print ...");
 #endif
-                        var threadListenAndCompareData = new Thread(ListenAndCompareData)
-                        {
-                            IsBackground = true
-                        };
-                        threadListenAndCompareData.Start();
+                      
 
-                        StartAndSenData();
+                        StartAndSendData();
 
                     }
                     if (res1 == "0")
@@ -203,14 +228,15 @@ namespace ML.SDK.PRINTER.Controller
             }
         }
 
-        private static bool isStopPress;
-        private Thread threadSendStart;
-        void StartAndSenData()
+       
+        private void StartAndSendData()
         {
             threadSendStart?.Abort(); // Abort the previous thread
             try
             {
                 countPrintedPage = 0;
+                var path = Encoding.ASCII.GetString(mmf_DBFilePath.ReadData(0, 260));
+                Console.WriteLine("File Path: " +path);
                 var filePath = "C:\\Users\\minhchau.nguyen\\Documents\\MyLanGroup\\Projects\\Propak\\output.csv";
                 string[] tableData = File.ReadAllLines(filePath).Skip(1).ToArray(); // skip header
 
@@ -225,14 +251,14 @@ namespace ML.SDK.PRINTER.Controller
                 {
                     while (!isReady)
                     {
-
+                      var templateName  = Encoding.ASCII.GetString(mmf_TemplateName.ReadData(0, 100));
                         if (!isStopPress)
                         {
-                            _TcpClient_SendMessage((char)2 + "STAR;TestTemplate;1;1" + (char)3);
+                            _TcpClient_SendMessage((char)2 + "STAR;"+ templateName + ";1;1" + (char)3);
                         }
                         if ((_ReceivedMessage == readySts1 || _ReceivedMessage == readySts2) && !isStopPress)
                         {
-                           
+
                             isReady = true;
                         }
                         else
@@ -254,105 +280,19 @@ namespace ML.SDK.PRINTER.Controller
                 });
                 threadSendStart.Start();
                 #endregion
-                
+
 
 
             }
             catch (Exception ex)
             {
 #if DEBUG
-                Console.WriteLine(ex.Source + "\n" + ex.Message);
+                // Console.WriteLine(ex.Source + "\n" + ex.Message);
 #endif
             }
         }
-        public void StopPrint()
+        public void CompareData(string[] sourceData, string sampleData = "", int colIndex = 0)
         {
-            isStopPress = true;
-            _TcpClient_SendMessage((char)2 + "STOP" + (char)3);
-        }
-        private IPStatus PingIP()
-        {
-            try
-            {
-                var myPing = new Ping();
-                var reply = myPing.Send(_IP);
-                if (reply != null)
-                {
-#if DEBUG
-                    //Console.WriteLine("PingIP Printer :  " +
-                    //    reply.Status + ", Time : " +
-                    //    reply.RoundtripTime.ToString() + ", Address : " +
-                    //    reply.Address + ", Reconnect...");
-#endif
-                    return reply.Status;
-                }
-            }
-            catch
-            {
-#if DEBUG
-                Console.WriteLine($"Printer PingIP ERROR : {_IP}");
-#endif
-            }
-            return IPStatus.Unknown;
-        }
-
-        public void ListenDataFeedback()
-        {
-            while (true)
-            {
-                try
-                {
-#if DEBUG
-                    //Console.WriteLine("Start Listenning");
-#endif
-
-                    var donePrintStr = (char)2 + "RSFP" + (char)3;
-                    if (_ReceivedMessage != null && _ReceivedMessage == donePrintStr)
-                    {
-                        countPrintedPage++;
-                        mmfCountPrintedPage.WriteData(Encoding.ASCII.GetBytes(countPrintedPage.ToString()), 0);
-#if DEBUG
-                        Console.WriteLine("Printed Page: " + countPrintedPage);
-#endif
-                        _ReceivedMessage = "";
-                    }
-                    Thread.Sleep(1000);
-                }
-                catch (Exception) { }
-            }
-        }
-        public static int CheckCodeOccurrences(string filePath, string code)
-        {
-            var codeOccurrences = new Dictionary<string, int>();
-
-            using (var reader = new StreamReader(filePath))
-            {
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    var values = line.Split(','); // Giả sử rằng bạn sử dụng dấu phẩy làm dấu phân tách
-
-                    foreach (var value in values)
-                    {
-                        if (codeOccurrences.ContainsKey(value))
-                        {
-                            codeOccurrences[value]++;
-                        }
-                        else
-                        {
-                            codeOccurrences[value] = 1;
-                        }
-                    }
-                }
-            }
-
-            return codeOccurrences.ContainsKey(code) ? codeOccurrences[code] : 0;
-        }
-
-        public void CompareData(string[] sourceData, string sampleData = "CY170EQ0109", int colIndex = 2)
-        {
-
-
             try
             {
                 var uniqueData = new HashSet<string>();
@@ -373,13 +313,7 @@ namespace ML.SDK.PRINTER.Controller
                         }
                     }
                 }
-                
-                //if (duplicateData.Count > 0)
-                //{
-                //    //Fail: duplicate
-                //    failCount++;
-                //    checkCodeFlag = 1;
-                //}
+
                 if ((duplicateData.Count == 0 && uniqueData.Count == 0) || (duplicateData.Count > 0))
                 {
                     //Fail: Unknow data
@@ -403,16 +337,100 @@ namespace ML.SDK.PRINTER.Controller
 #endif
             }
         }
-
-
-       
-
-
-        private void _PrinterListener_ReceiveDataEvent(object sender, EventArgs e)
+        private void ListenAndCompareData()
         {
+            try
+            {
+                var mmf_DBFilePath = new MemoryMapHelper("mmf_DBFilePath" + _SocketIndex, 260);
+                var mmf_PODIndex = new MemoryMapHelper("mmf_PODIndex" + _SocketIndex, 2); // max 20
+                var mmfCodeData = new MemoryMapHelper("mmf_CurrentCodeData_" + _SocketIndex, 100);
 
+                var emtyStr = Encoding.ASCII.GetString(new byte[100]);
+                var filePath = Encoding.ASCII.GetString(mmf_DBFilePath.ReadData(0, 260)).Trim('\0');
+                var podIndex = Encoding.ASCII.GetString(mmf_PODIndex.ReadData(0, 2)).Trim('\0');
+                var db = File.ReadAllLines(filePath).Skip(1).ToArray();
+                
+                while (true)
+                {
+                    var stringRes = Encoding.ASCII.GetString(mmfCodeData.ReadData(0, 100));
+                    if (stringRes != null && stringRes != emtyStr)
+                    {
+                        Console.WriteLine(stringRes + stringRes.Length);
+                        CompareData(db, stringRes.Trim('\0'), int.Parse(podIndex));
+                    }
+                    mmfCodeData.WriteData(new byte[100], 0);
+                    Thread.Sleep(1);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                //
+            }
+            catch (Exception ex)
+            {
+
+#if DEBUG
+              //  Console.WriteLine("Fail :" + ex.Message);
+#endif
+            }
         }
+        public void ListenDataFeedback()
+        {
+            while (true)
+            {
+                try
+                {
+#if DEBUG
 
+#endif
+                    var donePrintStr = (char)2 + "RSFP" + (char)3;
+                    if (_ReceivedMessage != null && _ReceivedMessage == donePrintStr)
+                    {
+                        countPrintedPage++;
+                        mmfCountPrintedPage.WriteData(Encoding.ASCII.GetBytes(countPrintedPage.ToString()), 0);
+#if DEBUG
+                        // Console.WriteLine("Printed Page: " + countPrintedPage);
+#endif
+                        _ReceivedMessage = "";
+                    }
+                    Thread.Sleep(1000);
+                }
+                catch (Exception) { }
+            }
+        }
+        public void StopPrint()
+        {
+            isStopPress = true;
+            _TcpClient_SendMessage((char)2 + "STOP" + (char)3);
+        }
+        #endregion
+
+        #region Status Checking
+        private IPStatus PingIP()
+        {
+            try
+            {
+                var myPing = new Ping();
+                var reply = myPing.Send(_IP);
+                if (reply != null)
+                {
+#if DEBUG
+                    //Console.WriteLine("PingIP Printer :  " +
+                    //    reply.Status + ", Time : " +
+                    //    reply.RoundtripTime.ToString() + ", Address : " +
+                    //    reply.Address + ", Reconnect...");
+#endif
+                    return reply.Status;
+                }
+            }
+            catch
+            {
+#if DEBUG
+                //  Console.WriteLine($"Printer PingIP ERROR : {_IP}");
+#endif
+            }
+            return IPStatus.Unknown;
+        }
         private void DeviceStatusChecking()
         {
             int oldConnectionSts;
@@ -447,7 +465,11 @@ namespace ML.SDK.PRINTER.Controller
                 Thread.Sleep(1000);
             }
         }
+        #endregion
 
-      
+        private void _PrinterListener_ReceiveDataEvent(object sender, EventArgs e)
+        {
+
+        }
     }
 }

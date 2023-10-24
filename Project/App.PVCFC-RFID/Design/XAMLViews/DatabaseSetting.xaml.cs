@@ -1,8 +1,11 @@
 ﻿using App.PVCFC_RFID.Controller;
+using ML.Common.Controller;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -52,7 +55,29 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         public DatabaseSettingVM(int index)
         {
             JobsIndex = index;
+            var ThreadListTemplate = new Thread(ListenTemplate);
+            ThreadListTemplate.IsBackground = true;
+            ThreadListTemplate.Start();
         }
+
+        private void ListenTemplate()
+        {
+            try
+            {
+                while (true)
+                {
+                    var mmf_TemplateList = new MemoryMapHelper("mmf_TemplateList" + JobsIndex, 1000);
+                   var resultStrList =  Encoding.ASCII.GetString(mmf_TemplateList.ReadData(0, 1000));
+                    Thread.Sleep(1);
+                }
+            }
+            catch (Exception)
+            {
+
+               
+            }
+        }
+
         private string _FilePath;
 
         public string FilePath
@@ -83,6 +108,29 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         {
             get { return _JobsIndex; }
             set { _JobsIndex = value; OnPropertyChanged(); }
+        }
+
+        private int _SelectedTemplateId;
+
+        public int SelectedTemplateId
+        {
+            get { return _SelectedTemplateId; }
+            set { _SelectedTemplateId = value; OnPropertyChanged(); }
+        }
+
+        private ObservableCollection<string> _TemplateList;
+
+        public ObservableCollection<string> TemplateList
+        {
+            get { return _TemplateList; }
+            set { _TemplateList = value; OnPropertyChanged(); }
+        }
+        private string _SelectedTemplate;
+
+        public string SelectedTemplate
+        {
+            get { return _SelectedTemplate; }
+            set { _SelectedTemplate = value; OnPropertyChanged(); }
         }
 
 

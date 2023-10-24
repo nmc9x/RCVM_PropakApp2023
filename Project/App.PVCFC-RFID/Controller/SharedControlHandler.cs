@@ -97,9 +97,11 @@ namespace App.PVCFC_RFID.Controller
                 int devicePort =  int.Parse(dynamicCurStation.Port); 
                 byte timeout = 0;
                 string printerIP = "127.0.0.1";
+                string printerPort = dynamicCurStation.PrinterPort;
                 if (i==0)
                 {
-                     printerIP = "192.168.15.152";
+                     printerIP = "192.168.15.112";
+                    printerPort = "2030";
                     //string printerIP = "192.168.15.15" + (i + 2); //dynamicCurStation.PrinterIP+1;
                 }
                 else if (i==1)
@@ -107,7 +109,7 @@ namespace App.PVCFC_RFID.Controller
                      printerIP = "192.168.15.163";
                 }
                
-                string printerPort = dynamicCurStation.PrinterPort;
+                
                 //
                 string fullPath = Application.StartupPath + "\\" + deviceTransferName + ".exe";
                 string arguments = "";

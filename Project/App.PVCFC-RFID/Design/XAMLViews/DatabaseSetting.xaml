@@ -7,7 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:Background="White"
-    d:DesignHeight="200"
+    d:DesignHeight="400"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -22,9 +22,9 @@
 
     </UserControl.Resources>
     <Grid>
-        <GroupBox x:Name="GroupBox1"
+        <GroupBox
+            x:Name="GroupBox1"
             Margin="16"
-         
             Style="{StaticResource MaterialDesignCardGroupBox}">
             <GroupBox.HeaderTemplate>
                 <DataTemplate>
@@ -57,6 +57,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBox
                         x:Name="TextBoxPath"
@@ -71,9 +72,10 @@
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock VerticalAlignment="Center" FontSize="20">
-                            Select POD Compare
-                        </TextBlock>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Select Column" />
                         <ComboBox
                             Grid.Column="1"
                             Height="60"
@@ -83,9 +85,31 @@
                             SelectedIndex="{Binding SelectedPODId}"
                             Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                     </Grid>
+
+                  
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Select Template" />
+                        <ComboBox x:Name="ComboBoxTemplate"
+                            Grid.Column="1"
+                            Height="60"
+                            Margin="0,0,10,0"
+                            FontSize="18"
+                            ItemsSource="{Binding TemplateList}"
+                            SelectedItem="{Binding SelectedTemplate}"
+                            SelectedIndex="{Binding SelectedTemplateId}"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                    </Grid>
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
+                        <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
 
@@ -99,14 +123,23 @@
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
                         ToolTip="MaterialDesignFlatAccentBackgroundButton" />
 
-                    <Button x:Name="BtnReview"
-                       
+                    <Button
+                        x:Name="BtnReview"
                         Grid.Row="1"
                         Width="100"
                         Content="REVIEW"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+                    <Button
+                        x:Name="BtnUpdateTemplate"
+                        Grid.Row="2"
+                        Width="130"
+                        Content="GET TEMPLATE"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+
                 </Grid>
 
 
