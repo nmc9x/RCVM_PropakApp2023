@@ -9,7 +9,7 @@ namespace App.PVCFC_RFID.Controller.ViewModels
 {
     public class MainTabViewModel:ViewModelBase
     {
-        MemoryMapHelper mmf;
+        MemoryMapHelper mmf_StartProcess;
         MemoryMapHelper mmf_DBFilePath;
         MemoryMapHelper mmf_TemplateName;
         MemoryMapHelper mmf_PODIndex;
@@ -24,7 +24,7 @@ namespace App.PVCFC_RFID.Controller.ViewModels
             set 
             { 
                 _SelectedStationIndex = value;
-                mmf = new MemoryMapHelper("mmf_StartProcess_" + SelectedStationIndex, 1);
+                mmf_StartProcess = new MemoryMapHelper("mmf_StartProcess_" + SelectedStationIndex, 1);
                 OnPropertyChanged(); 
             }
         }
@@ -52,16 +52,19 @@ namespace App.PVCFC_RFID.Controller.ViewModels
 
         public MainTabViewModel()
         {
-            mmf = new MemoryMapHelper("mmf_StartProcess_" + SelectedStationIndex, 1);
+            mmf_StartProcess = new MemoryMapHelper("mmf_StartProcess_" + SelectedStationIndex, 1);
             
         }
         internal void StartPrint()
         {
-            mmf.WriteData(Encoding.ASCII.GetBytes("1"), 0);
+            SharedControlHandler.EnableCamera = true;
+            mmf_StartProcess.WriteData(Encoding.ASCII.GetBytes("1"), 0);
         }
         internal void StopPrint()
         {
-            mmf.WriteData(Encoding.ASCII.GetBytes("0"), 0);
+
+            SharedControlHandler.EnableCamera = false;
+            mmf_StartProcess.WriteData(Encoding.ASCII.GetBytes("0"), 0);
         }
 
         

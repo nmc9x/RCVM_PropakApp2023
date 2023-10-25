@@ -39,10 +39,9 @@ namespace App.PVCFC_RFID.Controller
         public static readonly object LockObject = new object();
         //
         public static int NumberOfStation = Properties.Settings.Default.NumberOfStation;
+        public static bool EnableCamera;
 
-        
 
-       
         public static void InitDeviceTransfer()
         {
             #region Thread check alive device transfer
@@ -414,10 +413,12 @@ namespace App.PVCFC_RFID.Controller
 
         public static ImageSource ImgSrc { get; private set; }
 
+        
         private static void GetRawDataToUI(int index, byte[] receiveByte)
         {
             try
             {
+                if(!EnableCamera) { return; }
                 /*
                  * Byte 3 : Data Header
                 */

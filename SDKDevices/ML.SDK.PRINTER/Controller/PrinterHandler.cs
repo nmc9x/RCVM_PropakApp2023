@@ -236,8 +236,10 @@ namespace ML.SDK.PRINTER.Controller
             {
                 countPrintedPage = 0;
                 var path = Encoding.ASCII.GetString(mmf_DBFilePath.ReadData(0, 260));
+#if DEBUG
                 Console.WriteLine("File Path: " +path);
-                var filePath = "C:\\Users\\minhchau.nguyen\\Documents\\MyLanGroup\\Projects\\Propak\\output.csv";
+#endif
+                var filePath = path;//"C:\\Users\\minhchau.nguyen\\Documents\\MyLanGroup\\Projects\\Propak\\output.csv";
                 string[] tableData = File.ReadAllLines(filePath).Skip(1).ToArray(); // skip header
 
                 string command;

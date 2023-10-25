@@ -1,26 +1,12 @@
 ﻿using App.PVCFC_RFID.Controller;
-using MaterialDesignThemes.Wpf;
 using ML.Common.Controller;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Security.Permissions;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Automation;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace App.PVCFC_RFID.Design.XAMLViews
 {
@@ -213,6 +199,14 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             get { return _PrintedCount; }
             set { _PrintedCount = value; OnPropertyChanged(); }
         }
+        private int _StaticMode;
+
+        public int StaticMode
+        {
+            get { return _StaticMode; }
+            set { _StaticMode = value; OnPropertyChanged(); }
+        }
+
 
 
     }
