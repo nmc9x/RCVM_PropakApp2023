@@ -1,15 +1,10 @@
-﻿using ML.Common.Controller;
+﻿using App.PVCFC_RFID.Model;
+using ML.Common.Controller;
 using ML.DatabaseConnections;
 using ML.Languages;
-using App.PVCFC_RFID.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ML.AccountManagements.Controller;
 using System.Windows.Forms;
 
 namespace App.PVCFC_RFID.Controller
@@ -19,9 +14,6 @@ namespace App.PVCFC_RFID.Controller
         public new static void SetPath(string rootpath)
         {
             CommonFunctions.SetPath(rootpath);
-            //
-            //SharedValues.DisShInfoPath = rootpath + "DisShInfo\\";
-            SharedValues.DisShInfoPath = "C:\\" + "DisShInfo\\";
         }
 
         public static string LoadDatabase()
@@ -41,9 +33,6 @@ namespace App.PVCFC_RFID.Controller
         }
 
         #region Settings
-        /// <summary>
-        /// Load setting from temp directory function
-        /// </summary>
         public static void LoadSettings()
         {
             try
@@ -54,7 +43,7 @@ namespace App.PVCFC_RFID.Controller
                 //
                 var loadSettings = SettingsModel.LoadSetting(fullPath);
                 //
-                if (loadSettings.StationList != null)
+                if (loadSettings.StationList == null)
                 {
                     loadSettings.StationList = new List<SettingsStationModel>(numberOfStations);
                 }
@@ -63,7 +52,7 @@ namespace App.PVCFC_RFID.Controller
                 {
                     for (int i = loadSettings.StationList.Count; i < numberOfStations; i++)
                     {
-                        var stationItems = new SettingsStationModel();
+                        var stationItems = new SettingsStationModel(); // station : Camera cognex, keyence
                         stationItems.Index = i;
                         //
                         string[] numIPArr = Properties.Settings.Default.DM60XIP.Split('.');
@@ -86,21 +75,20 @@ namespace App.PVCFC_RFID.Controller
                 SharedValues.Settings = initSettings;
             }
             //
-            ML.DeviceTransfer.PVCFCRFID.APISAASModel.APIController.LinkAPI = SharedValues.Settings.SysServerURL + ":" + SharedValues.Settings.SysServerPort.ToString();// http://113.163.69.8:9594";
+           // ML.DeviceTransfer.PVCFCRFID.APISAASModel.APIController.LinkAPI = SharedValues.Settings.SysServerURL + ":" + SharedValues.Settings.SysServerPort.ToString();// http://113.163.69.8:9594";
         }
 
         /// <summary>
         /// Save setting to temp directory function
         /// </summary>
-        public static bool SaveSettings()
+        public static bool SaveSettingsFunc()
         {
             try
             {
-                //String path = settingsPath + "Settings\\";
-                String path = CommonValues.SettingsPath;
-                if (!System.IO.Directory.Exists(path))
+                string path = CommonValues.SettingsPath;
+                if (!Directory.Exists(path))
                 {
-                    System.IO.Directory.CreateDirectory(path);
+                    Directory.CreateDirectory(path);
                 }
                 SharedValues.Settings.SaveSettings(GetSettingsName());
                 return true;
@@ -111,42 +99,7 @@ namespace App.PVCFC_RFID.Controller
             }
         }
 
-        public static bool ConfigResultNotify(int index, bool enableSave, bool isDisplayMsg = true)
-        {
-            if (SharedValues.Running.StationList[index].RFID_FX9600Feedback.GPIOConfigFeedback &&
-                SharedValues.Running.StationList[index].RFID_FX9600Feedback.AntennaConfigFeedback &&
-                SharedValues.Running.StationList[index].RFID_FX9600Feedback.TagStorageConfigFeedback &&
-                SharedValues.Running.StationList[index].RFID_FX9600Feedback.TriggerConfigFeedback)
-            {
-                if (enableSave)
-                {
-                    SaveSettings();
-                }
-                if (isDisplayMsg)
-                {
-                    MessageBox.Show(
-                    Languages.MsgRFIDSettingSuccessfully,
-                    Languages.MsgSettingNotification,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1
-                        );
-                }
-                return true;
-            }
-            else
-            {
-                MessageBox.Show(
-                  Languages.MsgRFIDSettingUnsuccessfully,
-                  Languages.MsgSettingNotification,
-                  MessageBoxButtons.OK,
-                  MessageBoxIcon.Warning,
-                  MessageBoxDefaultButton.Button1
-                  );
-                return false;
-            }
-
-        }
+       
         public static bool DM60XConfigResultNotify(int index, bool enableSave, bool isDisplayMsg = true)
         {
             if (SharedValues.Running.StationList[index].DM60XFeedback.TriggerConfFeedback &&
@@ -157,7 +110,7 @@ namespace App.PVCFC_RFID.Controller
             {
                 if (enableSave)
                 {
-                    SaveSettings();
+                    SaveSettingsFunc();
                 }
                 if (isDisplayMsg)
                 {
@@ -186,70 +139,21 @@ namespace App.PVCFC_RFID.Controller
         }
         #endregion//End Settings
 
-        #region Distribution schedule model
-        /// <summary>
-        /// Load setting from temp directory function
-        /// </summary>
-        public static void LoadDisShedulesSettings()
-        {
-            try
-            {
-
-            }
-            catch
-            {
-                //
-            }
-        }
-
-        /// <summary>
-        /// Save setting to temp directory function
-        /// </summary>
-        public static void SaveDisShedulesSettings()
-        {
-            try
-            {
-
-            }
-            catch { }
-        }
-
-        public static void GetDeliveryParamets(int index)
-        {
-            SharedValues.Running.StationList[index].Schedules.AgentCodeFrom = AccountController.LoginUserInfoOnline.data.AgentCode;
-            SharedValues.Running.StationList[index].Schedules.CreateBy_UserCode = AccountController.LoginUserInfoOnline.data.UserCode;
-        }
-        #endregion//End Distribution schedule model
-
-        #region Others
-        public static bool CheckingBeforeCloseForm()
-        {
-            if (SharedValues.Running.IsStarting())
-            {
-                string msg = Languages.CannotCloseApplications + "\n";
-                msg += SharedValues.Running.IsSyncData ? Languages.SyncDataWithServer : String.Format(Languages.TheXAreRunning, Properties.Settings.Default.StationName);
-                MessageBox.Show(new Form { TopMost = true }, msg, Languages.CloseApplications, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return true;//Canel
-            }
-            return false;//OK
-        }
-        #endregion//End Others
-
-        #region LINE Info
-        public static string GetStationName(int index)
-        {
-            string strStationName = "";
-            switch (SharedValues.Settings.Model)
-            {
-                case ML.DeviceTransfer.PVCFCRFID.DataType.PVCFCOperationEnum.Export:
-                    strStationName = Properties.Settings.Default.StationName + " " + Convert.ToChar(index + 65);//Start is A(65), B(66), C(67),...
-                    break;
-                case ML.DeviceTransfer.PVCFCRFID.DataType.PVCFCOperationEnum.Import:
-                    strStationName = Properties.Settings.Default.StationName + " " + Convert.ToChar(index + 65);//Start is A(65), B(66), C(67),...
-                    break;
-            }
-            return strStationName;
-        }
-        #endregion//End LINE Info
+        //#region LINE Info
+        //public static string GetStationName(int index)
+        //{
+        //    string strStationName = "";
+        //    switch (SharedValues.Settings.Model)
+        //    {
+        //        case ML.DeviceTransfer.PVCFCRFID.DataType.PVCFCOperationEnum.Export:
+        //            strStationName = Properties.Settings.Default.StationName + " " + Convert.ToChar(index + 65);//Start is A(65), B(66), C(67),...
+        //            break;
+        //        case ML.DeviceTransfer.PVCFCRFID.DataType.PVCFCOperationEnum.Import:
+        //            strStationName = Properties.Settings.Default.StationName + " " + Convert.ToChar(index + 65);//Start is A(65), B(66), C(67),...
+        //            break;
+        //    }
+        //    return strStationName;
+        //}
+        //#endregion//End LINE Info
     }
 }

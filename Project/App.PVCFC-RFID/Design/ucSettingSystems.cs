@@ -38,7 +38,7 @@ namespace App.PVCFC_RFID.Design
             {
                 //First Job
                 ucSettingSystemsJobItems1.Index = 0;
-                ucSettingSystemsJobItems1.Title = SharedFunctions.GetStationName(ucSettingSystemsJobItems1.Index);
+              //  ucSettingSystemsJobItems1.Title = SharedFunctions.GetStationName(ucSettingSystemsJobItems1.Index);
                 _JobList = new List<ucSettingSystemsJobItems>();
                 _JobList.Add(ucSettingSystemsJobItems1);
                 //
@@ -56,7 +56,7 @@ namespace App.PVCFC_RFID.Design
                     //Parameters
                     ucSettingSystemsJobItems ucParams = new ucSettingSystemsJobItems();
                     ucParams.Name = "ucSettingSystemsJobItems" + (i + 1).ToString();
-                    ucParams.Title = SharedFunctions.GetStationName(i);
+                   // ucParams.Title = SharedFunctions.GetStationName(i);
                     ucParams.Index = i;
                     ucParams.Anchor = ucSettingSystemsJobItems1.Anchor;
                     ucParams.Location = ucSettingSystemsJobItems1.Location;
@@ -297,9 +297,7 @@ namespace App.PVCFC_RFID.Design
         #region Methods
         private void LoadData()
         {
-            txtIPAddressURL.Text = SharedValues.Settings.SysServerURL;
-            numPort.Value = SharedValues.Settings.SysServerPort;
-            txtFileDataPath.Text = SharedValues.Settings.SysDisShInfoPath;
+            
             //
             //
             foreach (ucSettingSystemsJobItems job in _JobList)
@@ -313,16 +311,14 @@ namespace App.PVCFC_RFID.Design
         {
             try
             {
-                SharedValues.Settings.SysServerURL = txtIPAddressURL.Text;
-                SharedValues.Settings.SysServerPort = (int)numPort.Value;
-                SharedValues.Settings.SysDisShInfoPath = txtFileDataPath.Text;
+               
                 //
                 foreach (ucSettingSystemsJobItems job in _JobList)
                 {
                     job.SaveData();
                 }
                 //
-                SharedFunctions.SaveSettings();
+                SharedFunctions.SaveSettingsFunc();
                 MessageBox.Show(Languages.TheOperationCompletedSuccessfully + "\n" + Languages.TheApplicationsWillBeRestart, Languages.Save + " " + Languages.SystemSettings, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
@@ -338,9 +334,7 @@ namespace App.PVCFC_RFID.Design
         private void LoadDataByUser(string fileName)
         {
             var newSt = SettingsModel.LoadSetting(fileName);
-            txtIPAddressURL.Text = newSt.SysServerURL;
-            numPort.Value = newSt.SysServerPort;
-            txtFileDataPath.Text = newSt.SysDisShInfoPath;
+           
 
             //
 
@@ -356,9 +350,7 @@ namespace App.PVCFC_RFID.Design
         {
             try
             {
-                SharedValues.Settings.SysServerURL = txtIPAddressURL.Text;
-                SharedValues.Settings.SysServerPort = (int)numPort.Value;
-                SharedValues.Settings.SysDisShInfoPath = txtFileDataPath.Text;
+               
                 //
                 foreach (ucSettingSystemsJobItems job in _JobList)
                 {

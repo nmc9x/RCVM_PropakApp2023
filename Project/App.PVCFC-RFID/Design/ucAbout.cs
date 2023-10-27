@@ -59,32 +59,32 @@ namespace App.PVCFC_RFID.Design
         #region Methods
         private void LoadData()
         {
-            SharedFunctions.Invoke(this, new Action(() =>
-                {
-                    //Load Infor
-                    string strInfo = Languages.ApplicationName + ": " + Properties.Settings.Default.SoftwareName;
-                    strInfo += "\n" + Languages.Version + ": " + Properties.Settings.Default.Version;
-                    lblGeneralInfo.Text = strInfo;
-                    //
-                    //Load Infor Server Activation
-                    string strInfoServer = Languages.LinkServer + ": " + SharedValues.Settings.SysServerURL + ":" + SharedValues.Settings.SysServerPort;
-                    strInfoServer += "\n" + Languages.LoginAccount + ": " + AccountController.LogedInUserName;
-                    lblServerActivation.Text = strInfoServer;
-                    //
-                    //load readme
-                    string path = Application.StartupPath + "\\Label\\Readme.txt";
-                    switch(Languages.Culture.ToString())
-                    {
-                        case "vi-VN":
-                            path = Application.StartupPath + "\\Label\\Readme.vi-VN.txt";
-                            break;
-                    }
-                    if (File.Exists(path))
-                    {
-                        String text = File.ReadAllText(path, Encoding.UTF8);
-                        rchReleaseNote.Text = text;
-                    }
-                }));
+            //SharedFunctions.Invoke(this, new Action(() =>
+            //    {
+            //        //Load Infor
+            //        string strInfo = Languages.ApplicationName + ": " + Properties.Settings.Default.SoftwareName;
+            //        strInfo += "\n" + Languages.Version + ": " + Properties.Settings.Default.Version;
+            //        lblGeneralInfo.Text = strInfo;
+            //        //
+            //        //Load Infor Server Activation
+            //        string strInfoServer = Languages.LinkServer + ": " + SharedValues.Settings.SysServerURL + ":" + SharedValues.Settings.SysServerPort;
+            //        strInfoServer += "\n" + Languages.LoginAccount + ": " + AccountController.LogedInUserName;
+            //        lblServerActivation.Text = strInfoServer;
+            //        //
+            //        //load readme
+            //        string path = Application.StartupPath + "\\Label\\Readme.txt";
+            //        switch(Languages.Culture.ToString())
+            //        {
+            //            case "vi-VN":
+            //                path = Application.StartupPath + "\\Label\\Readme.vi-VN.txt";
+            //                break;
+            //        }
+            //        if (File.Exists(path))
+            //        {
+            //            String text = File.ReadAllText(path, Encoding.UTF8);
+            //            rchReleaseNote.Text = text;
+            //        }
+            //    }));
         }
         #endregion//End Methods
     }

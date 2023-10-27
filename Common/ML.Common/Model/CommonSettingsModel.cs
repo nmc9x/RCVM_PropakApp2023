@@ -15,7 +15,7 @@ namespace ML.Common.Model
         #endregion//End Properties
 
         #region Methods
-        public virtual void SaveSettings(String fileName)
+        public virtual void SaveSettings(string filePath)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace ML.Common.Model
                     serializer.Serialize(stream, this);
                     stream.Position = 0;
                     xmlDocument.Load(stream);
-                    xmlDocument.Save(fileName);
+                    xmlDocument.Save(filePath);
                     stream.Close();
                 }
             }

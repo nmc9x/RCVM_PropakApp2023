@@ -71,7 +71,7 @@ namespace App.PVCFC_RFID.Design
         {
             this.Text = Languages.ScanData;
             //
-            lblTitle.Text = SharedFunctions.GetStationName(_Index) + " - " + Languages.ScanData.ToUpper();
+           // lblTitle.Text = SharedFunctions.GetStationName(_Index) + " - " + Languages.ScanData.ToUpper();
             lblTimeout.Text = Languages.Timeout + " (ms)";
             btnRead.Text = Languages.Read;
             //btnReadDetail.Text = Languages.ManualReading;

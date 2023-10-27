@@ -44,11 +44,11 @@
                 ToolTip="Resource name: MaterialDesignRaisedLightButton" >
                 <materialDesign:PackIcon Kind="Home" VerticalAlignment="Stretch" />
             </Button>
-            <TextBlock
+            <TextBlock x:Name="TextBlockTitle"
                 Grid.Column="1"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                FontSize="18"
+                FontSize="25"
                 FontWeight="ExtraBold"
                 Text="Trigger Read Data" />
         </Grid>
@@ -200,15 +200,7 @@
                         </Button.Resources>
 
                     </Button>
-                    <!--<Button
-                        Grid.Row="1"
-                        Width="80"
-                        Height="30"
-                        Margin="0,0,20,0"
-                        HorizontalAlignment="Right"
-                        Click="ClearDataGrid_Click"
-                        Content="Clear"
-                        Style="{StaticResource ActionButton}" />-->
+                   
                 </Grid>
 
             </Grid>

@@ -33,7 +33,7 @@
                             Width="32"
                             Height="32"
                             VerticalAlignment="Center"
-                            Kind="Database" />
+                            Kind="CogOutline" />
                         <TextBlock
                             Margin="8,0,0,0"
                             VerticalAlignment="Center"
@@ -51,13 +51,29 @@
                 </Grid.RowDefinitions>
                 <Grid x:Name="GridCamSetting">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*" />
                         <ColumnDefinition Width="0.2*" />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="0.2*" />
+                        <ColumnDefinition Width="0.1*" />
+                        <ColumnDefinition Width="0.6*" />
+                        <ColumnDefinition Width="0.1*" />
+                        <ColumnDefinition Width="0.25*" />
+                        <ColumnDefinition Width="0.25*" />
                         <ColumnDefinition Width="0.5*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.3*" />
                     </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon
+                            Width="50"
+                            Height="50"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Kind="Camera" />
+
+                    </Grid>
+
                     <Label
                         Grid.Column="1"
                         HorizontalAlignment="Center"
@@ -70,9 +86,8 @@
                         Height="50"
                         Margin="10"
                         FontSize="18"
-                       
                         Style="{StaticResource MaterialDesignFilledTextBox}"
-                        Text="{Binding FilePath}" />
+                        Text="{Binding CamIP}" />
                     <Label
                         Grid.Column="3"
                         HorizontalAlignment="Center"
@@ -85,26 +100,58 @@
                         Height="50"
                         Margin="10"
                         FontSize="18"
-                      
                         Style="{StaticResource MaterialDesignFilledTextBox}"
-                        Text="{Binding FilePath}" />
+                        Text="{Binding CamPort}" />
+                    <Label
+                        Grid.Column="5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="Model"
+                        FontSize="16" />
+                    <ComboBox
+                        x:Name="CbbModelCamera"
+                        Grid.Column="6"
+                        Height="50"
+                        Margin="10"
+                        FontSize="18"
+                        SelectedIndex="{Binding SelectedModelCam}"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBoxItem>Cognex DM60, DM280</ComboBoxItem>
+                        <ComboBoxItem>Keyence CV-X450F</ComboBoxItem>
+
+                    </ComboBox>
                     <Button
                         x:Name="BtnSetCam"
-                        Grid.Column="5"
+                        Grid.Column="7"
                         Width="80"
-                        Content="Setting"
-                        Height="35" />
+                        Height="35"
+                        Content="Setting" />
                 </Grid>
 
                 <Grid x:Name="GridPrinterSetting" Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*" />
                         <ColumnDefinition Width="0.2*" />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="0.2*" />
-                        <ColumnDefinition Width="0.5*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.1*" />
+                        <ColumnDefinition Width="0.6*" />
+                        <ColumnDefinition Width="0.1*" />
+                        <ColumnDefinition Width="0.25*" />
+                        <ColumnDefinition Width="0.3*" />
+                        <ColumnDefinition Width="0.45*" />
+                        <ColumnDefinition Width="0.3*" />
                     </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon
+                            Width="50"
+                            Height="50"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Kind="Printer" />
+
+                    </Grid>
                     <Label
                         Grid.Column="1"
                         HorizontalAlignment="Center"
@@ -117,9 +164,8 @@
                         Height="50"
                         Margin="10"
                         FontSize="18"
-                       
                         Style="{StaticResource MaterialDesignFilledTextBox}"
-                        Text="{Binding FilePath}" />
+                        Text="{Binding PrinterIP}" />
                     <Label
                         Grid.Column="3"
                         HorizontalAlignment="Center"
@@ -132,15 +178,21 @@
                         Height="50"
                         Margin="10"
                         FontSize="18"
-                  
                         Style="{StaticResource MaterialDesignFilledTextBox}"
-                        Text="{Binding FilePath}" />
+                        Text="{Binding PrinterPort}" />
                     <Button
                         x:Name="BtnSetPrinter"
                         Grid.Column="5"
                         Width="80"
-                        Content="Remote"
-                        Height="35" />
+                        Height="35"
+                        Content="Remote" />
+                    <Button
+                        x:Name="BtnDBSet"
+                        Grid.Column="7"
+                        Width="80"
+                        Height="35"
+                        Content="DB" 
+                        ToolTip="Database Setting" />
                 </Grid>
             </Grid>
 

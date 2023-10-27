@@ -84,10 +84,10 @@ namespace App.DevCodeActivatorRFID.Controller
             try
             {
                 //String path = settingsPath + "Settings\\";
-                String path = CommonValues.SettingsPath;
-                if (!System.IO.Directory.Exists(path))
+                string path = CommonValues.SettingsPath;
+                if (!Directory.Exists(path))
                 {
-                    System.IO.Directory.CreateDirectory(path);
+                    Directory.CreateDirectory(path);
                 }
                 //SharedValues.Settings.SaveSettings(path += "settings.xml");
                 SharedValues.Settings.SaveSettings(GetSettingsName());

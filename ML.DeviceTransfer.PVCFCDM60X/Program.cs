@@ -30,7 +30,7 @@ namespace ML.DeviceTransfer.PVCFCDM60X
                 //args[7] = "http://113.163.69.8";              // Link API
                 //args[8] = "9594";                             // port
                 //args[9] = "true";                                // isOffline
-                //args[7] = "192.168.15.152"; // Printer IP
+                //args[7] = "192.168.15.153"; // Printer IP
                 //args[8] = "12500"; // Printer Port
 #endif
 

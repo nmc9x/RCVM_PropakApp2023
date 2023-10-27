@@ -41,14 +41,14 @@
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = null;
             // 
-            // puGood
+            // frmDetailList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.elementHost1);
-            this.Name = "puGood";
-            this.Text = "puGood";
+            this.Name = "frmDetailList";
+            this.ShowIcon = false;
             this.ResumeLayout(false);
 
         }

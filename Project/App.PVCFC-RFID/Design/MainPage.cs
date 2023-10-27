@@ -39,9 +39,16 @@ namespace App.PVCFC_RFID.Design
             mainChild.ButtonGoodClickEvent += MainChild_ButtonGoodClickEvent;
             mainChild.ButtonFailClickEvent += MainChild_ButtonFailClickEvent;
             mainChild.ButtonPrintedClickEvent += MainChild_ButtonPrintedClickEvent;
+            mainChild.RestartAppEvent += MainChild_RestartAppEvent;
             UpdateScaleTransform();
             this.FormClosed += MainPage_FormClosed;
             
+        }
+
+        private void MainChild_RestartAppEvent(object sender, EventArgs e)
+        {
+            Process.Start(Application.ExecutablePath);
+            Application.Exit();
         }
 
         private void MainPage_FormClosed(object sender, FormClosedEventArgs e)

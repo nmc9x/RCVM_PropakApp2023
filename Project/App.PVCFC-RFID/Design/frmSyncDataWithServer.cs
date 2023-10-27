@@ -132,15 +132,15 @@ namespace App.PVCFC_RFID.Design
             //
             CommonFunctions.Invoke(this, new Action(() =>
             {
-                switch (SharedValues.Settings.Model)
-                {
-                    case PVCFCOperationEnum.Export:
-                        tabControlSync.TabPages.Remove(tabControlSyncPageImport);
-                        break;
-                    case PVCFCOperationEnum.Import:
-                        tabControlSync.TabPages.Remove(tabControlSyncPageExport);
-                        break;
-                }
+                //switch (SharedValues.Settings.Model)
+                //{
+                //    case PVCFCOperationEnum.Export:
+                //        tabControlSync.TabPages.Remove(tabControlSyncPageImport);
+                //        break;
+                //    case PVCFCOperationEnum.Import:
+                //        tabControlSync.TabPages.Remove(tabControlSyncPageExport);
+                //        break;
+                //}
             }));
         }
 
@@ -330,10 +330,10 @@ namespace App.PVCFC_RFID.Design
                         }
                         if (strErrors.Length > 0) return;
                         //Write logs
-                        string command = Languages.SyncDataWithServer + " " + SharedValues.Settings.Model.GetText();
+                      //  string command = Languages.SyncDataWithServer + " " + SharedValues.Settings.Model.GetText();
                         string strMsg = Languages.FileData + ": " + GetSyncFileName(_SelectSyncFiles) + "; " + _SyncSchedules.GetInfo(";", false);
 
-                        ML.LoggingControls.Controller.LoggingController.AddHistory(_SyncSchedules.DeliveryID, command, strMsg, AccountController.LogedInUserName, ML.LoggingControls.Model.LoggingType.Started);
+                       // ML.LoggingControls.Controller.LoggingController.AddHistory(_SyncSchedules.DeliveryID, command, strMsg, AccountController.LogedInUserName, ML.LoggingControls.Model.LoggingType.Started);
                         //End Write logs
                         //Load data agains
                         LoadSchedulesInfo();
@@ -773,29 +773,29 @@ namespace App.PVCFC_RFID.Design
 
         private void LoadSchedules()
         {
-            new Thread(() =>
-            {
-                DirectoryInfo d = new DirectoryInfo(SharedValues.Settings.SysDisShInfoPath); //Assuming Test is your Folder
-                FileInfo[] Files = d.GetFiles("*.sch", SearchOption.AllDirectories); //Getting Text files
-                SharedFunctions.Invoke(this, new Action(() =>
-                    {
-                        _ListSchedulessName = new List<string>();
-                        listBoxSchedules.Items.Clear();
-                        foreach (FileInfo file in Files)
-                        {
-                            if (Regex.IsMatch(file.FullName, @".$"))
-                            {
-                                //Schedule - also SCD, SKED, S and Sch
-                                string strTemp = GetSyncFileName(file.FullName);
-                                _ListSchedulessName.Add(file.FullName);
-                                listBoxSchedules.Items.Add(new ListBoxItemsCls() { DisplayMember = strTemp, ValueMember = file.FullName });
-                            }
-                        }
-                        listBoxSchedules.DisplayMember = "DisplayMember";
-                        lblSchedules.Text = Languages.DistributionSchedules + " (" + listBoxSchedules.Items.Count + "/" + _ListSchedulessName.Count.ToString("N0") + ")";
-                    }));
+            //new Thread(() =>
+            //{
+            //    DirectoryInfo d = new DirectoryInfo(SharedValues.Settings.SysDisShInfoPath); //Assuming Test is your Folder
+            //    FileInfo[] Files = d.GetFiles("*.sch", SearchOption.AllDirectories); //Getting Text files
+            //    SharedFunctions.Invoke(this, new Action(() =>
+            //        {
+            //            _ListSchedulessName = new List<string>();
+            //            listBoxSchedules.Items.Clear();
+            //            foreach (FileInfo file in Files)
+            //            {
+            //                if (Regex.IsMatch(file.FullName, @".$"))
+            //                {
+            //                    //Schedule - also SCD, SKED, S and Sch
+            //                    string strTemp = GetSyncFileName(file.FullName);
+            //                    _ListSchedulessName.Add(file.FullName);
+            //                    listBoxSchedules.Items.Add(new ListBoxItemsCls() { DisplayMember = strTemp, ValueMember = file.FullName });
+            //                }
+            //            }
+            //            listBoxSchedules.DisplayMember = "DisplayMember";
+            //            lblSchedules.Text = Languages.DistributionSchedules + " (" + listBoxSchedules.Items.Count + "/" + _ListSchedulessName.Count.ToString("N0") + ")";
+            //        }));
 
-            }).Start();
+            //}).Start();
         }
 
         private void LoadProductList(bool isReload = false)
@@ -999,10 +999,10 @@ namespace App.PVCFC_RFID.Design
                     }
                     _SyncSchedules.SaveSettings();
                     ////Write logs
-                    string command = Languages.SyncDataWithServer + " " + SharedValues.Settings.Model.GetText();
+                  //  string command = Languages.SyncDataWithServer + " " + SharedValues.Settings.Model.GetText();
                     string strMsg = Languages.FileData + ": " + GetSyncFileName(_SelectSyncFiles) + "; " + _SyncSchedules.GetResult(";");
 
-                    ML.LoggingControls.Controller.LoggingController.AddHistory(_SyncSchedules.DeliveryID, command, strMsg, AccountController.LogedInUserName, ML.LoggingControls.Model.LoggingType.Stoped);
+                   // ML.LoggingControls.Controller.LoggingController.AddHistory(_SyncSchedules.DeliveryID, command, strMsg, AccountController.LogedInUserName, ML.LoggingControls.Model.LoggingType.Stoped);
                     //End Write logs
                     new Thread(() =>
                     {

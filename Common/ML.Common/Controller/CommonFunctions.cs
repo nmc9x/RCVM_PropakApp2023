@@ -12,6 +12,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -210,8 +211,27 @@ namespace ML.Common.Controller
 
         public static List<string> GetTemplatePod(string path)
         {
-            var templates = File.ReadAllText(path).Split(';').ToList();
-            return ProcessItems(templates.Skip(1).Take(templates.Count - 2).ToList());
+            try
+            {
+                var templates = File.ReadAllText(path).Split(';').ToList();
+
+#if DEBUG
+                Console.WriteLine("Template list");
+                foreach (var item in templates)
+                {
+                    Console.WriteLine(item);
+                }
+
+#endif
+                var templateTrim = ProcessItems(templates.Skip(0).ToList());
+                return templateTrim;
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("Can not found template. Check Printer Connection!", "Warning Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+            
         }
 
         static List<string> ProcessItems(List<string> items)

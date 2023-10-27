@@ -39,11 +39,6 @@
                             VerticalAlignment="Center"
                             Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                             Text="{Binding}" />
-                        <!--<TextBlock x:Name="TextBlockJobId"
-                            Margin="8,0,0,0"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                             />-->
                     </StackPanel>
                 </DataTemplate>
             </GroupBox.HeaderTemplate>
@@ -75,6 +70,7 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             FontSize="20"
+                            Margin="10 0 0 0"
                             Text="Select Column" />
                         <ComboBox
                             Grid.Column="1"
@@ -86,7 +82,7 @@
                             Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                     </Grid>
 
-                  
+
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
@@ -95,15 +91,17 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             FontSize="20"
+                            Margin="10 0 0 0"
                             Text="Select Template" />
-                        <ComboBox x:Name="ComboBoxTemplate"
+                        <ComboBox
+                            x:Name="ComboBoxTemplate"
                             Grid.Column="1"
                             Height="60"
                             Margin="0,0,10,0"
                             FontSize="18"
                             ItemsSource="{Binding TemplateList}"
-                            SelectedItem="{Binding SelectedTemplate}"
                             SelectedIndex="{Binding SelectedTemplateId}"
+                            SelectedItem="{Binding SelectedTemplate}"
                             Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                     </Grid>
                 </Grid>
@@ -121,24 +119,35 @@
                         Content="Browse ..."
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
-                        ToolTip="MaterialDesignFlatAccentBackgroundButton" />
+                        ToolTip="Browse Database" />
 
                     <Button
                         x:Name="BtnReview"
                         Grid.Row="1"
                         Width="100"
-                        Content="REVIEW"
+                        Height="50"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+                        ToolTip="Preview Database">
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="30"
+                            Kind="DatabaseEyeOutline" />
+                    </Button>
                     <Button
                         x:Name="BtnUpdateTemplate"
                         Grid.Row="2"
-                        Width="130"
-                        Content="GET TEMPLATE"
+                        Width="100"
+                        Height="50"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+                        ToolTip="Get Template From Printer">
+
+                        <materialDesign:PackIcon
+                            Width="30"
+                            Height="30"
+                            Kind="FileUploadOutline" />
+                    </Button>
 
                 </Grid>
 

@@ -55,16 +55,52 @@ namespace App.PVCFC_RFID.Controller.ViewModels
             mmf_StartProcess = new MemoryMapHelper("mmf_StartProcess_" + SelectedStationIndex, 1);
             
         }
-        internal void StartPrint()
+        private bool isAllowStart = true;
+        private bool isAllowStop = true;
+        internal void StartPrint(ref bool isRun)
         {
-            SharedControlHandler.EnableCamera = true;
-            mmf_StartProcess.WriteData(Encoding.ASCII.GetBytes("1"), 0);
+            try
+            {
+                if (isAllowStart)
+                {
+                    SharedControlHandler.EnableCamera = true;
+                    mmf_StartProcess.WriteData(Encoding.ASCII.GetBytes("1"), 0);
+                    isRun = true;
+                }
+                else
+                {
+                    isRun = false;
+                }
+               
+            }
+            catch (Exception)
+            {
+                isRun = false;
+            }
+           
         }
-        internal void StopPrint()
+        internal void StopPrint(ref bool isStop)
         {
+            try
+            {
+                if (isAllowStop)
+                {
+                    SharedControlHandler.EnableCamera = false;
+                    mmf_StartProcess.WriteData(Encoding.ASCII.GetBytes("0"), 0);
+                    isStop = true;
+                }
+                else
+                {
+                    isStop = false;
+                }
+                
+            }
+            catch (Exception)
+            {
 
-            SharedControlHandler.EnableCamera = false;
-            mmf_StartProcess.WriteData(Encoding.ASCII.GetBytes("0"), 0);
+                isStop = false;
+            }
+            
         }
 
         

@@ -72,8 +72,9 @@ namespace App.PVCFC_RFID.Controller
             for (int i = 0; i < NumberOfStation; i++)
             {
                 //string socketName = Properties.Settings.Default.DeviceTransferName;
-                var stationType = stationSet[i];
+                var stationType = SharedValues.Settings.StationList[i].CameraModel; // stationSet[i];
                 object curStation = null;
+
                 switch (stationType)
                 {
                     case StationType.COGNEX_DATAMAN:
@@ -83,32 +84,20 @@ namespace App.PVCFC_RFID.Controller
                         curStation = SharedValues.Settings.StationList[i].KeyenceCamera;
                         break;
                      default: break;
-                     
                 }
-                var dynamicCurStation = (dynamic)curStation;
 
+                var dynamicCurStation = (dynamic)curStation;
                 int socketIndex = i;
                 string deviceTransferName = dynamicCurStation.DeviceTransferName;
                 int uiSocketPort = _UISocketPort;//Port received
                 int stationsSocketPort = _StationSocketPort + i;//Port send
                 //
-                string deviceIP = "169.254.10.1" + (i + 1); //dynamicCurStation.IPAddress;//Properties.Settings.Default.RFIDIP + (i + 1).ToString();
+                string deviceIP = dynamicCurStation.IPAddress; //dynamicCurStation.IPAddress;//Properties.Settings.Default.RFIDIP + (i + 1).ToString();
                 int devicePort =  int.Parse(dynamicCurStation.Port); 
                 byte timeout = 0;
-                string printerIP = "127.0.0.1";
+                string printerIP = dynamicCurStation.PrinterIP;
                 string printerPort = dynamicCurStation.PrinterPort;
-                if (i==0)
-                {
-                     printerIP = "192.168.15.112";
-                    printerPort = "2030";
-                    //string printerIP = "192.168.15.15" + (i + 2); //dynamicCurStation.PrinterIP+1;
-                }
-                else if (i==1)
-                {
-                     printerIP = "192.168.15.163";
-                }
-               
-                
+
                 //
                 string fullPath = Application.StartupPath + "\\" + deviceTransferName + ".exe";
                 string arguments = "";

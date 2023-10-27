@@ -13,7 +13,6 @@ using ML.LoggingControls.View;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -79,7 +78,7 @@ namespace App.PVCFC_RFID.Design
                 pnlMenuLeftUIExtents.BackColor = pnlContent.BackColor;
                 //
                 //
-                btnHome.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+                btnHome.Margin = new Padding(0, 0, 0, 0);
                 btnSyncData.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
                 btnSettings.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
                 btnAccount.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
@@ -118,7 +117,7 @@ namespace App.PVCFC_RFID.Design
                 this.tblStationInfo.RowCount = Properties.Settings.Default.NumberOfStation;
                 for (int i = 1; i < tblStationInfo.RowCount; i++)
                 {
-                    tblStationInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+                    tblStationInfo.RowStyles.Add(new RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
                 }
                 //End Table layoutf
                 //
@@ -140,7 +139,7 @@ namespace App.PVCFC_RFID.Design
                     //Tab page
                     TabPage tabpage = new TabPage();
                     tabpage.Name = "tabControlPage" + (i + 1).ToString();
-                    tabpage.Text = SharedFunctions.GetStationName(i);
+                   // tabpage.Text = SharedFunctions.GetStationName(i);
                     tabpage.Controls.Add(ucParams);
                     tabpage.Location = this.tabControlPage1.Location;
                     tabpage.Padding = this.tabControlPage1.Padding;
@@ -156,7 +155,7 @@ namespace App.PVCFC_RFID.Design
                     ucStationInfo uc = new ucStationInfo();
                     uc.Index = 0;
                     uc.Name = "ucStationInfo" + (i + 1).ToString();
-                    uc.Title = SharedFunctions.GetStationName(i);
+                  //  uc.Title = SharedFunctions.GetStationName(i);
                     uc.TabIndex = i;
                     // make sure these are the same
                     uc.Dock = this.ucStationInfo1.Dock;
@@ -198,12 +197,12 @@ namespace App.PVCFC_RFID.Design
                     station.UcInfo.Index =
                     station.UcExportParameters.Index = station.Index;
                     //
-                    station.TabPageParameters.Text =
-                    station.UcInfo.Title =
-                    station.ToolstripStatus.Text = SharedFunctions.GetStationName(station.Index);
+                   // station.TabPageParameters.Text =
+                   // station.UcInfo.Title =
+                   // station.ToolstripStatus.Text = SharedFunctions.GetStationName(station.Index);
                 }
-                tabControlPage1.Text =
-                ucStationInfo1.Title = SharedFunctions.GetStationName(0);
+              //  tabControlPage1.Text =
+                //ucStationInfo1.Title = SharedFunctions.GetStationName(0);
                 #endregion//End Set Station List
                 #endregion//End Init Station
             }));
@@ -491,7 +490,7 @@ namespace App.PVCFC_RFID.Design
                 }
                 if (!e.Cancel)
                 {
-                    e.Cancel = SharedFunctions.CheckingBeforeCloseForm();
+                    //e.Cancel = SharedFunctions.CheckingBeforeCloseForm();
                     if (!e.Cancel)
                     {
                         string curUser = AccountController.LogedInUserName;
@@ -673,10 +672,10 @@ namespace App.PVCFC_RFID.Design
                                         }
                                     }
                                     //Write logs
-                                    string command = SharedValues.Settings.Model.GetText() + " " + ((SharedValues.Running.IsOffline) ? Languages.Offline : Languages.Online);
+                                    //string command = SharedValues.Settings.Model.GetText() + " " + ((SharedValues.Running.IsOffline) ? Languages.Offline : Languages.Online);
                                     string strMsg = SharedValues.Running.StationList[index].Schedules.GetInfo(";", SharedValues.Running.IsOffline);
 
-                                    ML.LoggingControls.Controller.LoggingController.AddHistory(SharedValues.Running.StationList[index].Schedules.DeliveryID, command, strMsg, AccountController.LogedInUserName, ML.LoggingControls.Model.LoggingType.Started);
+                                  //  ML.LoggingControls.Controller.LoggingController.AddHistory(SharedValues.Running.StationList[index].Schedules.DeliveryID, command, strMsg, AccountController.LogedInUserName, ML.LoggingControls.Model.LoggingType.Started);
                                     //End Write logs
                                     StartProductDelivery(index);
                                 }
@@ -695,10 +694,10 @@ namespace App.PVCFC_RFID.Design
                             {
                                 StopProductDelivery(index);
                                 ////Write logs
-                                string command = SharedValues.Settings.Model.GetText() + " " + ((SharedValues.Running.IsOffline) ? Languages.Offline : Languages.Online);
+                                //string command = SharedValues.Settings.Model.GetText() + " " + ((SharedValues.Running.IsOffline) ? Languages.Offline : Languages.Online);
                                 string strMsg = _StationUIList[index].UcInfo.Title + ": " + Languages.Stop + "." + SharedValues.Running.StationList[index].Schedules.GetResult(";");
 
-                                ML.LoggingControls.Controller.LoggingController.AddHistory(SharedValues.Running.StationList[index].Schedules.DeliveryID, command, strMsg, AccountController.LogedInUserName, ML.LoggingControls.Model.LoggingType.Stoped);
+                               // ML.LoggingControls.Controller.LoggingController.AddHistory(SharedValues.Running.StationList[index].Schedules.DeliveryID, command, strMsg, AccountController.LogedInUserName, ML.LoggingControls.Model.LoggingType.Stoped);
                                 //End Write logs
                             }
                             break;
@@ -844,10 +843,10 @@ namespace App.PVCFC_RFID.Design
                             _StationUIList[index].UcInfo.RefreshData();
                             //
                             ////Write logs
-                            string command = SharedValues.Settings.Model.GetText() + " " + ((SharedValues.Running.IsOffline) ? Languages.Offline : Languages.Online);
+                           // string command = SharedValues.Settings.Model.GetText() + " " + ((SharedValues.Running.IsOffline) ? Languages.Offline : Languages.Online);
                             string strMsg = _StationUIList[index].UcInfo.Title + ": " + Languages.YouHaveCompletedTheQuantityToBeDistributed + "." + SharedValues.Running.StationList[index].Schedules.GetResult(";");
 
-                            ML.LoggingControls.Controller.LoggingController.AddHistory(SharedValues.Running.StationList[index].Schedules.DeliveryID, command, strMsg, AccountController.LogedInUserName, ML.LoggingControls.Model.LoggingType.Stoped);
+                          //  ML.LoggingControls.Controller.LoggingController.AddHistory(SharedValues.Running.StationList[index].Schedules.DeliveryID, command, strMsg, AccountController.LogedInUserName, ML.LoggingControls.Model.LoggingType.Stoped);
                             //End Write logs
                             new Thread(() =>
                                 {
@@ -902,10 +901,10 @@ namespace App.PVCFC_RFID.Design
                             StopProductDelivery(index);
                             model.Status = model.RefreshStatus(RunningStatusEnum.Stop);
                             ////Write logs
-                            string command = SharedValues.Settings.Model.GetText();
+                            //string command = SharedValues.Settings.Model.GetText();
                             string strMsg = _StationUIList[index].UcInfo.Title + ": " + Languages.RFID + " " + LanguagesFunctions.GetTranslate(model.TransferStatus.ToString());
 
-                            ML.LoggingControls.Controller.LoggingController.AddHistory(SharedValues.Running.StationList[index].Schedules.DeliveryID, command, strMsg, AccountController.LogedInUserName, ML.LoggingControls.Model.LoggingType.Stoped);
+                           // ML.LoggingControls.Controller.LoggingController.AddHistory(SharedValues.Running.StationList[index].Schedules.DeliveryID, command, strMsg, AccountController.LogedInUserName, ML.LoggingControls.Model.LoggingType.Stoped);
                             //End Write logs
                             new Thread(() =>
                                 {
@@ -1068,7 +1067,7 @@ namespace App.PVCFC_RFID.Design
             SharedFunctions.Invoke(this, new Action(() =>
                 {
                     captions = index >= 0 ? _StationUIList[index].UcInfo.Title + " - " : "";
-                    captions += SharedValues.Settings.Model.GetText() + " ";
+                   // captions += SharedValues.Settings.Model.GetText() + " ";
                     captions += SharedValues.Running.IsOffline ? Languages.Offline : Languages.Online;
                 }));
             return captions;
@@ -1082,8 +1081,8 @@ namespace App.PVCFC_RFID.Design
             UpdateStationStatus(index);
             //
             //Save Schedules
-            string fullPath = model.Schedules.GetSettingName(SharedValues.Settings.SysDisShInfoPath, index, SharedValues.Settings.Model);
-            SharedValues.Running.StationList[index].Schedules.SaveFiles = fullPath;
+            //string fullPath = model.Schedules.GetSettingName(SharedValues.Settings.SysDisShInfoPath, index, SharedValues.Settings.Model);
+            //SharedValues.Running.StationList[index].Schedules.SaveFiles = fullPath;
             SharedValues.Running.StationList[index].Schedules.SaveSettings();
             //
             //Send Settings

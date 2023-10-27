@@ -29,7 +29,7 @@ namespace App.PVCFC_RFID.Design
             SharedFunctions.Invoke(this, new Action(() =>
             {
                 this.Icon = Properties.Resources.rfid;
-                this.Text = SharedFunctions.GetStationName(index) + " - " + url;
+              //  this.Text = SharedFunctions.GetStationName(index) + " - " + url;
                 InitializeWebView();
                 webViewControl.NavigationCompleted += webViewControl_NavigationCompleted;
             }));

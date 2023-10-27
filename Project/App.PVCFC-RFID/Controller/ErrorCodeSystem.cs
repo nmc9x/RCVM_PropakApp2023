@@ -13,6 +13,6 @@ namespace App.PVCFC_RFID.Controller
         private MemoryMapHelper mmf_Error_CameraNoConnect;
         private MemoryMapHelper mmf_Error_PrinterNoConnect;
         private MemoryMapHelper mmf_Error_NoChoosePathDatabase;
-        private MemoryMapHelper mmf_Error_NoChoosePathDatabase;
+        //private MemoryMapHelper mmf_Error_NoChoosePathDatabase;
     }
 }

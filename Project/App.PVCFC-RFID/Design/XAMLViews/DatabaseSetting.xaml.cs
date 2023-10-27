@@ -58,6 +58,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             var ThreadListTemplate = new Thread(ListenTemplate);
             ThreadListTemplate.IsBackground = true;
             ThreadListTemplate.Start();
+            LoadDatabaseFile(index);
         }
 
         private void ListenTemplate()
@@ -149,19 +150,41 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             SelectedPODId = 0;
         }
 
+        internal void LoadDatabaseFile(int index)
+        {
+            try
+            {
+                var listHeader = GetCsvHeaders(SharedValues.Settings.StationList[index].LastPathDatabase);
+                CollectionHeaderCsv = new ObservableCollection<string>(listHeader);
+            }
+            catch (Exception)
+            {
+                CollectionHeaderCsv = null;
+            }
+            
+        }
+
         public List<string> GetCsvHeaders(string csvFilePath)
         {
-            var headers = new List<string>();
-
-            using (StreamReader reader = new StreamReader(csvFilePath))
+            try
             {
-                string firstLine = reader.ReadLine(); 
-                if (!string.IsNullOrEmpty(firstLine))
+                var headers = new List<string>();
+
+                using (StreamReader reader = new StreamReader(csvFilePath))
                 {
-                    headers.AddRange(firstLine.Split(','));
+                    string firstLine = reader.ReadLine();
+                    if (!string.IsNullOrEmpty(firstLine))
+                    {
+                        headers.AddRange(firstLine.Split(','));
+                    }
                 }
+                return headers;
             }
-            return headers;
+            catch (Exception)
+            {
+                return null;
+            }
+           
         }
 
     }

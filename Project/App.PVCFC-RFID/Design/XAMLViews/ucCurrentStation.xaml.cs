@@ -124,10 +124,10 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                         {
                             GoodCount = splitRes[0].ToString();
                             FailCount = Regex.Replace(splitRes[1], @"\0", "");
-                            TotalCount = (int.Parse(GoodCount) + int.Parse(FailCount)).ToString();
-                           
+                            //TotalCount = (int.Parse(GoodCount) + int.Parse(FailCount)).ToString();
+                            TotalCount = Regex.Replace(splitRes[2], @"\0", "");
 
-                            if(codeChk !="\0")
+                            if (codeChk !="\0")
                             {
                                 switch (codeChk)
                                 {
@@ -139,8 +139,6 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                                         SharedControlHandler.newCodeItem.ErrorStr = "Good";
                                         SharedValues.Running.StationList[_Index].DataGoodList.Add(SharedControlHandler.newCodeItem);
                                         break;
-                                    
-
                                 }
                                 mmf_classifyCode.WriteData(new byte[1], 0);
                             }
@@ -149,8 +147,8 @@ namespace App.PVCFC_RFID.Design.XAMLViews
 
 
                    }
-                    //PrintedCount = Regex.Replace(printedPage, @"\0", "");
-                    //PrintedCount = PrintedCount == "" ? "0" : PrintedCount;
+                    PrintedCount = Regex.Replace(printedPage, @"\0", "");
+                    PrintedCount = PrintedCount == "" ? "0" : PrintedCount;
                     Thread.Sleep(1);
                 }
             }
@@ -169,7 +167,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             set { _StationTagName = value; OnPropertyChanged(); }
         }
 
-        private string _GoodCount = "100,000";
+        private string _GoodCount = "0";
 
         public string GoodCount
         {
@@ -177,7 +175,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             set { _GoodCount = value; OnPropertyChanged(); }
         }
 
-        private string _FailCount = "100,000";
+        private string _FailCount = "0";
 
         public string FailCount
         {
@@ -185,7 +183,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             set { _FailCount = value;OnPropertyChanged(); }
         }
 
-        private string _TotalCount = "300,000";
+        private string _TotalCount = "0";
 
         public string TotalCount
         {
@@ -193,7 +191,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             set { _TotalCount = value; OnPropertyChanged(); }
         }
 
-        private string _PrintedCount = "300,000";
+        private string _PrintedCount = "0";
         public string PrintedCount
         {
             get { return _PrintedCount; }

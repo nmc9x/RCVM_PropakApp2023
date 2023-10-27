@@ -1,8 +1,7 @@
 ﻿using ML.Common.Controller;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Security;
+using System.Security.Policy;
 using System.Text;
 using System.Xml.Serialization;
 using static ML.SDK.DM60X.DataType.DM60XDataType;
@@ -28,6 +27,9 @@ namespace ML.SDK.DM60X.Model
 
         public string PrinterIP { get; set; } = "192.168.15.152";
         public string PrinterPort { get; set; } = "12500";
+
+        
+
         public DMCam_SettingModel()
         {
             #region Init Par
@@ -41,36 +43,7 @@ namespace ML.SDK.DM60X.Model
             IsReboot = false;
             IsResetReboot = false;
             SymbolState = new bool[25];
-            //{
-            //    false, //["DATAMATRIX"]
-            //    false, //["QRCODE"] 
-            //    false, //["MAXICODE"]
-            //    false, //["AZTECCODE"] 
-
-            //    false, //["CODE128"]
-            //    false, //["CODE25"]
-            //    false, //["CODE93"] 
-            //    false, //["CODE39"]
-            //    false, //["PHARMACODE"]
-            //    false, //["CODABAR"]
-            //    false, //["INTERLEAVED2OF5"]
-            //    false, //["UPCEAN"]
-            //    false, //["MSI"]
-
-            //    false, //["PDF417"]
-            //    false, //["EANUCC"]
-            //    false, //["MICROPDF417"]
-            //    false, //["DATABAR"]
-
-            //    false, //["POSTNET"]
-            //    false, //["PLANET"]
-            //    false, //["JAPANPOST"] 
-            //    false, //["UPU"]
-            //    false, //["AUSTRALIAPOST"]
-            //    false, //["INTELLIGENT"]
-            //    false,
-            //    false
-            //};
+            
             #endregion
         }
         private DM60X_OPERATION_TYPE _TypeOfOperation = DM60X_OPERATION_TYPE.None;

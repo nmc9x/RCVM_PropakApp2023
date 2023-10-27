@@ -82,12 +82,12 @@
                             Text="{Binding StationTagName}" />
                     </Grid>
 
-
+                    <!--  Start Rec  -->
                     <Grid
                         Grid.Row="1"
                         Margin="16"
                         Visibility="{Binding StaticMode, Converter={StaticResource OptToVis}, ConverterParameter=1}">
-
+                        <!--  {Binding StaticMode, Converter={StaticResource OptToVis}, ConverterParameter=1}  -->
                         <Rectangle
                             Width="auto"
                             Height="auto"
@@ -100,8 +100,6 @@
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
                         </Rectangle>
-
-
                         <TextBlock
                             x:Name="TextBoxRUN"
                             HorizontalAlignment="Center"
@@ -111,16 +109,18 @@
                             Foreground="White"
                             Text="RUN" />
                     </Grid>
+
                     <Grid
+                        x:Name="GridStop"
                         Grid.Row="1"
                         Margin="16"
-                        Visibility="{Binding StaticMode, Converter = {StaticResource OptToVis},ConverterParameter=0}">
-
+                        Visibility="{Binding StaticMode, Converter={StaticResource OptToVis}, ConverterParameter=0}">
                         <Rectangle
                             Width="auto"
                             Height="auto"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Visibility="Visible">
                             <Rectangle.Fill>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                     <GradientStop Offset="0.0" Color="LightCoral" />
@@ -128,8 +128,6 @@
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
                         </Rectangle>
-
-
                         <TextBlock
                             x:Name="TextBoxSTOP"
                             HorizontalAlignment="Center"

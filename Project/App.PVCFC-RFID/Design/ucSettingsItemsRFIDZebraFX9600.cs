@@ -119,8 +119,7 @@ namespace App.PVCFC_RFID.Design
             this.Load += UcSettingsItemsRFIDZebraFX9600_Load;
             //
             btnApply.Click += btnApply_Click;
-            btnStartRead.Click += BtnStartRead_Click;
-            btnStopRead.Click += BtnStopRead_Click;
+            
             cbxTriggerTypeStop.SelectedIndexChanged += CbxTriggerTypeStop_SelectedIndexChanged;
             cbxTriggerTypeStart.SelectedIndexChanged += CbxTriggerTypeStart_SelectedIndexChanged;
             chkRSSIMode.CheckedChanged+=chkRSSIMode_CheckedChanged;
@@ -154,7 +153,7 @@ namespace App.PVCFC_RFID.Design
                     GetElementValueToSetting();
                     SharedControlHandler.SendRFIDSettings(_Index);
                     Thread.Sleep(2000); // Wait for RFID Apply setting
-                    SharedFunctions.ConfigResultNotify(_Index,true);
+                    SharedFunctions.DM60XConfigResultNotify(_Index,true);
                 }
                 catch (Exception)
                 {
@@ -166,47 +165,8 @@ namespace App.PVCFC_RFID.Design
                 }
             }
         }
-        private void BtnStartRead_Click(object sender, EventArgs e)
-        {
-            //if (!_IsBinding)
-            //{
-            //    try
-            //    {
-            //        _IsBinding = true;
-            //        SharedValues.Settings.StationList[_Index].RFID.TypeOfOperation = RFID_OPERATION_TYPE.StartRead;
-            //        SharedControlHandler.SendRFIDOperationCmd(_Index);
-            //    }
-            //    catch (Exception)
-            //    {
-
-            //    }
-            //    finally
-            //    {
-            //        _IsBinding = false;
-            //    }
-            //}
-           
-        }
-        private void BtnStopRead_Click(object sender, EventArgs e)
-        {
-            //if (!_IsBinding)
-            //{
-            //    try
-            //    {
-            //        _IsBinding = true;
-            //        SharedValues.Settings.StationList[_Index].RFID.TypeOfOperation = RFID_OPERATION_TYPE.StopRead;
-            //        SharedControlHandler.SendRFIDOperationCmd(_Index);
-            //    }
-            //    catch (Exception)
-            //    {
-
-            //    }
-            //    finally
-            //    {
-            //        _IsBinding = false;
-            //    }
-            //}
-        }
+       
+       
 
         #region Control Event
         private void UcSettingsItemsRFIDZebraFX9600_Load(object sender, EventArgs e)
@@ -488,9 +448,6 @@ namespace App.PVCFC_RFID.Design
 
         #endregion//End Fixed flickering forms
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }
