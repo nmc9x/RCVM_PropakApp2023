@@ -183,7 +183,7 @@
                             Grid.Row="1"
                             Margin="2"
                             materialDesign:ElevationAssist.Elevation="Dp7"
-                            PreviewMouseDown="GroupBox_PreviewMouseDown"
+                           
                             Style="{StaticResource MaterialDesignCardGroupBox}">
                             <GroupBox.Resources>
                                 <ResourceDictionary>
@@ -249,7 +249,7 @@
                                             Background="#FF0B981F"
                                             Click="StartClick"
                                             Foreground="Wheat"
-                                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                            IsEnabled="{Binding StartEnable}"
                                             Style="{StaticResource MaterialDesignIconForegroundButton}"
                                             ToolTip="MaterialDesignIconForegroundButton">
                                             <materialDesign:PackIcon
@@ -267,7 +267,7 @@
                                             Background="#FFB12719"
                                             Click="StopClick"
                                             Foreground="Wheat"
-                                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                           IsEnabled="{Binding StopEnable}"
                                             Style="{StaticResource MaterialDesignIconForegroundButton}"
                                             ToolTip="MaterialDesignIconForegroundButton">
                                             <materialDesign:PackIcon
@@ -285,7 +285,7 @@
                                             Background="#FFCFAE13"
                                             Click="ButtonTrigger_Click"
                                             Foreground="Wheat"
-                                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                            IsEnabled="{Binding TriggerEnable}"
                                             Style="{StaticResource MaterialDesignIconForegroundButton}"
                                             ToolTip="MaterialDesignIconForegroundButton">
                                             <materialDesign:PackIcon
@@ -404,6 +404,7 @@
 
                 </Grid>
 
+                <Grid x:Name="GridWebView" Visibility="{Binding TabIndex, Converter={StaticResource OptToVis}, ConverterParameter=5}" />
             </Grid>
 
             <!--  Footer  -->

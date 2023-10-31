@@ -19,9 +19,12 @@ namespace ML.Common.Controller
             accessor = memoryMappedFile.CreateViewAccessor(0, capacity);
         }
 
+     
         public void WriteData(byte[] data, long offset)
         {
+           
             accessor.WriteArray(offset, data, 0, data.Length);
+         
         }
 
         public byte[] ReadData(long offset, int length)

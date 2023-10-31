@@ -18,7 +18,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
+            <!-- primary -->
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2f79ba"/>
+          
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -123,8 +125,8 @@
                     <Button
                         x:Name="BtnSetCam"
                         Grid.Column="7"
-                        Width="80"
-                        Height="35"
+                        Width="85"
+                        Height="45"
                         Content="Setting" />
                 </Grid>
 
@@ -181,18 +183,18 @@
                         Style="{StaticResource MaterialDesignFilledTextBox}"
                         Text="{Binding PrinterPort}" />
                     <Button
-                        x:Name="BtnSetPrinter"
+                        x:Name="BtnWebPrinter"
                         Grid.Column="5"
-                        Width="80"
-                        Height="35"
+                        Width="85"
+                        Height="45"
                         Content="Remote" />
-                    <Button
+                    <!--<Button
                         x:Name="BtnDBSet"
                         Grid.Column="7"
                         Width="80"
                         Height="35"
                         Content="DB" 
-                        ToolTip="Database Setting" />
+                        ToolTip="Database Setting" />-->
                 </Grid>
             </Grid>
 

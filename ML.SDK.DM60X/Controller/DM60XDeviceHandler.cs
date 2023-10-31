@@ -155,7 +155,7 @@ namespace ML.SDK.DM60X.Controller
                 
                 while (true)
                 {
-                    var mmf_TriggerClick = new MemoryMapHelper("mmf_TriggerClick" + _SocketIndex, 1);
+                    
 
                     CommonFunctions.GetFromMemoryFile("mmf_Reboot"+_SocketIndex, 1,out string isRebootStr,out _);
                     if(isRebootStr == "1")
@@ -176,17 +176,19 @@ namespace ML.SDK.DM60X.Controller
                         Console.WriteLine("Reset params to default !");
 #endif
                     }
+
+                    //Trigger Software
+                    var mmf_TriggerClick = new MemoryMapHelper("mmf_TriggerClick" + _SocketIndex, 1);
                     var triggerClickSts = Encoding.ASCII.GetString(mmf_TriggerClick.ReadData(0, 1));
-                    
                     if (triggerClickSts == "1")
                     {
                         SoftwareTrigger();
                         mmf_TriggerClick.WriteData(Encoding.ASCII.GetBytes("0"),0);
-#if DEBUG
-                        Console.WriteLine("Software Trigger is Action at Socket Index: "+ _SocketIndex);
-#endif
-                    }
 
+                        var mmf_feedbackTrigger = new MemoryMapHelper("mmf_feedbackTrigger" + _SocketIndex, 1);
+                        mmf_feedbackTrigger.WriteData(Encoding.ASCII.GetBytes("1"), 0);
+                    }
+                   
                     Thread.Sleep(1);
                 }
             }

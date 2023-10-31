@@ -81,7 +81,8 @@ namespace App.PVCFC_RFID.Controller
                         curStation = SharedValues.Settings.StationList[i].DMCamera;
                         break;
                     case StationType.KEYENCE:
-                        curStation = SharedValues.Settings.StationList[i].KeyenceCamera;
+                        curStation = SharedValues.Settings.StationList[i].DMCamera;
+                        //curStation = SharedValues.Settings.StationList[i].KeyenceCamera;
                         break;
                      default: break;
                 }
@@ -399,6 +400,7 @@ namespace App.PVCFC_RFID.Controller
         }
 
         public static GotCodeModel newCodeItem;
+        public static bool isTriggerOn;
 
         public static ImageSource ImgSrc { get; private set; }
 
@@ -407,7 +409,7 @@ namespace App.PVCFC_RFID.Controller
         {
             try
             {
-                if(!EnableCamera) { return; }
+                
                 /*
                  * Byte 3 : Data Header
                 */
@@ -436,7 +438,17 @@ namespace App.PVCFC_RFID.Controller
                         ErrorStr = "Origin"
 
                     };
-                    SharedValues.Running.StationList[index].DataRawList.Add(newCodeItem) ;
+                    
+                    if (!isTriggerOn)
+                    {
+                        SharedValues.Running.StationList[index].DataRawList.Add(newCodeItem);
+
+                    }
+                    else
+                    {
+                        SharedValues.Running.StationList[index].DataTriggerList.Add(newCodeItem);
+                        //isTriggerOn = false;
+                    }
                     var codeBytes = Encoding.ASCII.GetBytes(code);
                     if (codeBytes.Length < 1 || codeBytes == null)
                     {

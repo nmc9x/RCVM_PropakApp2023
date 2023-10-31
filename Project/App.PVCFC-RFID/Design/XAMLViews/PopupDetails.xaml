@@ -87,7 +87,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid >
-                <Button
+                <Button x:Name="BtnClear"
                         Grid.Row="1"
                         Width="80"
                         Height="30"

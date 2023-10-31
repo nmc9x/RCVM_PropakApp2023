@@ -29,6 +29,7 @@ namespace App.PVCFC_RFID.Design
         private int _Index;
         private int _Kind;
         private MemoryMapHelper mmf_ResetDataOption;
+        public event EventHandler ClearEvent;
         public PopupDetails(int index,int kind, string title = "Detail View")
         {
             InitializeComponent();
@@ -120,6 +121,9 @@ namespace App.PVCFC_RFID.Design
         }
         private void ClearDataGrid_Click(object sender, RoutedEventArgs e)
         {
+            var Data = _Index.ToString() + _Kind.ToString();
+
+            ClearEvent?.Invoke(Data, EventArgs.Empty);
             switch (_Kind)
             {
                 case 1: // total

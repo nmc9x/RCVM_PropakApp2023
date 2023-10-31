@@ -111,7 +111,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             set { _JobsIndex = value; OnPropertyChanged(); }
         }
 
-        private int _SelectedTemplateId;
+        private int _SelectedTemplateId = -1;
 
         public int SelectedTemplateId
         {

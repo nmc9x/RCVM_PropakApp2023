@@ -24,6 +24,7 @@ namespace App.PVCFC_RFID.Design
         public static ScaleTransform ScaleTransform;
         public static event EventHandler ScaleTransformChanged;
         private static string ProcessName_1 = Properties.Settings.Default.DeviceTransferName;
+        public static event EventHandler CloseMainPageEvent;
         public MainPage()
         {
             KillProcess();
@@ -54,6 +55,7 @@ namespace App.PVCFC_RFID.Design
         private void MainPage_FormClosed(object sender, FormClosedEventArgs e)
         {
             KillProcess();
+            CloseMainPageEvent?.Invoke(this, EventArgs.Empty);
         }
         void KillProcess()
         {
@@ -62,37 +64,46 @@ namespace App.PVCFC_RFID.Design
                 process.Kill();
             }
         }
+        #region Open Detail Dialog Evennt
         private void MainChild_ButtonPrintedClickEvent(object sender, EventArgs e)
         {
             var index = (int)sender;
-            frmDetailList pug = new frmDetailList(index, 3, "Printed Product List");
+            frmDetailList pug = new frmDetailList(index, 3);
             pug.StartPosition = FormStartPosition.CenterParent;
             pug.ShowDialog(this);
+            pug.Dispose();
         }
 
         private void MainChild_ButtonTotalClickEvent(object sender, EventArgs e)
         {
             var index = (int)sender;
-            frmDetailList pug = new frmDetailList(index, 1, "Total Product List");
+            frmDetailList pug = new frmDetailList(index, 1);
             pug.StartPosition = FormStartPosition.CenterParent;
             pug.ShowDialog(this);
+            pug.Dispose();
         }
 
         private void MainChild_ButtonFailClickEvent(object sender, EventArgs e)
         {
             var index = (int)sender;
-            frmDetailList pug = new frmDetailList(index, 4, "Fail Product List");
+            frmDetailList pug = new frmDetailList(index, 4);
             pug.StartPosition = FormStartPosition.CenterParent;
             pug.ShowDialog(this);
+            pug.Dispose();
         }
 
         private void MainChild_ButtonGoodClickEvent(object sender, EventArgs e)
         {
             var index = (int)sender;
-            frmDetailList pug = new frmDetailList(index, 2, "Good Product List");
+            frmDetailList pug = new frmDetailList(index, 2);
             pug.StartPosition = FormStartPosition.CenterParent;
             pug.ShowDialog(this);
+            pug.Dispose();
+
+
         }
+        #endregion
+
 
         private void MainPage_Resize(object sender, EventArgs e)
         {

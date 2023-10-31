@@ -8,13 +8,15 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-
-
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace App.PVCFC_RFID.Design.XAMLViews
 {
@@ -32,6 +34,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         private List<ucCurrentStation> listCurStation = new List<ucCurrentStation>();
 
         private List<string> listPathDb = new List<string>();
+        private List<Grid> listGridCover = new List<Grid>();
         #endregion
 
         private System.Windows.Point scrollStartPoint;
@@ -52,6 +55,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         public event ButtonFailClickHandler ButtonFailClickEvent;
 
         public event EventHandler RestartAppEvent;
+
         #endregion
 
         public ucMain()
@@ -65,6 +69,33 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             DataContext = new MainTabViewModel();
             InitStation();
             LoadLastValues();
+            SaveDatabase();
+            frmDetailList.ClearClickEvt += FrmDetailList_ClearClickEvt;
+        }
+
+        private void FrmDetailList_ClearClickEvt(object sender, EventArgs e)
+        {
+
+            var data = sender as string;
+            var index = int.Parse(data.Substring(0, 1));
+            var kind = int.Parse(data.Substring(1));
+            var vm = (ucCurrentStationVM)listCurStation[index].DataContext;
+            switch (kind)
+            {
+                case 0:
+                    break;
+                case 1:
+                    vm.TotalCount = "0";
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                default:
+                    break;
+            }
 
 
         }
@@ -117,9 +148,10 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             {
                 InitUIStationStatus(i);
                 InitItemCombobox(i);
-                InitDeviceTransferStations(i);
+                InitCurrentJobs(i);
                 InitJob(i);
                 InitDbItem(i);
+                UpdateTemplate(i);
             }
             SharedControlHandler.InitDeviceTransfer();
 
@@ -136,8 +168,8 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             ComboboxStation.Items.Add("JOB " + (i + 1));
 
         }
-        private List<Grid> listGridCover = new List<Grid>();
-        private void InitDeviceTransferStations(int i)
+
+        private void InitCurrentJobs(int i)
         {
 
             var ucStation = new ucCurrentStation(i);
@@ -179,20 +211,16 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                 index = 0;
             };
             var ucTrigger = new ucTrigger(index);
-
             GridTrigger.Children.Clear();
             GridTrigger.Children.Add(ucTrigger);
-
-
         }
         private void InitJob(int i)
         {
             var ucJob = new ucJobItems(i);
             ucJob.BtnSetCam.Click += BtnSetCam_Click;
-            ucJob.BtnSetPrinter.Click += BtnSetPrinter_Click;
-            ucJob.BtnDBSet.Click += BtnDBSet_Click;
-            //ucJob.BtnWebPrinter.Click += BtnWebPrinter_Click;
-            ucJob.BtnSetPrinter.Name = "BtnSetPrinter" + i;
+
+            ucJob.BtnWebPrinter.Click += BtnWebPrinter_Click;
+            ucJob.BtnWebPrinter.Name = "BtnWebPrinter" + i;
             ucJob.BtnSetCam.Name = "BtnSetCam" + i;
             var rowDef = new RowDefinition();
             GridItemJob.RowDefinitions.Add(rowDef);
@@ -201,13 +229,13 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             listJob.Add(ucJob);
         }
 
-        private void BtnDBSet_Click(object sender, RoutedEventArgs e)
+
+        private void InitWebView(string IP)
         {
-
-            CallbackCommand(vm => vm.TabIndex = 4);
-
+            GridWebView.Children.Clear();
+            var WebV = new WebControl(IP);
+            GridWebView.Children.Add(WebV);
         }
-
         void InitDbItem(int i)
         {
             var rowDef = new RowDefinition();
@@ -336,6 +364,28 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             }
 
         }
+        private void UpdateTemplate(int index)
+        {
+            try
+            {
+
+                var viewModel = (DatabaseSettingVM)listucDB[index].DataContext;
+                var mmf = new MemoryMapHelper("mmf_UpdateTemplate" + index, 1);
+                mmf.WriteData(Encoding.ASCII.GetBytes("1"), 0);
+
+                // Get Path
+                string directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\MLSolutions";
+                string filePath = Path.Combine(directoryPath, "Template" + index + ".txt");
+
+                //Get POD list and update to UI
+                var tempList = CommonFunctions.GetTemplatePod(filePath);
+                viewModel.TemplateList = new System.Collections.ObjectModel.ObservableCollection<string>(tempList);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
         private void BtnReview_Click(object sender, RoutedEventArgs e)
         {
             var btn = (Button)sender;
@@ -347,7 +397,21 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         }
         private void BtnWebPrinter_Click(object sender, RoutedEventArgs e)
         {
+            var btn = (System.Windows.Controls.Button)sender;
+            CallbackCommand(vm => vm.TabIndex = 5);
+            var index = btn.Name.Substring(btn.Name.Length - 1);
+            string CurrentPrinterIP = "127.0.0.1";
+            for (int i = 0; i < listJob.Count; i++)
+            {
+                var vm = (ucJobItemsVM)listJob[i].DataContext;
+                if (int.Parse(index) == i)
+                {
+                    CurrentPrinterIP = vm.PrinterIP;
+                }
 
+            }
+
+            InitWebView(CurrentPrinterIP);
         }
         private void MainPage_ScaleTransformChanged(object sender, EventArgs e)
         {
@@ -363,6 +427,8 @@ namespace App.PVCFC_RFID.Design.XAMLViews
 
             var index = int.Parse(clickedGrid.Name.Substring(clickedGrid.Name.Length - 1));
             ComboboxStation.SelectedIndex = index;
+            var vmt = (ucCurrentStationVM)listCurStation[index].DataContext;
+            CallbackCommand(vm => vm.ChangeEnableStateControlButton(vmt.StaticMode));
             if (clickedGrid != null)
             {
                 foreach (var child in GridStation.Children)
@@ -378,10 +444,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
 
 
 
-        private void BtnSetPrinter_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
         private void BtnSetCam_Click(object sender, RoutedEventArgs e)
         {
             var btn = (System.Windows.Controls.Button)sender;
@@ -424,6 +487,19 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         }
         private void StartClick(object sender, RoutedEventArgs e)
         {
+            //  Check Database
+            var vmDB = (DatabaseSettingVM)listucDB[ComboboxStation.SelectedIndex].DataContext;
+            if (vmDB.FilePath == null || !vmDB.FilePath.Contains(".csv") || vmDB.SelectedTemplateId == -1)
+            {
+                MessageBox.Show("Please Cogfig Database !", "Database Config Message", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            // Change State Button
+            SharedControlHandler.isTriggerOn = false;
+            CallbackCommand(vm => vm.StartEnable = false);
+            CallbackCommand(vm => vm.StopEnable = true);
+            CallbackCommand(vm => vm.TriggerEnable = false);
+
             bool isRun = false;
             CallbackCommand(vm => vm.StartPrint(ref isRun));
             var tempvm = (ucCurrentStationVM)listCurStation[ComboboxStation.SelectedIndex].DataContext;
@@ -438,6 +514,12 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         }
         private void StopClick(object sender, RoutedEventArgs e)
         {
+            // Change State Button
+            SharedControlHandler.isTriggerOn = false;
+            CallbackCommand(vm => vm.StartEnable = true);
+            CallbackCommand(vm => vm.StopEnable = true);
+            CallbackCommand(vm => vm.TriggerEnable = true);
+
             bool isStop = false;
             CallbackCommand(vm => vm.StopPrint(ref isStop));
             var tempvm = (ucCurrentStationVM)listCurStation[ComboboxStation.SelectedIndex].DataContext;
@@ -452,19 +534,41 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         }
         private void ButtonSaveDB_Click(object sender, RoutedEventArgs e)
         {
-            var listFilePath = new List<string>();
-            var listPodId = new List<string>();
-            var listTemplate = new List<string>();
+            SaveDatabase();
+        }
 
-            foreach (var item in listucDB)
+        private void SaveDatabase()
+        {
+            try
             {
-                listFilePath.Add(((DatabaseSettingVM)item.DataContext).FilePath);
-                listPodId.Add(((DatabaseSettingVM)item.DataContext).SelectedPODId.ToString());
-                listTemplate.Add(((DatabaseSettingVM)item.DataContext).SelectedTemplate);
+
+                var listFilePath = new List<string>();
+                var listPodId = new List<string>();
+                var listTemplate = new List<string>();
+
+                foreach (var item in listucDB)
+                {
+
+                    listFilePath.Add(((DatabaseSettingVM)item.DataContext).FilePath);
+                    listPodId.Add(((DatabaseSettingVM)item.DataContext).SelectedPODId.ToString());
+                    listTemplate.Add(((DatabaseSettingVM)item.DataContext).SelectedTemplate);
+
+
+                }
+                CallbackCommand(vm => vm.SaveDB(listFilePath, listPodId, listTemplate));
+                var mmf_Save = new MemoryMapHelper("mmf_Save", 1);
+                mmf_Save.WriteData(new byte[1] { 1 }, 0);
+                Thread.Sleep(500);
+
             }
-            CallbackCommand(vm => vm.SaveDB(listFilePath, listPodId, listTemplate));
-            var mmf_Save = new MemoryMapHelper("mmf_Save", 1);
-            mmf_Save.WriteData(new byte[1] { 1 }, 0);
+            catch (Exception ex)
+            {
+#if DEBUG
+                Console.WriteLine("Save Database Fail: " + ex.Message);
+#endif
+            }
+
+
         }
         #endregion
 
@@ -501,10 +605,10 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         }
         #endregion
 
-        private void GroupBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            listGridCover[ComboboxStation.SelectedIndex].Background = Brushes.Transparent;
-        }
+        //private void GroupBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    listGridCover[ComboboxStation.SelectedIndex].Background = Brushes.Transparent;
+        //}
 
         private void ComboboxStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -563,5 +667,194 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             }
 
         }
+    }
+
+    public class MainTabViewModel : ViewModelBase
+    {
+        MemoryMapHelper mmf_StartProcess;
+        MemoryMapHelper mmf_DBFilePath;
+        MemoryMapHelper mmf_TemplateName;
+        MemoryMapHelper mmf_PODIndex;
+
+        #region DataBinding
+
+        private int _SelectedStationIndex;
+
+        public int SelectedStationIndex
+        {
+            get { return _SelectedStationIndex; }
+            set
+            {
+                _SelectedStationIndex = value;
+                mmf_StartProcess = new MemoryMapHelper("mmf_StartProcess_" + SelectedStationIndex, 1);
+                OnPropertyChanged();
+            }
+        }
+
+        private int _StatusCamera;
+        public int StatusCamera
+        {
+            get { return _StatusCamera; }
+            set { _StatusCamera = value; OnPropertyChanged(); }
+        }
+
+        private int _StatusPrinter;
+        public int StatusPrinter
+        {
+            get { return _StatusPrinter; }
+            set { _StatusPrinter = value; OnPropertyChanged(); }
+        }
+
+        private int _TabIndex;
+        public int TabIndex
+        {
+            get { return _TabIndex; }
+            set { _TabIndex = value; OnPropertyChanged(); }
+        }
+
+        private bool _StartEnable = true;
+
+        public bool StartEnable
+        {
+            get { return _StartEnable; }
+            set { _StartEnable = value; OnPropertyChanged(); }
+        }
+
+        private bool _StopEnable = true;
+
+        public bool StopEnable
+        {
+            get { return _StopEnable; }
+            set { _StopEnable = value; OnPropertyChanged(); }
+        }
+
+        private bool _TriggerEnable = true;
+
+        public bool TriggerEnable
+        {
+            get { return _TriggerEnable; }
+            set { _TriggerEnable = value; OnPropertyChanged(); }
+        }
+
+        public MainTabViewModel()
+        {
+            mmf_StartProcess = new MemoryMapHelper("mmf_StartProcess_" + SelectedStationIndex, 1);
+
+        }
+        private bool isAllowStart = true;
+        private bool isAllowStop = true;
+        internal void StartPrint(ref bool isRun)
+        {
+            try
+            {
+                if (isAllowStart)
+                {
+                    SharedControlHandler.EnableCamera = true;
+                    mmf_StartProcess.WriteData(Encoding.ASCII.GetBytes("1"), 0);
+                    isRun = true;
+                }
+                else
+                {
+                    isRun = false;
+                }
+
+            }
+            catch (Exception)
+            {
+                isRun = false;
+            }
+
+        }
+        internal void StopPrint(ref bool isStop)
+        {
+            try
+            {
+                if (isAllowStop)
+                {
+                    SharedControlHandler.EnableCamera = false;
+                    mmf_StartProcess.WriteData(Encoding.ASCII.GetBytes("0"), 0);
+                    isStop = true;
+                }
+                else
+                {
+                    isStop = false;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                isStop = false;
+            }
+
+        }
+
+
+        internal void SaveDB(System.Collections.Generic.List<string> listPath,
+                             System.Collections.Generic.List<string> listPodIndex,
+                             System.Collections.Generic.List<string> listTemplate)
+        {
+            int index = 0;
+            int index1 = 0;
+            int index2 = 0;
+
+            foreach (var item in listPath)
+            {
+                if (item == null)
+                {
+                    index++;
+                    continue;
+                }
+                mmf_DBFilePath = new MemoryMapHelper("mmf_DBFilePath" + index, 260);
+                mmf_DBFilePath.WriteData(Encoding.ASCII.GetBytes(item), 0);
+                index++;
+            }
+
+            foreach (var item in listPodIndex)
+            {
+                if (item == null)
+                {
+                    index1++;
+                    continue;
+                }
+                mmf_PODIndex = new MemoryMapHelper("mmf_PODIndex" + index1, 2);
+                mmf_PODIndex.WriteData(Encoding.ASCII.GetBytes(item), 0);
+                index1++;
+            }
+
+            foreach (var item in listTemplate)
+            {
+                if (item == null)
+                {
+                    index2++;
+                    continue;
+                }
+                mmf_TemplateName = new MemoryMapHelper("mmf_TemplateName" + index2, 100);
+                mmf_TemplateName.WriteData(Encoding.ASCII.GetBytes(item), 0);
+                index2++;
+            }
+
+        }
+
+        internal void ChangeEnableStateControlButton(int staticMode)
+        {
+            switch (staticMode)
+            {
+                case 0:
+                    StartEnable = true;
+                    StopEnable = true;
+                    TriggerEnable = true;
+                    break;
+                case 1:
+                    StartEnable = false;
+                    StopEnable = true;
+                    TriggerEnable = false;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        #endregion
     }
 }

@@ -14,6 +14,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ML.SDK.PRINTER.Controller
 {
@@ -40,6 +41,7 @@ namespace ML.SDK.PRINTER.Controller
         private int goodCount = 0;
         private int failCount = 0;
         private int totalCount = 0;
+        private MemoryMapHelper mmf_StartProcess;
         private MemoryMapHelper mmfCamCounting;
         private MemoryMapHelper mmfCountPrintedPage;
         private MemoryMapHelper mmf_classifyCode;
@@ -67,7 +69,7 @@ namespace ML.SDK.PRINTER.Controller
 #if DEBUG
             Console.WriteLine($"Printer IP: {_IP}, Port: {_Port}");
 #endif
-
+            mmf_StartProcess = new MemoryMapHelper("mmf_StartProcess_" + _SocketIndex, 1);
             mmfCamCounting = new MemoryMapHelper("mmf_VerifyCheckCode" + _SocketIndex, 20);
             mmfCountPrintedPage = new MemoryMapHelper("mmf_PrintedPage" + _SocketIndex, 5);
             mmf_classifyCode = new MemoryMapHelper("mmf_CheckCodeFlag" + _SocketIndex, 1);
@@ -241,37 +243,39 @@ namespace ML.SDK.PRINTER.Controller
             }
         }
         #endregion
-
+        private static bool isStart = false;
         #region Data Processing
         private void ListenUIACtion()
         {
 
             try
             {
-                bool isStart = false;
+               
                 while (true)
                 {
                     // Check Start
-                    var mmf = new MemoryMapHelper("mmf_StartProcess_" + _SocketIndex, 1);
-                    var res1 = Encoding.ASCII.GetString(mmf.ReadData(0, 1));
+                    
+                    var res1 = Encoding.ASCII.GetString(mmf_StartProcess.ReadData(0, 1));
                     if (res1 == "1" && !isStart)
                     {
                         isStart = true;
-                        mmf.WriteData(new byte[1] { 2 }, 0); // change another value
+                        mmf_StartProcess.WriteData(new byte[1] { 2 }, 0); // change another value
 #if DEBUG
                         //Console.WriteLine("Start Print ...");
 #endif  
                         StartAndSendData();
+  
                     }
 
                     if (res1 == "0")
                     {
                         isStart = false;
-                        mmf.WriteData(new byte[1] { 2 }, 0);
+                        mmf_StartProcess.WriteData(new byte[1] { 2 }, 0);
 #if DEBUG
                         // Console.WriteLine("Stop Print ...");
 #endif
                         StopPrint();
+                       
                     }
 
                     // Check Save 
@@ -286,12 +290,12 @@ namespace ML.SDK.PRINTER.Controller
                         mmf_Save.WriteData(new byte[] { 2 }, 0); // change state
 
                         threadListenAndCompareData?.Abort();
-
                         threadListenAndCompareData = new Thread(ListenAndCompareData)
                         {
                             IsBackground = true
                         };
                         threadListenAndCompareData.Start();
+
                     }
                     Thread.Sleep(1);
                 }
@@ -307,6 +311,9 @@ namespace ML.SDK.PRINTER.Controller
 
         private void StartAndSendData()
         {
+         
+
+
             threadSendStart?.Abort(); // Abort the previous thread
             try
             {
@@ -320,8 +327,6 @@ namespace ML.SDK.PRINTER.Controller
                 string[] tableData = File.ReadAllLines(filePath).Skip(1).ToArray(); // skip header
 
                 string command;
-                //string readySts1 = (char)2 + "RYES" + (char)3 + (char)2 + "STAR;READY" + (char)3;
-                //string readySts2 = (char)2 + "STAR;READY" + (char)3;
                 string readySts1 = "RYES" + "STAR;READY";
                 string readySts2 = "STAR;READY";
 
@@ -411,8 +416,13 @@ namespace ML.SDK.PRINTER.Controller
                 totalCount++;
 
                 mmf_classifyCode.WriteData(Encoding.ASCII.GetBytes(checkCodeFlag.ToString()), 0);
-                Console.WriteLine("Count Print:" + "Good: " + goodCount.ToString() + "Fail: " + failCount.ToString());
-                mmfCamCounting.WriteData(
+                Console.WriteLine("Count Print:" + 
+                    "Good: " + goodCount.ToString() + 
+                    "Fail: " + failCount.ToString() +
+                    "Total: " + totalCount.ToString());
+
+                    mmfCamCounting.WriteData(new byte[20] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 0); // forget old data
+                    mmfCamCounting.WriteData(
                     Encoding.ASCII.GetBytes(
                     goodCount.ToString() + 
                     "-" + 
@@ -520,12 +530,22 @@ namespace ML.SDK.PRINTER.Controller
 #endif
                 while (true)
                 {
+                    
                     var stringRes = Encoding.ASCII.GetString(mmfCodeData.ReadData(0, 100));
-                    if (stringRes != null && stringRes != emtyStr)
+                    if (isStart && stringRes != null && stringRes != emtyStr && int.TryParse(podIndex, out int col))
                     {
+#if DEBUG
+                    //    Console.WriteLine("Start Compare");
+#endif
                         Console.WriteLine(stringRes + stringRes.Length);
-                        CompareData(db, stringRes.Trim('\0'), int.Parse(podIndex));
+                        CompareData(db, stringRes.Trim('\0'), col);
                     }
+//                    else
+//                    {
+//#if DEBUG
+//                        Console.WriteLine("Can not start compare !" + "Column = "+ podIndex);
+//#endif
+//                    }
                     mmfCodeData.WriteData(new byte[100], 0);
                     Thread.Sleep(1);
                 }
@@ -533,7 +553,6 @@ namespace ML.SDK.PRINTER.Controller
 
             catch (Exception ex)
             {
-
 #if DEBUG
                 Console.WriteLine("ListenAndCompareData Fail:" + ex.Message);
 #endif

@@ -228,7 +228,7 @@ namespace ML.Common.Controller
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show("Can not found template. Check Printer Connection!", "Warning Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+               // MessageBox.Show("Can not found template. Check Printer Connection!", "Warning Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return null;
             }
             

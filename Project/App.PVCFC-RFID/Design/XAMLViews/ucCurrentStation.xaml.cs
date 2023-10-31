@@ -101,7 +101,18 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         {
             _Index = index;
             Task.Run(() => UpdateData()); // increase work efficiency by Task
+            Task.Run(() => ClearData());
+            
         }
+
+       
+
+        private void ClearData()
+        {
+           
+        }
+
+       
 
         private void UpdateData()
         {
@@ -127,7 +138,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                             //TotalCount = (int.Parse(GoodCount) + int.Parse(FailCount)).ToString();
                             TotalCount = Regex.Replace(splitRes[2], @"\0", "");
 
-                            if (codeChk !="\0")
+                            if (codeChk !="\0" && !SharedControlHandler.isTriggerOn)
                             {
                                 switch (codeChk)
                                 {

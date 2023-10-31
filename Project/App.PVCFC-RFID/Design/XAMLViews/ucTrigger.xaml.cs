@@ -1,9 +1,16 @@
 ﻿using App.PVCFC_RFID.Controller;
+using ML.Common.Controller;
+using ML.SDK.DM60X.Model;
 using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Reflection;
+using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Threading;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace App.PVCFC_RFID.Design.XAMLViews
@@ -110,5 +117,140 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             CallbackCommand(vm => vm.SoftwareTrigger());
         }
        
+    }
+    public class TriggerViewModel : ViewModelBase
+    {
+
+        #region Define
+        private int Index;
+
+        private ObservableCollection<GotCodeModel> _CodeList = new ObservableCollection<GotCodeModel>();
+        public ObservableCollection<GotCodeModel> CodeList
+        {
+            get => _CodeList;
+            set
+            {
+                SetProperty(ref _CodeList, value);
+
+            }
+        }
+
+        private ImageSource _ImgSrc;
+        public ImageSource ImgSrc
+        {
+            get { return _ImgSrc; }
+            set
+            {
+                if (ImgSrc != value)
+                {
+                    _ImgSrc = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _TotalValue;
+
+        public string TotalValue
+        {
+            get { return _TotalValue; }
+            set { _TotalValue = value; OnPropertyChanged(); }
+        }
+
+        public delegate void CustomEvtHandler(object sender, NotifyCollectionChangedEventArgs e);
+        public static event CustomEvtHandler CustomEvt;
+
+        #endregion
+        public void RaiseCustomEvent(NotifyCollectionChangedEventArgs e)
+        {
+            CustomEvt?.Invoke(this, e);
+        }
+        public TriggerViewModel(int index)
+        {
+            Index = index;
+            var ThreadListenImgData = new Thread(GetImageData);
+            ThreadListenImgData.IsBackground = true;
+            ThreadListenImgData.Start();
+
+            //var threadGetCode = new Thread(GetCode);
+            //threadGetCode.IsBackground = true;
+            //threadGetCode.Start();
+
+        
+            SharedControlHandler._dispatcher = Dispatcher.CurrentDispatcher;
+            SharedControlHandler._dispatcher?.Invoke(() =>
+            {
+                CodeList = SharedValues.Running.StationList[index].DataTriggerList;
+
+            });
+            CodeList.CollectionChanged += CodeList_CollectionChanged;
+            TotalValue = _CodeList.Count.ToString();
+
+        }
+
+        private void GetImageData()
+        {
+            while (true)
+            {
+                ImgSrc = SharedControlHandler.ImgSrc;
+                Thread.Sleep(1);
+            }
+
+        }
+
+        private void CodeList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            RaiseCustomEvent(e);
+            TotalValue = _CodeList.Count.ToString();
+        }
+
+
+
+        internal void CloseForm()
+        {
+            CodeList.CollectionChanged -= CodeList_CollectionChanged;
+            ClearDataRawList();
+        }
+
+
+        internal void ClearDataRawList()
+        {
+            SharedControlHandler._dispatcher?.Invoke(() =>
+            {
+                SharedValues.Running.StationList[Index].DataTriggerList.Clear();
+                CodeList.Clear();
+            });
+        }
+
+
+        internal void SoftwareTrigger()
+        {
+            SharedControlHandler.isTriggerOn = true;
+            var mmf_TriggerClick = new MemoryMapHelper("mmf_TriggerClick" + Index, 1);
+            mmf_TriggerClick.WriteData(Encoding.UTF8.GetBytes("1"), 0);
+        }
+        private void GetCode()
+        {
+            while (true)
+            {
+                var mmf_feedbackTrigger = new MemoryMapHelper("mmf_feedbackTrigger" + Index, 1);
+                var resFb = Encoding.ASCII.GetString(mmf_feedbackTrigger.ReadData(0, 1));
+                switch (resFb)
+                {
+                    case "1":
+                        SharedControlHandler._dispatcher.Invoke(new Action(() =>
+                        {
+                            if(SharedControlHandler.newCodeItem != null)
+                            SharedValues.Running.StationList[Index].DataTriggerList.Add(SharedControlHandler.newCodeItem);
+                            mmf_feedbackTrigger.WriteData(Encoding.ASCII.GetBytes("2"), 0);
+                        }));
+                       
+                        break;
+                    default:
+                        break;
+                }
+                
+                Thread.Sleep(11);
+            }
+        }
     }
 }
