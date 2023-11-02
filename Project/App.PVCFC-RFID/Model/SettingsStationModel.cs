@@ -1,5 +1,6 @@
 ﻿using App.PVCFC_RFID.DataType;
 using ML.Common.Model;
+using ML.SDK.CVX450.Model;
 using ML.SDK.DM60X.Model;
 
 namespace App.PVCFC_RFID.Model
@@ -34,8 +35,8 @@ namespace App.PVCFC_RFID.Model
             set { _DMCamera = value; }
         }
 
-        private Keyence_SettingModel _KeyenceCamera = new Keyence_SettingModel();
-        public Keyence_SettingModel KeyenceCamera
+        private CVX450Cam_SettingModel _KeyenceCamera = new CVX450Cam_SettingModel();
+        public CVX450Cam_SettingModel KeyenceCamera
         {
             get { return _KeyenceCamera; }
             set { _KeyenceCamera = value; }

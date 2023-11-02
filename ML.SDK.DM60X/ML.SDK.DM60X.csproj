@@ -65,7 +65,6 @@
     <Compile Include="Model\DM60XFeedbackModel.cs" />
     <Compile Include="Model\DMCam_SettingModel.cs" />
     <Compile Include="Model\GotCodeModel.cs" />
-    <Compile Include="Model\Keyence_SettingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

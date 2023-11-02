@@ -43,13 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\CVX.cs" />
-    <Compile Include="Controller\CVX450FDeviceHandler.cs" />
+    <Compile Include="Controller\CVX450DeviceHandler.cs" />
+    <Compile Include="Controller\CVX450UIBridgeSocketHandler.cs" />
+    <Compile Include="DataType\CVX450DataType.cs" />
     <Compile Include="Model\CodeModel.cs" />
+    <Compile Include="Model\CVX450Cam_SettingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataType\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Common\ML.Common\ML.Common.csproj">
       <Project>{3d08b682-51f3-4d84-97f3-5bcd34e2c691}</Project>
@@ -58,6 +59,10 @@
     <ProjectReference Include="..\..\Common\ML.Connections\ML.Connections.csproj">
       <Project>{62791625-01b3-4cf0-ab9f-14cc33b9c82a}</Project>
       <Name>ML.Connections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ML.SDK.Transfer\ML.SDK.Transfer.csproj">
+      <Project>{D98118D6-0927-462F-9285-24B0645868DF}</Project>
+      <Name>ML.SDK.Transfer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

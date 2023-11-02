@@ -20,6 +20,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Threading;
+using static ML.SDK.CVX450.DataType.CVX450DataType;
 using static ML.SDK.DM60X.DataType.DM60XDataType;
 
 namespace App.PVCFC_RFID.Controller
@@ -75,7 +76,7 @@ namespace App.PVCFC_RFID.Controller
             _ThreadListenDeviceTransferListenning.Priority = ThreadPriority.Highest;
             _ThreadListenDeviceTransferListenning.Start();
             //End Run Thread
-            StationType[] stationSet = { StationType.COGNEX_DATAMAN, StationType.COGNEX_DATAMAN, StationType.COGNEX_DATAMAN, StationType.COGNEX_DATAMAN };
+            StationType[] stationSet = { StationType.COGNEX_DATAMAN, StationType.COGNEX_DATAMAN, StationType.COGNEX_DATAMAN, StationType.KEYENCE };
             #region Run Stations - Device transfer
             for (int i = 0; i < NumberOfStation; i++)
             {
@@ -89,8 +90,7 @@ namespace App.PVCFC_RFID.Controller
                         curStation = SharedValues.Settings.StationList[i].DMCamera;
                         break;
                     case StationType.KEYENCE:
-                        curStation = SharedValues.Settings.StationList[i].DMCamera;
-                        //curStation = SharedValues.Settings.StationList[i].KeyenceCamera;
+                        curStation = SharedValues.Settings.StationList[i].KeyenceCamera;
                         break;
                      default: break;
                 }
@@ -272,7 +272,7 @@ namespace App.PVCFC_RFID.Controller
                                         #region Device command
                                         switch (receiveBytes[3])
                                         {
-                                            case (byte)DM60X_MODE_TYPE.Data:
+                                            case 0:
                                                 GetRawDataToUI(socketIndex, receiveBytes);
                                                 break;
 
@@ -299,7 +299,7 @@ namespace App.PVCFC_RFID.Controller
 #endif
                     }
                 }
-                System.Threading.Thread.Sleep(1);
+                Thread.Sleep(1);
             }
         }
 
@@ -483,6 +483,7 @@ namespace App.PVCFC_RFID.Controller
         }
         private static void OnDataRawListChanged(int index)
         {
+            if (index == 2) return;
             //var mmf_ImageByteLength = new MemoryMapHelper("mmf_ImageByteLength", 5); // max 5 numbers
             //var lennum = Encoding.ASCII.GetString(mmf_ImageByteLength.ReadData(0, 5)).Trim('\0');
             var mmf_ImageTrigger = new MemoryMapHelper("mmf_ImageTrigger" + index, 100000);

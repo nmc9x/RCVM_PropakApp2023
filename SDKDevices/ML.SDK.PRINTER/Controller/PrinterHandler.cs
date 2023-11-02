@@ -67,6 +67,7 @@ namespace ML.SDK.PRINTER.Controller
 #if DEBUG
             Console.WriteLine($"Printer IP: {_IP}, Port: {_Port}");
 #endif
+             
             mmf_StartProcess = new MemoryMapHelper("mmf_StartProcess_" + _SocketIndex, 1);
             mmfCamCounting = new MemoryMapHelper("mmf_VerifyCheckCode" + _SocketIndex, 20);
             mmf_CountPrintedPage = new MemoryMapHelper("mmf_PrintedPage" + _SocketIndex, 5);
@@ -216,6 +217,7 @@ namespace ML.SDK.PRINTER.Controller
             try
             {
                 Directory.CreateDirectory(directoryPath);
+                File.Delete(filePath);
                 File.WriteAllText(filePath, data);
 
 #if DEBUG

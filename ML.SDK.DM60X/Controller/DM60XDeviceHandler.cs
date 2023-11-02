@@ -37,6 +37,8 @@ namespace ML.SDK.DM60X.Controller
         private readonly object _ObjectSyncLock = new object();
         protected ConcurrentQueue<CodeModel> MessageBufferReceivedArr = new ConcurrentQueue<CodeModel>();
         private int countEventGetRes = 0;
+
+
         public DM60XDeviceHandler(string ip, int port,int socketIndex)
         {
             _ConnectionStatus = ConnectionsType.StatusEnum.DisConnected;
@@ -310,7 +312,7 @@ namespace ML.SDK.DM60X.Controller
                         _ConnectionStatus = newStatus;
                         ConnectionEvents.RaiseDeviceStatusChanged(_ConnectionStatus, EventArgs.Empty);
                         mmf.WriteData(Encoding.ASCII.GetBytes(StatusToNum(_ConnectionStatus).ToString()), 0);
-                        //CommonFunctions.SetToMemoryFile("mmf_connectStatus_camera" + _SocketIndex, 1, StatusToNum(_ConnectionStatus).ToString()); // mmf
+                        
 
 #if DEBUG
                         Console.WriteLine("Camera Status: " + newStatus);

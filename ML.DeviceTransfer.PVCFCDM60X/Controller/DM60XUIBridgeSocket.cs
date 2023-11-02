@@ -210,7 +210,7 @@ namespace ML.DeviceTransfer.PVCFCDM60X.Controller
         protected override void ConnectionEvents_DeviceDataReceived(object sender, EventArgs e)
         {
             var resultData = (CodeModel)sender;
-            byte[] command = new byte[100];
+            byte[] command = new byte[200];
            
             try
             {

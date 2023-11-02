@@ -5,7 +5,7 @@ using ML.SDK.PRINTER.Controller;
 
 namespace ML.DeviceTransfer.CVX450.Controller
 {
-    public class KeyenceSharedValues
+    public class CVX450SharedValues
     {
         public static string SocketName = "ML.DeviceTransfer.CVX450";
         public static int SocketIndex = 2;
@@ -21,8 +21,9 @@ namespace ML.DeviceTransfer.CVX450.Controller
         public static string PrinterPort = "12500";
 
 
-        public static CVX450FDeviceHandler DeviceHandler;
+        public static CVX450DeviceHandler DeviceHandler;
 
+        public static CVX450UIBridgeSocket UIBridgeSocket;
         public static CVX450DeviceRunningModel Running;
 
         public static PrinterHandler PrinterHandler;

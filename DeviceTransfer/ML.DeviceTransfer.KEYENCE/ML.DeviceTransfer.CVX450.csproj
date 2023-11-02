@@ -63,7 +63,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\KeyenceSharedValues.cs" />
+    <Compile Include="Controller\CVX450UIBridgeSocket.cs" />
+    <Compile Include="Controller\CVX450SharedValues.cs" />
     <Compile Include="Model\CVX450DeviceRunningModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +76,14 @@
     <Folder Include="DataType\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\ML.Common\ML.Common.csproj">
+      <Project>{3D08B682-51F3-4D84-97F3-5BCD34E2C691}</Project>
+      <Name>ML.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\ML.Connections\ML.Connections.csproj">
+      <Project>{62791625-01B3-4CF0-AB9F-14CC33B9C82A}</Project>
+      <Name>ML.Connections</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SDKDevices\ML.SDK.CVX450\ML.SDK.CVX450.csproj">
       <Project>{18eb1756-6a7f-43b5-be01-3007a5e21715}</Project>
       <Name>ML.SDK.CVX450</Name>

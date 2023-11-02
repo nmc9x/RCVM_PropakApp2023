@@ -4,24 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ML.SDK.DM60X.DataType.DM60XDataType;
+using static ML.SDK.CVX450.DataType.CVX450DataType;
 
-namespace ML.SDK.DM60X.Controller
+namespace ML.SDK.CVX450.Controller
 {
-    public class DM60XUIBridgeSocketHandler : TransferUIBridgeSocket 
+    public class CVX450UIBridgeSocketHandler : TransferUIBridgeSocket 
     {
-        #region Feedback
-        
-        public void SendStartFeedbackToUI(bool isStatus, string strErrors)
-        {
-        
-        }
-        public void SendStopFeedbackToUI(bool isStatus, string strErrors)
-        {
 
-        }
-
-        #endregion
 
 
         #region Action
@@ -42,16 +31,16 @@ namespace ML.SDK.DM60X.Controller
         public void SendOperationToDeviceTransfer(byte[] operationData)
         {
             var tempArr = new byte[2];
-            tempArr[0] = (byte)DM60X_MODE_TYPE.Operation;
+            tempArr[0] = (byte)CVX450_MODE_TYPE.Operation;
 
             Array.Copy(operationData, 0, tempArr, 1, operationData.Length);
 
-            switch ((DM60X_OPERATION_TYPE)tempArr[1]) // This case is only 1 byte
+            switch ((CVX450_OPERATION_TYPE)tempArr[1]) // This case is only 1 byte
             {
-                case DM60X_OPERATION_TYPE.StartRead:
+                case CVX450_OPERATION_TYPE.StartRead:
                     SendDataToPort(tempArr);
                     break;
-                case DM60X_OPERATION_TYPE.StopRead:
+                case CVX450_OPERATION_TYPE.StopRead:
                     SendDataToPort(tempArr);
                     break;
                     // More
@@ -64,7 +53,7 @@ namespace ML.SDK.DM60X.Controller
         {
             byte[] command = new byte[6];
             // Data
-            command[0] = (byte)DM60X_MODE_TYPE.Config;
+            command[0] = (byte)CVX450_MODE_TYPE.Config;
             command[1] = (byte)(result[0] ? 1 : 0); // Trigger 
             command[2] = (byte)(result[1] ? 1 : 0); // Ip 
             command[3] = (byte)(result[2] ? 1 : 0); // Symbol 
@@ -74,17 +63,16 @@ namespace ML.SDK.DM60X.Controller
         }
        
         #endregion
-
         #region UI -> DEVICE
         public void SendConfigToDeviceTransfer(byte[] configData)
         {
-            configData[3] = (byte)DM60X_MODE_TYPE.Config;
+            configData[3] = (byte)CVX450_MODE_TYPE.Config;
             SendDataToPort(configData.Skip(3).ToArray());
         }
 
         public void SenOperationToDeviceTransfer(byte[] operationData)
         {
-            operationData[3] = (byte)DM60X_MODE_TYPE.Operation;
+            operationData[3] = (byte)CVX450_MODE_TYPE.Operation;
             SendDataToPort(operationData.Skip(3).ToArray());
         }
 

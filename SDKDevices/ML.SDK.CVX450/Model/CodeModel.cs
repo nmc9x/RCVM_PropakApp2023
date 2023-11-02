@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ML.SDK.CVX450.Model
 {
-    public class GotCodeModel : ViewModelBase
+    public class CodeModel : ViewModelBase
     {
         private string _ID;
 
@@ -66,7 +66,7 @@ namespace ML.SDK.CVX450.Model
             set { SetProperty(ref _ErrorStr, value); }
         }
 
-        public GotCodeModel()
+        public CodeModel()
         {
             ID = null; Code = null; Symbol = null; DecodeTime = null; Status = null; DateTimeStr = "";
         }

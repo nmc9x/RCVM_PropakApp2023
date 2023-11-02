@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using ML.Common.Controller;
 
 namespace ML.SDK.CVX450.Controller
 {
@@ -15,6 +16,7 @@ namespace ML.SDK.CVX450.Controller
     }
     public class CVX : IDisposable
     {
+       
         /// <summary>
         /// Socket that handles the TCP communication.
         /// </summary>
@@ -35,9 +37,9 @@ namespace ML.SDK.CVX450.Controller
                 while (true)
                 {
                     int bytesRec = client.Receive(bytes);
-                    string result = Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                    resultReceivedData = result.Split(separator);
-                    Thread.Sleep(1);
+                   // string result = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                   // resultReceivedData = result.Split(separator);
+                    Thread.Sleep(100);
                 }
             }
             catch (Exception)
