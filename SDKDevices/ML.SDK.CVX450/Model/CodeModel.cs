@@ -1,10 +1,14 @@
 ﻿using App.PVCFC_RFID.Controller;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ML.SDK.DM60X.Model
+namespace ML.SDK.CVX450.Model
 {
     public class GotCodeModel : ViewModelBase
     {
-        
         private string _ID;
 
         public string ID
@@ -18,7 +22,7 @@ namespace ML.SDK.DM60X.Model
         public string Code
         {
             get { return _Code; }
-            set { SetProperty(ref _Code, value);  }
+            set { SetProperty(ref _Code, value); }
         }
 
         private string _Symbol;
@@ -45,7 +49,7 @@ namespace ML.SDK.DM60X.Model
             set { SetProperty(ref _Status, value); }
         }
 
-       
+
         private string _DateTimeStr;
 
         public string DateTimeStr
@@ -62,10 +66,9 @@ namespace ML.SDK.DM60X.Model
             set { SetProperty(ref _ErrorStr, value); }
         }
 
-        public GotCodeModel() 
+        public GotCodeModel()
         {
             ID = null; Code = null; Symbol = null; DecodeTime = null; Status = null; DateTimeStr = "";
         }
-       
     }
 }

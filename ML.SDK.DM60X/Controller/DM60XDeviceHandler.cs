@@ -71,7 +71,6 @@ namespace ML.SDK.DM60X.Controller
             try
             {
                 #region Save Current Network Params To Memory Map File
-
                 CommonFunctions.SetToMemoryFile(
                     "mmf_IP"+_SocketIndex,
                     15,
@@ -96,8 +95,8 @@ namespace ML.SDK.DM60X.Controller
            
         }
         #endregion
-        #region Connection
 
+        #region Connection
         public bool Connect(string ip, int port)
         {
             if (!_IsConnecting)
@@ -135,7 +134,6 @@ namespace ML.SDK.DM60X.Controller
                     threadProccessExcMessage.Start();
 
                     return _DataManSystem.State == ConnectionState.Connected;
-
                 }
                 catch (Exception ex)
                 {
@@ -217,6 +215,7 @@ namespace ML.SDK.DM60X.Controller
                 return false;
             }
         }
+
         private IPStatus PingIP(string ip, int timeout = 1000)
         {
             try
@@ -246,6 +245,7 @@ namespace ML.SDK.DM60X.Controller
             }
             return IPStatus.Unknown;
         }
+
         private void DeviceStatusChecking()
         {
             ConnectionEvents.RaiseDeviceStatusChanged(_ConnectionStatus, EventArgs.Empty);
@@ -331,6 +331,7 @@ namespace ML.SDK.DM60X.Controller
             }
         }
         #endregion
+
         private int StatusToNum(ConnectionsType.StatusEnum _connSts)
         {
             int connectionNumStat;
@@ -353,6 +354,7 @@ namespace ML.SDK.DM60X.Controller
             return connectionNumStat;
         }
         #region DM60X Read Data
+
         private void Results_ComplexResultCompleted(object sender, ComplexResult e)
         {
             countEventGetRes++;
@@ -361,6 +363,7 @@ namespace ML.SDK.DM60X.Controller
             resultThread.IsBackground = true;
             resultThread.Start(e);
         }
+
         private void ProcessResult(object obj)
         {
             try
@@ -426,6 +429,7 @@ namespace ML.SDK.DM60X.Controller
             }
 
         }
+
         private Result GetObjectFrXmlReader(string xmlContent)
         {
             var xmlSerializer = new XmlSerializer(typeof(Result));
@@ -435,11 +439,9 @@ namespace ML.SDK.DM60X.Controller
             }
         }
 
-       
         private void ProccessReceivedMessage(CodeModel codeModel)
         {
             MessageBufferReceivedArr.Enqueue(codeModel);
-           
         }
         private void ProccessExcMessage()
         {
@@ -483,9 +485,9 @@ namespace ML.SDK.DM60X.Controller
         #region DM60X
 
         #region Normal_Operation
+
         public bool SoftwareTrigger()
         {
-           
             try
             {
                 var res = _DataManSystem.SendCommand("TRIGGER ON");
@@ -494,14 +496,13 @@ namespace ML.SDK.DM60X.Controller
                     _DataManSystem.SendCommand("TRIGGER OFF");
                 }
                 return true;
-                
             }
             catch (Exception)
             {
-                
                 return false;
             }
         }
+
         public bool StartReadding()
         {
             try
@@ -515,8 +516,8 @@ namespace ML.SDK.DM60X.Controller
             {
                 return false;
             }
-            
         }
+
         public bool StopReadding()
         {
             try
@@ -532,9 +533,11 @@ namespace ML.SDK.DM60X.Controller
                 return false;
             }
         }
+
         #endregion
 
         #region PrivateOperation    
+
         public bool ResetStatistics()
         {
             try
@@ -551,6 +554,7 @@ namespace ML.SDK.DM60X.Controller
             }
 
         }
+
         public bool ResetConfigToDefault()
         {
             try
@@ -565,8 +569,8 @@ namespace ML.SDK.DM60X.Controller
 #endif
                 return false;
             }
-
         }
+
         public bool ResetConfigAndReboot()
         {
             try
@@ -581,11 +585,12 @@ namespace ML.SDK.DM60X.Controller
 #endif
                 return false;
             }
-
         }
+
         #endregion
 
         #region Settings
+
         public bool SetTriggerSetting(TRIGGER_TYPE triggerType, DELAY_TYPE delayType, int delayTime, int timeout, int interval = 0, UNIT_TYPE unit = 0, int length = 0)
         {
             try
@@ -611,9 +616,9 @@ namespace ML.SDK.DM60X.Controller
                 return false;
             }
         }
+
         public void TriggerCommonSet(DELAY_TYPE delayType, int delayTime, int timeout)
         {
-
             try
             {
                 if (delayType == DELAY_TYPE.NONE)
@@ -634,12 +639,10 @@ namespace ML.SDK.DM60X.Controller
                 Console.WriteLine("TriggerCommonSet :" + ex.Message);
 #endif
             }
-
-           
         }
+
         public void CheckChangeNetworkPar(string ipAddress, string subnet, string port)
         {
-
             CommonFunctions.GetFromMemoryFile("mmf_isChangeNetwork"+_SocketIndex, 1, out string isChangedNetwork, out _);
            
             if (isChangedNetwork == "1")
@@ -648,8 +651,8 @@ namespace ML.SDK.DM60X.Controller
                 _DataManSystem.SendCommand("CONFIG.SAVE");
                 _DataManSystem.SendCommand("REBOOT");
             }
-
         }
+
         public bool SetIpAddress(string ipAddress, string subnet, string port, bool isDHCP = false)
         {
             try
@@ -671,6 +674,7 @@ namespace ML.SDK.DM60X.Controller
                 return false;
             }
         }
+
         public bool DeviceReboot()
         {
             try
@@ -687,6 +691,7 @@ namespace ML.SDK.DM60X.Controller
             }
 
         }
+
         public void SetSymbol(bool[] codeSelectArr) // index : 0 - 22
         {
             
@@ -862,7 +867,6 @@ namespace ML.SDK.DM60X.Controller
                 Console.WriteLine("Set Symbol Fail: " + ex.Message);
 #endif
             }
-
         }
         #endregion
 
@@ -914,24 +918,6 @@ namespace ML.SDK.DM60X.Controller
         #endregion
 
         #endregion
-
-
-        #region Printer
-        public void CheckPrinterConnection()
-        {
-
-        }
-        public void StartPrint()
-        {
-
-        }
-        public void StopPrint()
-        {
-
-        }
-
-        #endregion
-
 
     }
 }

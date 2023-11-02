@@ -1,6 +1,8 @@
 ﻿using App.PVCFC_RFID.Controller;
 using App.PVCFC_RFID.Controller.ViewModels;
 using App.PVCFC_RFID.Properties;
+using LiveCharts;
+using LiveCharts.Wpf;
 using Microsoft.VisualBasic.FileIO;
 using ML.Common.Controller;
 using Newtonsoft.Json;
@@ -9,8 +11,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -58,6 +62,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
 
         #endregion
 
+
         public ucMain()
         {
 
@@ -66,12 +71,14 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             this.SizeChanged += UcCurrentStation_SizeChanged;
             MainPage.ScaleTransformChanged += MainPage_ScaleTransformChanged;
             UpdateScaleTransform();
-            DataContext = new MainTabViewModel();
             InitStation();
+            DataContext = new MainTabViewModel(listCurStation);
+
             LoadLastValues();
             SaveDatabase();
             frmDetailList.ClearClickEvt += FrmDetailList_ClearClickEvt;
         }
+
 
         private void FrmDetailList_ClearClickEvt(object sender, EventArgs e)
         {
@@ -395,9 +402,10 @@ namespace App.PVCFC_RFID.Design.XAMLViews
 
 
         }
+
         private void BtnWebPrinter_Click(object sender, RoutedEventArgs e)
         {
-            var btn = (System.Windows.Controls.Button)sender;
+            var btn = (Button)sender;
             CallbackCommand(vm => vm.TabIndex = 5);
             var index = btn.Name.Substring(btn.Name.Length - 1);
             string CurrentPrinterIP = "127.0.0.1";
@@ -406,13 +414,12 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                 var vm = (ucJobItemsVM)listJob[i].DataContext;
                 if (int.Parse(index) == i)
                 {
-                    CurrentPrinterIP = vm.PrinterIP;
+                    CurrentPrinterIP = vm.PrinterIP+"?page=design";
                 }
-
             }
-
             InitWebView(CurrentPrinterIP);
         }
+
         private void MainPage_ScaleTransformChanged(object sender, EventArgs e)
         {
             UpdateScaleTransform();
@@ -671,10 +678,12 @@ namespace App.PVCFC_RFID.Design.XAMLViews
 
     public class MainTabViewModel : ViewModelBase
     {
+        public static Func<ChartPoint, string> PointLabel { get; set; }
         MemoryMapHelper mmf_StartProcess;
         MemoryMapHelper mmf_DBFilePath;
         MemoryMapHelper mmf_TemplateName;
         MemoryMapHelper mmf_PODIndex;
+        Thread ListenPercent;
 
         #region DataBinding
 
@@ -736,11 +745,184 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             set { _TriggerEnable = value; OnPropertyChanged(); }
         }
 
-        public MainTabViewModel()
+        private double _GoodPercent = 33;
+        public double GoodPercent
         {
+            get { return _GoodPercent; }
+            set { _GoodPercent = value; OnPropertyChanged(); }
+        }
+
+        private double _FailPercent;
+        public double FailPercent
+        {
+            get { return _FailPercent; }
+            set { _FailPercent = value; OnPropertyChanged(); }
+        }
+
+        private double _RemainPercent;
+        public double RemainPercent
+        {
+            get { return _RemainPercent; }
+            set { _RemainPercent = value; OnPropertyChanged(); }
+        }
+        
+        private ImageSource _ImgSrc;
+
+        public ImageSource ImgSrc
+        {
+            get { return _ImgSrc; }
+            set { _ImgSrc = value; OnPropertyChanged(); }
+        }
+
+        public List<ucCurrentStation> StationList { get; set; }
+
+        //private SeriesCollection _SeriesCollection = new SeriesCollection()
+        //{
+        //    new PieSeries
+        //    {
+        //        Title = "Good",
+        //        Values = new ChartValues<double> { 100 },
+        //        DataLabels = true
+        //    },
+        //     new PieSeries
+        //    {
+        //        Title = "Fail",
+        //        Values = new ChartValues<double> { 0 },
+        //        DataLabels = true
+        //    }
+        //    //  new PieSeries
+        //    //{
+        //    //    Title = "Remain",
+        //    //    Values = new ChartValues<double> { 0 },
+        //    //    DataLabels = true
+        //    //},
+        //};
+        public SeriesCollection SeriesCollection { get; set; }
+
+        
+        public MainTabViewModel(List<ucCurrentStation> listStation)
+        {
+            PointLabel = chartPoint => string.Format("{1:P}", chartPoint.Y, chartPoint.Participation);
+            InitializeChartData();
+            StationList = listStation;
             mmf_StartProcess = new MemoryMapHelper("mmf_StartProcess_" + SelectedStationIndex, 1);
 
+         
+            // Update Value Percent
+
+            ListenPercent = new Thread(ExcChangePercent);
+            ListenPercent.IsBackground = true;
+            ListenPercent.Start();
+         
+            // Update Chart
+            var timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(3); 
+            timer.Tick += Timer_Tick;
+            timer.Start();
+
+            // Update Image 
+            var ThreadListenImgData = new Thread(GetImageData);
+            ThreadListenImgData.IsBackground = true;
+            ThreadListenImgData.Start();
         }
+        private void GetImageData()
+        {
+            while (true)
+            {
+                ImgSrc = SharedControlHandler.ImgSrcList[SelectedStationIndex];
+                Thread.Sleep(1);
+            }
+
+        }
+
+
+        private void InitializeChartData()
+        {
+            SeriesCollection = new SeriesCollection
+        {
+            new PieSeries
+            {
+                Title = "Good",
+                Values = new ChartValues<double> { 0 },
+                DataLabels = true,
+                LabelPoint = PointLabel
+                
+            },
+            new PieSeries
+            {
+                Title = "Fail",
+                Values = new ChartValues<double> { 0 },
+                DataLabels = true,
+                LabelPoint = PointLabel
+            },
+           
+        };
+        }
+        public void UpdateChartValues(double goodPercent, double failPercent)
+        {
+            SeriesCollection[0].Values[0] = goodPercent;
+            SeriesCollection[1].Values[0] = failPercent;
+     
+            //SeriesCollection[0].Values = new ChartValues<double> { goodPercent };
+            //SeriesCollection[1].Values = new ChartValues<double> { failPercent };
+     
+        }
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            UpdateChartValues(GoodPercent, FailPercent);
+        }
+
+        private void ExcChangePercent()
+        {
+              
+            try
+            {
+                while (true)
+                {
+                    switch (SelectedStationIndex)
+                    {
+                        case 0:
+                            CalcPercent(0);
+                            break;
+                        case 1:
+                            CalcPercent(1);
+                            break;
+                        case 2:
+                            CalcPercent(2);
+                            break;
+                        default:
+                            break;
+                    }
+                   Thread.Sleep(1000);
+                }
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+
+        }
+        private void CalcPercent(int index)
+        {
+            SharedControlHandler._dispatcher?.Invoke(() =>
+            {
+           
+            var vm = (ucCurrentStationVM)StationList[index].DataContext;
+            double total = double.Parse(vm.FailCount) + double.Parse(vm.GoodCount);
+               
+            GoodPercent = double.Parse(vm.GoodCount) / total;
+            FailPercent = double.Parse(vm.FailCount) / total;
+                if (total == 0)
+                {
+                    GoodPercent = 1;
+                    FailPercent = 0;
+                }
+
+            });
+        }
+
         private bool isAllowStart = true;
         private bool isAllowStop = true;
         internal void StartPrint(ref bool isRun)

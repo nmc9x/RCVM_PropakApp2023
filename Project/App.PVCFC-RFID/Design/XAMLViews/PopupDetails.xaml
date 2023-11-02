@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:App.PVCFC_RFID.Design.XAMLViews"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Background="White"
@@ -18,6 +18,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <!-- primary -->
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0bb5a1"/>
         </ResourceDictionary>
 
     </UserControl.Resources>
@@ -27,17 +29,19 @@
             <RowDefinition Height="10*" />
             <RowDefinition Height="4*" />
         </Grid.RowDefinitions>
-        <Label x:Name="LabelTitle" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">
-            
-        </Label>
+        <Label
+            x:Name="LabelTitle"
+            HorizontalAlignment="Center"
+            FontSize="20"
+            FontWeight="Bold" />
         <DataGrid
             x:Name="DataGrid1"
-            CanUserAddRows="False"
-            IsReadOnly="True"
             Grid.Row="1"
             Margin="5"
             AutoGenerateColumns="False"
             BorderThickness="0"
+            CanUserAddRows="False"
+            IsReadOnly="False"
             ItemsSource="{Binding CodeList}"
             Loaded="DataGrid1_Loaded"
             LoadingRow="DataGrid1_LoadingRow">
@@ -52,27 +56,27 @@
                     Width="*"
                     Binding="{Binding Code}"
                     Header="Code" />
-          
+
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Symbol}"
                     Header="Symbol" />
-            
+
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding DecodeTime}"
                     Header="Decode Time" />
-        
+
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Status}"
                     Header="Status" />
-                
+
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding ErrorStr}"
                     Header="Error Code" />
-                
+
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding DateTimeStr}"
@@ -83,21 +87,22 @@
         </DataGrid>
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <Grid >
-                <Button x:Name="BtnClear"
-                        Grid.Row="1"
-                        Width="80"
-                        Height="30"
-                        Margin="0,0,020,0"
-                        HorizontalAlignment="Right"
-                        Click="ClearDataGrid_Click"
-                        Content="CLEAR"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                        Style="{StaticResource MaterialDesignFlatDarkBgButton}"
-                        ToolTip="MaterialDesignFlatDarkButton">
+            <Grid>
+                <Button
+                    x:Name="BtnClear"
+                    Grid.Row="1"
+                    Width="80"
+                    Height="30"
+                    Margin="0,0,020,0"
+                    HorizontalAlignment="Right"
+                    Click="ClearDataGrid_Click"
+                    Content="CLEAR"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Style="{StaticResource MaterialDesignFlatDarkBgButton}"
+                    ToolTip="MaterialDesignFlatDarkButton">
                     <Button.Resources>
                         <ResourceDictionary>
                             <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="OrangeRed" />
@@ -108,14 +113,15 @@
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Grid VerticalAlignment="Top"
-                Grid.Column="2"
-                Height="50"
-                Margin="0,0,5,0"
-                HorizontalAlignment="Stretch">
+                <Grid
+                    Grid.Column="2"
+                    Height="50"
+                    Margin="0,0,5,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -123,32 +129,32 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Button
-                    x:Name="FirstButton"
-                    Grid.Column="0"
-                    Margin="5,5,5,5"
-                    Click="ControlDataGridButton_Click"
-                    Content="&lt;&lt;" />
+                        x:Name="FirstButton"
+                        Grid.Column="0"
+                        Margin="5,5,5,5"
+                        Click="ControlDataGridButton_Click"
+                        Content="&lt;&lt;" />
                     <Button
-                    x:Name="BackButton"
-                    Grid.Column="1"
-                    Margin="5,5,5,5"
-                    Click="ControlDataGridButton_Click"
-                    Content="&lt;" />
+                        x:Name="BackButton"
+                        Grid.Column="1"
+                        Margin="5,5,5,5"
+                        Click="ControlDataGridButton_Click"
+                        Content="&lt;" />
                     <Button
-                    x:Name="NextButton"
-                    Grid.Column="2"
-                    Margin="5,5,5,5"
-                    Click="ControlDataGridButton_Click"
-                    Content="&gt;" />
+                        x:Name="NextButton"
+                        Grid.Column="2"
+                        Margin="5,5,5,5"
+                        Click="ControlDataGridButton_Click"
+                        Content="&gt;" />
                     <Button
-                    x:Name="LastButton"
-                    Grid.Column="3"
-                    Margin="5,5,5,5"
-                    Click="ControlDataGridButton_Click"
-                    Content="&gt;&gt;" />
+                        x:Name="LastButton"
+                        Grid.Column="3"
+                        Margin="5,5,5,5"
+                        Click="ControlDataGridButton_Click"
+                        Content="&gt;&gt;" />
                 </Grid>
             </Grid>
-           
+
         </Grid>
     </Grid>
 </UserControl>

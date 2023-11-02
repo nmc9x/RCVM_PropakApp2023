@@ -19,7 +19,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <!-- primary -->
-            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2f79ba"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0bb5a1"/>
           
         </ResourceDictionary>
     </UserControl.Resources>
@@ -114,9 +114,10 @@
                         x:Name="CbbModelCamera"
                         Grid.Column="6"
                         Height="50"
+                        Padding="1"
                         Margin="10"
                         FontSize="18"
-                        SelectedIndex="{Binding SelectedModelCam}"
+                        SelectedIndex="{Binding SelectedModelCam,FallbackValue=0}"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}">
                         <ComboBoxItem>Cognex DM60, DM280</ComboBoxItem>
                         <ComboBoxItem>Keyence CV-X450F</ComboBoxItem>

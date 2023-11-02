@@ -434,6 +434,10 @@
       <Project>{14258f52-5067-4d57-a903-57792acd78ea}</Project>
       <Name>ML.LoggingControls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DeviceTransfer\ML.DeviceTransfer.KEYENCE\ML.DeviceTransfer.CVX450.csproj">
+      <Project>{d6c5afc4-f20d-4fe3-ac9c-bbf967fc5a89}</Project>
+      <Name>ML.DeviceTransfer.CVX450</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\DeviceTransfer\ML.DeviceTransfer.PVCFCRFID\ML.DeviceTransfer.PVCFCRFID.csproj">
       <Project>{f57d31fc-cf4d-4dcc-9ee5-ffcf71429d79}</Project>
       <Name>ML.DeviceTransfer.PVCFCRFID</Name>
@@ -445,6 +449,10 @@
     <ProjectReference Include="..\..\ML.SDK.DM60X\ML.SDK.DM60X.csproj">
       <Project>{be57467e-f9d7-4a09-af42-44e014876195}</Project>
       <Name>ML.SDK.DM60X</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SDKDevices\ML.SDK.CVX450\ML.SDK.CVX450.csproj">
+      <Project>{18eb1756-6a7f-43b5-be01-3007a5e21715}</Project>
+      <Name>ML.SDK.CVX450</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\SDKDevices\ML.SDK.RDIF.FX9600\ML.SDK.RDIF_FX9600.csproj">
       <Project>{87f17a18-4765-49a7-87f4-7fb9fde1c6d9}</Project>

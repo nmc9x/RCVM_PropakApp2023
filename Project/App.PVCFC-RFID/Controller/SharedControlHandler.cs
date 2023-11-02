@@ -9,6 +9,8 @@ using ML.SDK.DM60X.Model;
 using ML.SDK.RDIF_FX9600.DataType;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -55,11 +57,17 @@ namespace App.PVCFC_RFID.Controller
             //
             SharedControlHandler SCHObject = new SharedControlHandler();
            
+            // Cognex - UDP
             Thread threadProccessExcMessage = new Thread(DeviceTransferExcMessages);
             threadProccessExcMessage.IsBackground = true;
             threadProccessExcMessage.Priority = ThreadPriority.Highest;
             threadProccessExcMessage.Start();
-            //
+            // Keyence - MMF
+            Thread threadProcessExcMessageMMF = new Thread(DeviceTransferExcMessagesMMF);
+            threadProcessExcMessageMMF.IsBackground = true;
+            threadProcessExcMessageMMF.Priority = ThreadPriority.Highest;
+            threadProcessExcMessageMMF.Start();
+
 
             // Run Thread
             _ThreadListenDeviceTransferListenning = new Thread(DeviceTransferListenning);
@@ -124,7 +132,27 @@ namespace App.PVCFC_RFID.Controller
             #endregion//End Run Stations - Device transfers
             #endregion//End Station
         }
-       
+
+        private static void DeviceTransferExcMessagesMMF()
+        {
+            try
+            {
+                while (true)
+                {
+
+                    Thread.Sleep(1);
+                }
+            }
+            catch (Exception)
+            {
+
+#if DEBUG
+                Console.WriteLine("DeviceTransferExcMessagesMMF Fail !");
+#endif
+            }
+         
+        }
+
         public static void KillDeviceTransfer(int index = -1)
         {
             if (index < 0)
@@ -240,33 +268,6 @@ namespace App.PVCFC_RFID.Controller
                                 int socketIndex = receiveBytes[2];
                                 switch (receiveBytes[1])
                                 {
-                                    case (byte)ConnectionsType.SockTypeCommandEnum.UICommand:
-                                        #region UI
-                                        switch (receiveBytes[3])
-                                        {
-                                            case (byte)ConnectionsType.UISocketCommandEnum.DeviceStatus:
-                                                #region Device status
-                                               
-                                                #endregion//End Device status
-                                                break;
-                                            case (byte)ConnectionsType.UISocketCommandEnum.Start:
-                                               
-                                                #region Start - Linh.Tran_230910
-                                                
-                                                #endregion//End Start - Linh.Tran_230910
-                                              
-                                                break;
-                                            case (byte)ConnectionsType.UISocketCommandEnum.Page:
-                                                #region Get pages
-                                                
-                                                #endregion//End Get pages
-                                                break;
-                                            case (byte)ConnectionsType.UISocketCommandEnum.Stop:
-                                            
-                                                break;
-                                        }
-                                        #endregion//End UI
-                                        break;
                                     case (byte)ConnectionsType.SockTypeCommandEnum.DeviceCommand:
                                         #region Device command
                                         switch (receiveBytes[3])
@@ -404,7 +405,7 @@ namespace App.PVCFC_RFID.Controller
 
         public static ImageSource ImgSrc { get; private set; }
 
-        
+        public static ImageSource[] ImgSrcList { get; set; } = new ImageSource[3];
         private static void GetRawDataToUI(int index, byte[] receiveByte)
         {
             try
@@ -489,6 +490,7 @@ namespace App.PVCFC_RFID.Controller
             if (imgBytes != null)
             {
                 ImgSrc = CommonFunctions.ByteArrayToBitmapImage(imgBytes);
+                ImgSrcList[index] = CommonFunctions.ByteArrayToBitmapImage(imgBytes);
             }
 
         }

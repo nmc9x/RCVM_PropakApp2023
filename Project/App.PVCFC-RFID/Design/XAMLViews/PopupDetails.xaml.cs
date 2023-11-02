@@ -29,13 +29,14 @@ namespace App.PVCFC_RFID.Design
         private int _Index;
         private int _Kind;
         private MemoryMapHelper mmf_ResetDataOption;
+       
         public event EventHandler ClearEvent;
         public PopupDetails(int index,int kind, string title = "Detail View")
         {
             InitializeComponent();
             _Index=index;
             _Kind=kind;
-            LabelTitle.Content = " JOB " + index +": "+ title;
+            LabelTitle.Content = " JOB " + (index+1) +": "+ title;
             this.DataContext = new PopupDetailsVM(index,kind);
             mmf_ResetDataOption = new MemoryMapHelper("mmf_ResetDataOption" + index, 1);
 

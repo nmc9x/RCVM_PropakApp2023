@@ -29,8 +29,6 @@ namespace ML.Common.Controller
 
             _sendThread = new Thread(SendLoop);
             _receiveThread = new Thread(ReceiveLoop);
-
-            //_sendThread.Start();
             _receiveThread.Start();
             _sendIntervalMilliseconds = sendIntervalMilliseconds;
         }
@@ -55,7 +53,6 @@ namespace ML.Common.Controller
         {
             while (_isConnected)
             {
-                // Logic để gửi dữ liệu
             }
         }
 
@@ -78,7 +75,6 @@ namespace ML.Common.Controller
                 }
                 catch
                 {
-                    // Xử lý các ngoại lệ có thể xảy ra
                     Disconnect();
                     return;
                 }
@@ -95,15 +91,6 @@ namespace ML.Common.Controller
             {
                 while (_isConnected)
                 {
-                    //Console.Write("Enter message to send (or 'exit' to quit): ");
-                   // var message = Console.ReadLine();
-
-                    //if (string.Equals(message, "exit", StringComparison.OrdinalIgnoreCase))
-                    //{
-                    //    Disconnect();
-                    //    return;
-                    //}
-
                     Send(message);
                     Thread.Sleep(_sendIntervalMilliseconds); // Tạm dừng để chờ đến lần gửi tiếp theo
                 }

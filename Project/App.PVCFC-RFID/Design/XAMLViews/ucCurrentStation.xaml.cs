@@ -1,5 +1,6 @@
 ﻿using App.PVCFC_RFID.Controller;
 using ML.Common.Controller;
+using ML.SDK.DM60X.Model;
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -26,6 +27,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             this.SizeChanged += UcCurrentStation_SizeChanged;
             MainPage.ScaleTransformChanged += MainPage_ScaleTransformChanged;
             UpdateScaleTransform();
+            
         }
         #region TransformScale
         private void MainPage_ScaleTransformChanged(object sender, EventArgs e)
@@ -63,6 +65,8 @@ namespace App.PVCFC_RFID.Design.XAMLViews
 
 
         }
+
+       
         #endregion
         public void CallbackCommand(Action<ucCurrentStationVM> execute)
         {
@@ -97,15 +101,21 @@ namespace App.PVCFC_RFID.Design.XAMLViews
     {
         private int _Index;
         private Thread _ThreadUpdateDataRealTime = null;
+        private MemoryMapHelper mmf_PrintedCode;
         public ucCurrentStationVM(int index)
         {
             _Index = index;
+            UpdatePrintedCode();
             Task.Run(() => UpdateData()); // increase work efficiency by Task
             Task.Run(() => ClearData());
             
         }
 
-       
+        private void UpdatePrintedCode()
+        {
+            mmf_PrintedCode = new MemoryMapHelper("mmf_PrintedCode" + _Index, 100);
+
+        }
 
         private void ClearData()
         {
@@ -118,16 +128,19 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         {
             try
             {
-               
                 while (true)
                 {
                     var mmfVerifyCheckSts = new MemoryMapHelper("mmf_VerifyCheckCode" + _Index, 20);
+                    var countResult = Encoding.ASCII.GetString(mmfVerifyCheckSts.ReadData(0, 20));
+
                     var mmfCountPrintedPage = new MemoryMapHelper("mmf_PrintedPage" + _Index, 5);
+                    var printedPage = Encoding.ASCII.GetString(mmfCountPrintedPage.ReadData(0, 5)).Trim('\0');
+
                     var mmf_classifyCode = new MemoryMapHelper("mmf_CheckCodeFlag" + _Index, 1);
-                    var printedPage = Encoding.ASCII.GetString(mmfCountPrintedPage.ReadData(0, 5));
-                        var countResult = Encoding.ASCII.GetString(mmfVerifyCheckSts.ReadData(0, 20));
-                        var codeChk = Encoding.ASCII.GetString(mmf_classifyCode.ReadData(0, 1));
-                        string[] splitRes = countResult.Split('-');
+                    var codeChk = Encoding.ASCII.GetString(mmf_classifyCode.ReadData(0, 1));
+                    
+                    
+                    string[] splitRes = countResult.Split('-');
 
                     if (splitRes.Length > 1)
                     {
@@ -135,7 +148,6 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                         {
                             GoodCount = splitRes[0].ToString();
                             FailCount = Regex.Replace(splitRes[1], @"\0", "");
-                            //TotalCount = (int.Parse(GoodCount) + int.Parse(FailCount)).ToString();
                             TotalCount = Regex.Replace(splitRes[2], @"\0", "");
 
                             if (codeChk !="\0" && !SharedControlHandler.isTriggerOn)
@@ -153,13 +165,31 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                                 }
                                 mmf_classifyCode.WriteData(new byte[1], 0);
                             }
-                            
+                           
                         });
-
-
                    }
+
+                    
+                    SharedControlHandler._dispatcher?.Invoke(() =>
+                    {
+                        //
+                        var printedCode = Encoding.ASCII.GetString(mmf_PrintedCode.ReadData(0, 100)).Trim('\0');
+                        if (printedCode != "" && printedCode != Encoding.ASCII.GetString(new byte[100]))
+                        {
+                            var model = new GotCodeModel
+                            {
+                                Code = printedCode,
+                                DateTimeStr = DateTime.Now.ToString("yyyy-MM-dd") + "/" + DateTime.Now.ToString("HH:mm:ss")
+                            };
+                            SharedValues.Running.StationList[_Index].DataPrintedList.Add(model);
+                            mmf_PrintedCode.WriteData(new byte[100], 0);
+                        }
+                    });
+
                     PrintedCount = Regex.Replace(printedPage, @"\0", "");
                     PrintedCount = PrintedCount == "" ? "0" : PrintedCount;
+
+
                     Thread.Sleep(1);
                 }
             }

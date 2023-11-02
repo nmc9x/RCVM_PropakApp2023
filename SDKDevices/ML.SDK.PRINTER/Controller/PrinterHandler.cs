@@ -1,20 +1,13 @@
-﻿using Microsoft.SqlServer.Server;
-using Microsoft.Win32;
-using ML.Common.Controller;
+﻿using ML.Common.Controller;
 using ML.Connections.Controller;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace ML.SDK.PRINTER.Controller
 {
@@ -41,13 +34,18 @@ namespace ML.SDK.PRINTER.Controller
         private int goodCount = 0;
         private int failCount = 0;
         private int totalCount = 0;
+
         private MemoryMapHelper mmf_StartProcess;
         private MemoryMapHelper mmfCamCounting;
-        private MemoryMapHelper mmfCountPrintedPage;
+        private MemoryMapHelper mmf_CountPrintedPage;
         private MemoryMapHelper mmf_classifyCode;
         private MemoryMapHelper mmf_TemplateName;
         private MemoryMapHelper mmf_DBFilePath;
         private MemoryMapHelper mmf_ResetDataOption;
+        private MemoryMapHelper mmf_PODIndex;
+        private MemoryMapHelper mmf_CodeData;
+        private MemoryMapHelper mmf_PrintedCode;
+
         private TcpClientHelper _TcpClient;
         private static bool isStopPress;
         private Thread threadSendStart;
@@ -71,11 +69,14 @@ namespace ML.SDK.PRINTER.Controller
 #endif
             mmf_StartProcess = new MemoryMapHelper("mmf_StartProcess_" + _SocketIndex, 1);
             mmfCamCounting = new MemoryMapHelper("mmf_VerifyCheckCode" + _SocketIndex, 20);
-            mmfCountPrintedPage = new MemoryMapHelper("mmf_PrintedPage" + _SocketIndex, 5);
+            mmf_CountPrintedPage = new MemoryMapHelper("mmf_PrintedPage" + _SocketIndex, 5);
             mmf_classifyCode = new MemoryMapHelper("mmf_CheckCodeFlag" + _SocketIndex, 1);
             mmf_TemplateName = new MemoryMapHelper("mmf_TemplateName" + _SocketIndex, 100);
             mmf_DBFilePath = new MemoryMapHelper("mmf_DBFilePath" + _SocketIndex, 260);
             mmf_ResetDataOption = new MemoryMapHelper("mmf_ResetDataOption" +_SocketIndex, 1);
+            mmf_PODIndex = new MemoryMapHelper("mmf_PODIndex" + _SocketIndex, 2); // max 20
+            mmf_CodeData = new MemoryMapHelper("mmf_CurrentCodeData_" + _SocketIndex, 100);
+            mmf_PrintedCode = new MemoryMapHelper("mmf_PrintedCode" + _SocketIndex, 100);
 
             try
             {
@@ -128,13 +129,8 @@ namespace ML.SDK.PRINTER.Controller
                     IsBackground = true
                 };
                 threadResetData.Start();
-
             }
-
-            
-
         }
-
         
         #region TCP
         private void _TcpClient_MessageReceived(string obj)
@@ -153,13 +149,36 @@ namespace ML.SDK.PRINTER.Controller
                         Convert.ToChar(startPackage).ToString().Length, endIndex - 
                         (startIndex + Convert.ToChar(startPackage).ToString().Length));
                     _ReceivedMessage = command;
-                    if(_ReceivedMessage != null && _ReceivedMessage.Contains("RSFP"))
+
+                    #region Show_Detail_Printed_Page
+                    if (_ReceivedMessage != null && _ReceivedMessage.Contains("RSFP"))
                     {
-                        Console.WriteLine("Printed page: " + countPrintedPage++);
+                        if (_ReceivedMessage.StartsWith("RSFP"))
+                        {
+                            var resultData = _ReceivedMessage.Split(';');
+                            var countPart = resultData[1].Split('/');
+                            var countNum = countPart[0];
+                           
+                            Console.WriteLine("Count: " + countNum);
+                            mmf_CountPrintedPage.WriteData(new byte[5], 0);
+                            mmf_CountPrintedPage.WriteData(Encoding.ASCII.GetBytes(countNum), 0);
+                            var PODIndex = Encoding.ASCII.GetString(mmf_PODIndex.ReadData(0, 2));
+                            if (resultData.Length >= 3)
+                            {
+                                var data = resultData[3 + int.Parse(PODIndex)];
+                                var bytesData = Encoding.ASCII.GetBytes(data);
+                                mmf_PrintedCode.WriteData(new byte[100], 0);
+                                mmf_PrintedCode.WriteData(bytesData, 0);
+                                
+                                Console.WriteLine("Printed Page Code: " + data);
+                            }
+                        }
                     }
+                    #endregion
+
 
 #if DEBUG
-                    Console.WriteLine("MEss Received: " + command);
+                    Console.WriteLine("Mess Received: " + command);
 #endif
 
                     buffer.Remove(startIndex, (endIndex - startIndex) +
@@ -244,13 +263,13 @@ namespace ML.SDK.PRINTER.Controller
         }
         #endregion
         private static bool isStart = false;
+
+
         #region Data Processing
         private void ListenUIACtion()
         {
-
             try
             {
-               
                 while (true)
                 {
                     // Check Start
@@ -311,13 +330,10 @@ namespace ML.SDK.PRINTER.Controller
 
         private void StartAndSendData()
         {
-         
-
-
             threadSendStart?.Abort(); // Abort the previous thread
             try
             {
-                countPrintedPage = 0;
+                //countPrintedPage = 0;
                 var path = Encoding.ASCII.GetString(mmf_DBFilePath.ReadData(0, 260)).Trim('\0');
 #if DEBUG
                 Console.WriteLine("File Path: " + @path);
@@ -325,7 +341,6 @@ namespace ML.SDK.PRINTER.Controller
 
                 var filePath = @path;//"C:\\Users\\minhchau.nguyen\\Documents\\MyLanGroup\\Projects\\Propak\\output.csv";
                 string[] tableData = File.ReadAllLines(filePath).Skip(1).ToArray(); // skip header
-
                 string command;
                 string readySts1 = "RYES" + "STAR;READY";
                 string readySts2 = "STAR;READY";
@@ -337,7 +352,7 @@ namespace ML.SDK.PRINTER.Controller
                 {
                     while (!isReady)
                     {
-                        var templateName = Encoding.ASCII.GetString(mmf_TemplateName.ReadData(0, 100));
+                        var templateName = Encoding.ASCII.GetString(mmf_TemplateName.ReadData(0, 100)).Trim('\0');
 #if DEBUG
                         Console.WriteLine("Template seleted: " + templateName);
 #endif
@@ -347,7 +362,6 @@ namespace ML.SDK.PRINTER.Controller
                         }
                         if ((_ReceivedMessage == readySts1 || _ReceivedMessage == readySts2) && !isStopPress)
                         {
-
                             isReady = true;
                         }
                         else
@@ -369,9 +383,6 @@ namespace ML.SDK.PRINTER.Controller
                 });
                 threadSendStart.Start();
                 #endregion
-
-
-
             }
             catch (Exception ex)
             {
@@ -467,7 +478,7 @@ namespace ML.SDK.PRINTER.Controller
 #endif
                             break;
                         case 3: // Reset Printed
-                            countPrintedPage = 0;
+                           // countPrintedPage = 0;
 #if DEBUG
                             Console.WriteLine("Done delete printed count !");
 #endif
@@ -489,7 +500,7 @@ namespace ML.SDK.PRINTER.Controller
 
                         case 5: // Reset All
                             totalCount =
-                            countPrintedPage =
+                            //countPrintedPage =
                             goodCount =
                             failCount = 0;
 #if DEBUG
@@ -515,9 +526,9 @@ namespace ML.SDK.PRINTER.Controller
         {
             try
             {
-                var mmf_DBFilePath = new MemoryMapHelper("mmf_DBFilePath" + _SocketIndex, 260);
-                var mmf_PODIndex = new MemoryMapHelper("mmf_PODIndex" + _SocketIndex, 2); // max 20
-                var mmfCodeData = new MemoryMapHelper("mmf_CurrentCodeData_" + _SocketIndex, 100);
+                //var mmf_DBFilePath = new MemoryMapHelper("mmf_DBFilePath" + _SocketIndex, 260);
+                //var mmf_PODIndex = new MemoryMapHelper("mmf_PODIndex" + _SocketIndex, 2); // max 20
+                //var mmfCodeData = new MemoryMapHelper("mmf_CurrentCodeData_" + _SocketIndex, 100);
 
                 var emtyStr = Encoding.ASCII.GetString(new byte[100]);
                 var filePath = Encoding.ASCII.GetString(mmf_DBFilePath.ReadData(0, 260)).Trim('\0');
@@ -531,7 +542,7 @@ namespace ML.SDK.PRINTER.Controller
                 while (true)
                 {
                     
-                    var stringRes = Encoding.ASCII.GetString(mmfCodeData.ReadData(0, 100));
+                    var stringRes = Encoding.ASCII.GetString(mmf_CodeData.ReadData(0, 100));
                     if (isStart && stringRes != null && stringRes != emtyStr && int.TryParse(podIndex, out int col))
                     {
 #if DEBUG
@@ -546,7 +557,7 @@ namespace ML.SDK.PRINTER.Controller
 //                        Console.WriteLine("Can not start compare !" + "Column = "+ podIndex);
 //#endif
 //                    }
-                    mmfCodeData.WriteData(new byte[100], 0);
+                    mmf_CodeData.WriteData(new byte[100], 0);
                     Thread.Sleep(1);
                 }
             }
@@ -567,14 +578,15 @@ namespace ML.SDK.PRINTER.Controller
 #if DEBUG
 
 #endif
-                    var donePrintStr = "RSFP";
-                    if (_ReceivedMessage != null && _ReceivedMessage.Contains(donePrintStr))
-                    {
-                        mmfCountPrintedPage.WriteData(Encoding.ASCII.GetBytes(countPrintedPage.ToString()), 0);
-#if DEBUG
-                        // Console.WriteLine("Printed Page: " + countPrintedPage);
-#endif
-                    }
+                    
+//                    if (_ReceivedMessage != null)
+//                    {
+//                        mmfCountPrintedPage.WriteData(new byte[5], 0);
+//                        mmfCountPrintedPage.WriteData(Encoding.ASCII.GetBytes(countPrintedPage.ToString()), 0);
+//#if DEBUG
+//                        // Console.WriteLine("Printed Page: " + countPrintedPage);
+//#endif
+//                    }
                     Thread.Sleep(1);
                 }
                 catch (Exception) { }
