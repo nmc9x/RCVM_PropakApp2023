@@ -130,6 +130,11 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                         viewModel.PrinterPort = SharedValues.Settings.StationList[i].DMCamera.PrinterPort;
                         break;
                     case DataType.StationType.KEYENCE:
+                        viewModel.CamIP = SharedValues.Settings.StationList[i].KeyenceCamera.IPAddress;
+                        viewModel.CamPort = SharedValues.Settings.StationList[i].KeyenceCamera.Port;
+                        viewModel.SelectedModelCam = 1;
+                        viewModel.PrinterIP = SharedValues.Settings.StationList[i].KeyenceCamera.PrinterIP;
+                        viewModel.PrinterPort = SharedValues.Settings.StationList[i].KeyenceCamera.PrinterPort;
                         break;
                 }
 
@@ -360,10 +365,19 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                 // Get Path
                 string directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\MLSolutions";
                 string filePath = Path.Combine(directoryPath, "Template" + index + ".txt");
+               
 
                 //Get POD list and update to UI
                 var tempList = CommonFunctions.GetTemplatePod(filePath);
-                viewModel.TemplateList = new System.Collections.ObjectModel.ObservableCollection<string>(tempList);
+                if(tempList != null)
+                {
+                    viewModel.TemplateList = new System.Collections.ObjectModel.ObservableCollection<string>(tempList);
+                }
+                else
+                {
+                    viewModel.TemplateList = null;
+                }
+                
             }
             catch (Exception)
             {
@@ -658,6 +672,10 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                         SharedValues.Settings.StationList[i].DMCamera.PrinterPort = viewModelJob.PrinterPort;
                         break;
                     case DataType.StationType.KEYENCE:
+                        SharedValues.Settings.StationList[i].KeyenceCamera.IPAddress = viewModelJob.CamIP;
+                        SharedValues.Settings.StationList[i].KeyenceCamera.Port = viewModelJob.CamPort;
+                        SharedValues.Settings.StationList[i].KeyenceCamera.PrinterIP = viewModelJob.PrinterIP;
+                        SharedValues.Settings.StationList[i].KeyenceCamera.PrinterPort = viewModelJob.PrinterPort;
                         break;
                     default:
                         break;

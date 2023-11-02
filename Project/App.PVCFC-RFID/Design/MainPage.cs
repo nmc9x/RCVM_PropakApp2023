@@ -24,6 +24,7 @@ namespace App.PVCFC_RFID.Design
         public static ScaleTransform ScaleTransform;
         public static event EventHandler ScaleTransformChanged;
         private static string ProcessName_1 = Properties.Settings.Default.DeviceTransferName;
+        private static string ProcessName_2 = "ML.DeviceTransfer.CVX450";
         public static event EventHandler CloseMainPageEvent;
         public MainPage()
         {
@@ -60,6 +61,10 @@ namespace App.PVCFC_RFID.Design
         void KillProcess()
         {
             foreach (var process in Process.GetProcessesByName(ProcessName_1))
+            {
+                process.Kill();
+            }
+            foreach (var process in Process.GetProcessesByName(ProcessName_2))
             {
                 process.Kill();
             }

@@ -258,9 +258,17 @@ namespace ML.SDK.PRINTER.Controller
                     Thread.Sleep(1);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //Console.WriteLine("Loi Gưi TemPlate: "+ ex.Message);
+
+#if DEBUG
+                Console.WriteLine("Can not get TemPlate: " + ex.Message);
+#endif
+
+                string directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\MLSolutions";
+                string filePath = Path.Combine(directoryPath, "Template" + _SocketIndex + ".txt");
+                File.Delete(filePath);
+
             }
         }
         #endregion
