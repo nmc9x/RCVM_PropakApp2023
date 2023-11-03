@@ -157,11 +157,35 @@ namespace ML.SDK.CVX450.Controller
         private static bool connState;
         private TcpClientHelper _TcpClient;
         #region Connection
-       
+
 
         private void ListenConfig()
         {
-            // list cogfig fr UI
+            try
+            {
+
+                while (true)
+                {
+                    //Trigger Software
+                    var mmf_TriggerClick = new MemoryMapHelper("mmf_TriggerClick" + _SocketIndex, 1);
+                    var triggerClickSts = Encoding.ASCII.GetString(mmf_TriggerClick.ReadData(0, 1));
+                    if (triggerClickSts == "1")
+                    {
+                        SoftwareTrigger();
+                        mmf_TriggerClick.WriteData(Encoding.ASCII.GetBytes("0"), 0);
+                        var mmf_feedbackTrigger = new MemoryMapHelper("mmf_feedbackTrigger" + _SocketIndex, 1);
+                        mmf_feedbackTrigger.WriteData(Encoding.ASCII.GetBytes("1"), 0);
+                    }
+
+                    Thread.Sleep(1);
+                }
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Console.WriteLine("ListenConfig: " + ex.Message);
+#endif
+            }
         }
 
         #region Status Checking
@@ -311,11 +335,7 @@ namespace ML.SDK.CVX450.Controller
         {
             try
             {
-                //var res = _DataManSystem.SendCommand("TRIGGER ON");
-                //if (res.PayLoad == "ON")
-                //{
-                //    _DataManSystem.SendCommand("TRIGGER OFF");
-                //}
+                _TcpClient.Send("TA\r");
                 return true;
             }
             catch (Exception)

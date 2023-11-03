@@ -443,7 +443,6 @@ namespace App.PVCFC_RFID.Controller
                     if (!isTriggerOn)
                     {
                         SharedValues.Running.StationList[index].DataRawList.Add(newCodeItem);
-
                     }
                     else
                     {

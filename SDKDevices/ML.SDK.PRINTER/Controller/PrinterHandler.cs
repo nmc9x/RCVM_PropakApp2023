@@ -292,6 +292,8 @@ namespace ML.SDK.PRINTER.Controller
 #if DEBUG
                         //Console.WriteLine("Start Print ...");
 #endif  
+                       
+
                         StartAndSendData();
   
                     }
@@ -324,6 +326,7 @@ namespace ML.SDK.PRINTER.Controller
                             IsBackground = true
                         };
                         threadListenAndCompareData.Start();
+
 
                     }
                     Thread.Sleep(1);

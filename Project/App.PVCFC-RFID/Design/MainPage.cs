@@ -30,6 +30,7 @@ namespace App.PVCFC_RFID.Design
         {
             KillProcess();
             InitializeComponent();
+            FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.initialWidth = this.Width;
             this.initialHeight = this.Height;

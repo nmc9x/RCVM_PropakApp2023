@@ -25,7 +25,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             InitializeComponent();
             DataContext = new TriggerViewModel(index);
             TriggerViewModel.CustomEvt += DataGridItemsChanged;
-            this.TextBlockTitle.Text = "Trigger Read Data JOB "+(index+1);
+            TextBlockTitle.Text = "Trigger Read Data JOB "+(index+1);
         }
         public void CallbackCommand(Action<TriggerViewModel> execute)
         {

@@ -28,7 +28,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <!-- primary -->
-            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0bb5a1"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#00B0ED"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -42,7 +42,7 @@
             <Label
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Content="SETTING FOR DM60X CAMERA"
+                Content="SETTING FOR COGNEX CAMERA"
                 FontSize="15"
                 FontWeight="Bold" />
         </Grid>
@@ -73,7 +73,7 @@
                                     FontSize="16"
                                     FontWeight="Bold"
                                     Foreground="White"
-                                    Text="Trigger Setting" />
+                                    Text="TRIGGER SETTING" />
                             </GroupBox.Header>
                             <Grid Margin="0,5,0,0">
                                 <Grid.RowDefinitions>
@@ -163,7 +163,7 @@
                                 FontSize="16"
                                 FontWeight="Bold"
                                 Foreground="White"
-                                Text="Symbol" />
+                                Text="SYMBOL" />
                         </GroupBox.Header>
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <Grid x:Name="Grid_Symbol" Margin="0,10,0,0">

@@ -21,7 +21,7 @@
             </ResourceDictionary.MergedDictionaries>
             <local:NumberToVisibilityConverter x:Key="OptToVis" />
             <!-- primary -->
-            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0bb5a1"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#00B0ED"/>
         </ResourceDictionary>
 
     </UserControl.Resources>
@@ -37,7 +37,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button
+            <!--<Button
                 HorizontalAlignment="Left"
                 Margin="10 0 0 0"
                 Width="80"
@@ -45,7 +45,7 @@
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="Resource name: MaterialDesignRaisedLightButton" >
                 <materialDesign:PackIcon Kind="Home" VerticalAlignment="Stretch" />
-            </Button>
+            </Button>-->
             <TextBlock x:Name="TextBlockTitle"
                 Grid.Column="1"
                 HorizontalAlignment="Center"
@@ -76,7 +76,7 @@
                         Height="auto"
                         Margin="10"
                         Background="Transparent"
-                        BorderBrush="Black"
+                        BorderBrush="Gray"
                         BorderThickness="1"
                         CornerRadius="10">
                         <Image Source="{Binding ImgSrc}" />
@@ -84,14 +84,19 @@
 
                     <Button
                         Grid.Row="1"
-                        Width="180"
+                        Width="150"
                         Height="50"
                         materialDesign:ButtonAssist.CornerRadius="25"
                         Click="TriggerClick"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         ToolTip="MaterialDesignRaisedDarkButton with Round Corners">
-                        <TextBlock FontSize="12" Text="SOFTWARE TRIGGER" />
+                        <TextBlock FontSize="12" Foreground="Black" Text="TRIGGER" />
+                        <Button.Resources>
+                            <ResourceDictionary>
+                                <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#abe67e"/>
+                            </ResourceDictionary>
+                        </Button.Resources>
                     </Button>
 
                     <!--<Button

@@ -28,6 +28,11 @@
             x:Name="GroupBox1"
             Margin="16"
             Style="{StaticResource MaterialDesignCardGroupBox}">
+            <GroupBox.Resources>
+                <ResourceDictionary>
+                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#00B0ED"/>
+                </ResourceDictionary>
+            </GroupBox.Resources>
             <GroupBox.HeaderTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -36,7 +41,7 @@
                             Height="32"
                             VerticalAlignment="Center"
                             Kind="Database" />
-                        <TextBlock
+                        <TextBlock FontWeight="Bold"
                             Margin="8,0,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
@@ -131,6 +136,11 @@
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         ToolTip="Preview Database">
+                        <Button.Resources>
+                            <ResourceDictionary>
+                                <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#00B0ED"/>
+                            </ResourceDictionary>
+                        </Button.Resources>
                         <materialDesign:PackIcon
                             Width="30"
                             Height="30"
@@ -144,8 +154,13 @@
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         ToolTip="Get Template From Printer">
-
+                        <Button.Resources>
+                            <ResourceDictionary>
+                                <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#00B0ED"/>
+                            </ResourceDictionary>
+                        </Button.Resources>
                         <materialDesign:PackIcon
+                            
                             Width="30"
                             Height="30"
                             Kind="FileUploadOutline" />

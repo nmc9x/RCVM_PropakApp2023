@@ -75,10 +75,12 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             DataContext = new MainTabViewModel(listCurStation);
 
             LoadLastValues();
-            SaveDatabase();
             frmDetailList.ClearClickEvt += FrmDetailList_ClearClickEvt;
         }
 
+       
+
+       
 
         private void FrmDetailList_ClearClickEvt(object sender, EventArgs e)
         {
@@ -508,6 +510,7 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         }
         private void StartClick(object sender, RoutedEventArgs e)
         {
+            SaveDatabase();
             //  Check Database
             var vmDB = (DatabaseSettingVM)listucDB[ComboboxStation.SelectedIndex].DataContext;
             if (vmDB.FilePath == null || !vmDB.FilePath.Contains(".csv") || vmDB.SelectedTemplateId == -1)
@@ -643,6 +646,16 @@ namespace App.PVCFC_RFID.Design.XAMLViews
                 {
                     listGridCover[i].Background = Brushes.Transparent;
                 }
+            }
+            if(ComboboxStation.SelectedIndex != 2)
+            {
+                CallbackCommand(vm => vm.ImageVis = Visibility.Visible);
+                CallbackCommand(vm => vm.TextVis = Visibility.Collapsed);
+            }
+            else
+            {
+                CallbackCommand(vm => vm.ImageVis = Visibility.Collapsed);
+                CallbackCommand(vm => vm.TextVis = Visibility.Visible);
             }
         }
 
@@ -794,29 +807,38 @@ namespace App.PVCFC_RFID.Design.XAMLViews
 
         public List<ucCurrentStation> StationList { get; set; }
 
-        //private SeriesCollection _SeriesCollection = new SeriesCollection()
-        //{
-        //    new PieSeries
-        //    {
-        //        Title = "Good",
-        //        Values = new ChartValues<double> { 100 },
-        //        DataLabels = true
-        //    },
-        //     new PieSeries
-        //    {
-        //        Title = "Fail",
-        //        Values = new ChartValues<double> { 0 },
-        //        DataLabels = true
-        //    }
-        //    //  new PieSeries
-        //    //{
-        //    //    Title = "Remain",
-        //    //    Values = new ChartValues<double> { 0 },
-        //    //    DataLabels = true
-        //    //},
-        //};
-        public SeriesCollection SeriesCollection { get; set; }
 
+        private Visibility _ImageVis;
+        public Visibility ImageVis
+        {
+            get { return _ImageVis; }
+            set 
+            { 
+                _ImageVis = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility _TextVis;
+        public Visibility TextVis
+        {
+            get { return _TextVis; }
+            set 
+            {
+                _TextVis = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _CodeText;
+
+        public string CodeText
+        {
+            get { return _CodeText; }
+            set { _CodeText = value; OnPropertyChanged(); }
+        }
+
+
+        public SeriesCollection SeriesCollection { get; set; }
         
         public MainTabViewModel(List<ucCurrentStation> listStation)
         {
@@ -827,7 +849,6 @@ namespace App.PVCFC_RFID.Design.XAMLViews
 
          
             // Update Value Percent
-
             ListenPercent = new Thread(ExcChangePercent);
             ListenPercent.IsBackground = true;
             ListenPercent.Start();
@@ -848,6 +869,8 @@ namespace App.PVCFC_RFID.Design.XAMLViews
             while (true)
             {
                 ImgSrc = SharedControlHandler.ImgSrcList[SelectedStationIndex];
+                //if(SharedControlHandler.newCodeItem != null && SelectedStationIndex == 2)
+                //CodeText = SharedControlHandler.newCodeItem.Code;
                 Thread.Sleep(1);
             }
 
@@ -880,10 +903,6 @@ namespace App.PVCFC_RFID.Design.XAMLViews
         {
             SeriesCollection[0].Values[0] = goodPercent;
             SeriesCollection[1].Values[0] = failPercent;
-     
-            //SeriesCollection[0].Values = new ChartValues<double> { goodPercent };
-            //SeriesCollection[1].Values = new ChartValues<double> { failPercent };
-     
         }
         private void Timer_Tick(object sender, EventArgs e)
         {

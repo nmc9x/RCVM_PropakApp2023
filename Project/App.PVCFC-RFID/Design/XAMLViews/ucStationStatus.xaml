@@ -26,7 +26,7 @@
             BorderBrush="LightCyan"
             BorderThickness="1">
             <StackPanel x:Name="StackPanelIcon" Margin="1,1,1,1" VerticalAlignment="Center" Orientation="Horizontal">
-                <TextBlock x:Name="TextBoxStationId" Width="auto" />
+                <TextBlock x:Name="TextBoxStationId" Width="auto" Foreground="#2a17d4" />
                 <materialDesign:PackIcon
                     x:Name="IconCam"
                     Width="20"

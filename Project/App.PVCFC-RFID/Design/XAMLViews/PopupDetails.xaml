@@ -18,8 +18,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <!-- primary -->
-            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0bb5a1"/>
+            <!--  primary  -->
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#00B0ED" />
         </ResourceDictionary>
 
     </UserControl.Resources>
@@ -34,57 +34,62 @@
             HorizontalAlignment="Center"
             FontSize="20"
             FontWeight="Bold" />
-        <DataGrid
-            x:Name="DataGrid1"
+        <Border
             Grid.Row="1"
             Margin="5"
+            BorderBrush="Gray"
+            BorderThickness="1" >
+            <DataGrid
+            x:Name="DataGrid1"
             AutoGenerateColumns="False"
-            BorderThickness="0"
+          
             CanUserAddRows="False"
-            IsReadOnly="False"
+            IsReadOnly="True"
             ItemsSource="{Binding CodeList}"
             Loaded="DataGrid1_Loaded"
             LoadingRow="DataGrid1_LoadingRow">
-            <DataGrid.Resources>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                    <Setter Property="VerticalContentAlignment" Value="Center" />
-                </Style>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Code}"
                     Header="Code" />
 
-                <DataGridTextColumn
+                    <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Symbol}"
                     Header="Symbol" />
 
-                <DataGridTextColumn
+                    <DataGridTextColumn
                     Width="*"
                     Binding="{Binding DecodeTime}"
                     Header="Decode Time" />
 
-                <DataGridTextColumn
+                    <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Status}"
                     Header="Status" />
 
-                <DataGridTextColumn
+                    <DataGridTextColumn
                     Width="*"
                     Binding="{Binding ErrorStr}"
                     Header="Error Code" />
 
-                <DataGridTextColumn
+                    <DataGridTextColumn
                     Width="*"
                     Binding="{Binding DateTimeStr}"
                     Header="DateTime" />
-            </DataGrid.Columns>
+                </DataGrid.Columns>
 
 
-        </DataGrid>
+            </DataGrid>
+        </Border>
+
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition />

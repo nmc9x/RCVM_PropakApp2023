@@ -12,6 +12,7 @@
     Loaded="UserControl_Loaded"
     mc:Ignorable="d">
     <UserControl.Resources>
+
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
@@ -20,6 +21,16 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <local:NumberToVisibilityConverter x:Key="OptToVis" />
+
+            <Storyboard x:Key="ScrollTextStoryboard" RepeatBehavior="Forever">
+                <DoubleAnimation
+                    Storyboard.TargetName="TextBlockTitle"
+                    Storyboard.TargetProperty="(Canvas.Left)"
+                    From="300"
+                    To="-200"
+                    Duration="0:0:5" />
+            </Storyboard>
+
         </ResourceDictionary>
 
     </UserControl.Resources>
@@ -31,7 +42,7 @@
         <Grid
             x:Name="GridNav"
             HorizontalAlignment="Stretch"
-            Background="#0bb5a1">
+            Background="#00B0ED">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
@@ -75,18 +86,6 @@
                         <TextBlock HorizontalAlignment="Center" Text="DATABASE" />
                     </StackPanel>
                 </ListBoxItem>
-
-                <!--<ListBoxItem>
-                    <StackPanel Margin="10,0,0,0">
-                        <materialDesign:PackIcon
-                            Width="50"
-                            Height="50"
-                            Foreground="WhiteSmoke"
-                            Kind="Login" />
-                        <TextBlock HorizontalAlignment="Center" Text="LOGIN" />
-                    </StackPanel>
-                </ListBoxItem>-->
-
                 <ListBoxItem>
                     <StackPanel Margin="10,0,0,0">
                         <materialDesign:PackIcon
@@ -113,19 +112,20 @@
         </Grid>
         <Grid x:Name="GridContent" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
+                <RowDefinition Height="50" />
                 <RowDefinition />
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
-            <Grid x:Name="GridHeader" Background="#0bb5a1">
+            <Grid x:Name="GridHeader" Background="#00B0ED">
                 <TextBlock
+                    x:Name="TextBlockTitle"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontFamily="ARIAL"
-                    FontSize="20"
+                    FontSize="25"
                     FontWeight="Bold"
                     Foreground="White"
-                    Text="PROPAK 2023" />
+                    Text="R - CENTRALIZED VERIFICATION MANAGEMENT" />
 
             </Grid>
             <Grid
@@ -186,15 +186,15 @@
                             Style="{StaticResource MaterialDesignCardGroupBox}">
                             <GroupBox.Resources>
                                 <ResourceDictionary>
-                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0bb5a1" />
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#00B0ED" />
                                 </ResourceDictionary>
                             </GroupBox.Resources>
                             <GroupBox.Header>
-                                <Grid>
-
-
+                                <Grid Height="30">
                                     <TextBlock
                                         HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="25"
                                         FontWeight="Bold"
                                         Foreground="White"
                                         Text="JOB OVERVIEW" />
@@ -208,23 +208,37 @@
 
                                 </Grid.RowDefinitions>
 
-                                <Grid Background="Transparent">
+                                <Grid Margin="0,20,0,0" Background="Transparent">
                                     <Border
-                                        Width="300"
-                                        Height="300"
-                                        ClipToBounds="True"
-                                        CornerRadius="10">
-                                        <Image Source="{Binding ImgSrc}" />
+                                        Width="350"
+                                        Height="auto"
+                                        BorderBrush="Gray"
+                                        BorderThickness="2"
+                                        Visibility="{Binding ImageVis}">
+                                        <Image Source="{Binding ImgSrc}" Stretch="Fill" />
+
+                                    </Border>
+                                    <Border
+                                        Width="350"
+                                        Height="auto"
+                                        BorderBrush="Gray"
+                                        BorderThickness="2"
+                                        Visibility="{Binding TextVis}">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Text="{Binding CodeText, FallbackValue=ABCD}" />
                                     </Border>
 
 
                                 </Grid>
 
-                                <Grid Grid.Row="1">
+                                <Grid Grid.Row="1" Margin="0,30,0,0">
                                     <lvc:PieChart
-                                        Margin="50"
-                                        Hoverable="False"
+                                        Margin="10"
                                         FontSize="20"
+                                        Hoverable="False"
                                         LegendLocation="Bottom"
                                         Series="{Binding SeriesCollection}" />
 
@@ -243,8 +257,8 @@
                                         </Grid.ColumnDefinitions>
                                         <Button
                                             x:Name="BtnStart"
-                                            Width="100"
-                                            Height="100"
+                                            Width="120"
+                                            Height="120"
                                             Margin="5,0,15,0"
                                             Background="#FF0B981F"
                                             Click="StartClick"
@@ -261,8 +275,8 @@
                                         <Button
                                             x:Name="BtnStop"
                                             Grid.Column="1"
-                                            Width="100"
-                                            Height="100"
+                                            Width="120"
+                                            Height="120"
                                             Margin="5,0,15,0"
                                             Background="#FFB12719"
                                             Click="StopClick"
@@ -279,8 +293,8 @@
                                         <Button
                                             x:Name="BtnTrigger"
                                             Grid.Column="2"
-                                            Width="100"
-                                            Height="100"
+                                            Width="120"
+                                            Height="120"
                                             Margin="5,0,5,0"
                                             Background="#FFCFAE13"
                                             Click="ButtonTrigger_Click"
@@ -334,12 +348,12 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                         <Grid.Resources>
-                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0075fa"/>
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0075fa" />
                         </Grid.Resources>
                         <materialDesign:Badged Badge="Save Config" BadgeColorZoneMode="Dark">
                             <Button
-                                
-                                Height="50" Width="100"
+                                Width="100"
+                                Height="50"
                                 Click="BtnApplyClick"
                                 Content="APPLY"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
@@ -397,6 +411,11 @@
                                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                     Style="{StaticResource MaterialDesignRaisedDarkButton}">
                                     <TextBlock Margin="0,0,0,0" Text="SAVE" />
+                                    <Button.Resources>
+                                        <ResourceDictionary>
+                                            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#00B0ED" />
+                                        </ResourceDictionary>
+                                    </Button.Resources>
                                 </Button>
                             </Grid>
 
@@ -418,7 +437,10 @@
                 x:Name="GridFooter"
                 Grid.Row="2"
                 Background="#a4ba8c">
-
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
                 <ScrollViewer
                     x:Name="ScrollViewerStatus"
                     HorizontalScrollBarVisibility="Hidden"
@@ -429,8 +451,17 @@
                     PreviewMouseWheel="MyScrollViewer_PreviewMouseWheel"
                     VerticalScrollBarVisibility="Hidden">
                     <StackPanel x:Name="StackPanelStatus" Orientation="Horizontal" />
-                </ScrollViewer>
 
+                </ScrollViewer>
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="0,0,10,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Foreground="Bisque"
+                    Text="Verion 1.0 - Powered by MyLanGroup 2023" />
 
             </Grid>
         </Grid>

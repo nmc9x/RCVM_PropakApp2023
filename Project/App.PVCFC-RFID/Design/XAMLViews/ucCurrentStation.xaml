@@ -33,7 +33,7 @@
     </UserControl.Resources>
 
     <Border
-        Background="#daf2c2"
+        Background="WhiteSmoke"
         BorderBrush="#354754"
         BorderThickness="2"
         CornerRadius="6">
@@ -58,15 +58,14 @@
 
                     <Grid
                         Margin="5,5,0,0"
-                       
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Background="Transparent">
-                        <Ellipse Margin="10 0 0 0"
-                                 
+                        <Ellipse
                             x:Name="EllipseTagName"
                             Width="72"
-                            Height="72">
+                            Height="72"
+                            Margin="10,0,0,0">
                             <Ellipse.Fill>
                                 <RadialGradientBrush>
                                     <GradientStop Offset="0.0" Color="#FFAED1E2" />
@@ -76,19 +75,19 @@
                         </Ellipse>
                         <TextBlock
                             x:Name="TextBoxTagName"
+                            Margin="5,0,0,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Margin="5 0 0 0"
                             FontSize="20"
                             FontWeight="Bold"
                             Foreground="White"
-                            Text="{Binding StationTagName,FallbackValue=JOB 0}" />
+                            Text="{Binding StationTagName, FallbackValue=JOB 0}" />
                     </Grid>
 
                     <!--  Start Rec  -->
                     <Grid
                         Grid.Row="1"
-                        Margin="16"
+                        Margin="16,16,5,16"
                         Visibility="{Binding StaticMode, Converter={StaticResource OptToVis}, ConverterParameter=1}">
                         <!--  {Binding StaticMode, Converter={StaticResource OptToVis}, ConverterParameter=1}  -->
                         <Rectangle
@@ -116,8 +115,9 @@
                     <Grid
                         x:Name="GridStop"
                         Grid.Row="1"
-                        Margin="16 16 0 16"
+                        Margin="16,16,5,16"
                         Visibility="{Binding StaticMode, Converter={StaticResource OptToVis}, ConverterParameter=0}">
+                        
                         <Rectangle
                             Width="auto"
                             Height="auto"
@@ -132,13 +132,16 @@
                             </Rectangle.Fill>
                         </Rectangle>
                         <TextBlock
+                           
                             x:Name="TextBoxSTOP"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            FontSize="30"
-                            FontWeight="Bold"
+                            FontSize="40"
+                            FontWeight="UltraBold"
                             Foreground="White"
-                            Text="STOP" />
+                            Text="STOP">
+                           
+                        </TextBlock>
                     </Grid>
 
 
@@ -153,10 +156,18 @@
 
                     <Grid>
                         <GroupBox
-                            Margin="16"
+                            Margin="5,16,5,16"
                             materialDesign:ElevationAssist.Elevation="Dp7"
-                            Header="TOTAL"
                             Style="{StaticResource MaterialDesignCardGroupBox}">
+                            <GroupBox.Header>
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="30"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="TOTAL" />
+                            </GroupBox.Header>
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="6*" />
@@ -167,7 +178,7 @@
                                     Grid.Row="0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    FontSize="56"
+                                    FontSize="100"
                                     FontWeight="Bold"
                                     Foreground="{StaticResource PrimaryHueMidBrush}"
                                     Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
@@ -186,6 +197,11 @@
                                         Width="30"
                                         Height="30"
                                         Kind="DotsHorizontal" />
+                                    <Button.Resources>
+                                        <ResourceDictionary>
+                                            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#3449BF" />
+                                        </ResourceDictionary>
+                                    </Button.Resources>
                                 </Button>
                             </Grid>
 
@@ -201,10 +217,19 @@
                     </Grid.Resources>
                     <Border>
                         <GroupBox
-                            Margin="16"
+                            Margin="5,16,5,16"
                             materialDesign:ElevationAssist.Elevation="Dp7"
-                            Header="PRINTED PAGE"
                             Style="{StaticResource MaterialDesignCardGroupBox}">
+                            <GroupBox.Header>
+                                <TextBlock
+                                   
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="30"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="PRINTED" />
+                            </GroupBox.Header>
                             <Grid>
 
                                 <Grid.RowDefinitions>
@@ -216,7 +241,7 @@
                                     Grid.Row="0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    FontSize="56"
+                                    FontSize="100"
                                     FontWeight="Bold"
                                     Foreground="{StaticResource PrimaryHueMidBrush}"
                                     Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
@@ -235,6 +260,11 @@
                                         Width="30"
                                         Height="30"
                                         Kind="DotsHorizontal" />
+                                    <Button.Resources>
+                                        <ResourceDictionary>
+                                            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#3DC2EB" />
+                                        </ResourceDictionary>
+                                    </Button.Resources>
                                 </Button>
                             </Grid>
 
@@ -250,10 +280,19 @@
                     </Grid.Resources>
                     <Border>
                         <GroupBox
-                            Margin="16"
+                            Margin="5,16,5,16"
                             materialDesign:ElevationAssist.Elevation="Dp7"
-                            Header="GOOD"
                             Style="{StaticResource MaterialDesignCardGroupBox}">
+                            <GroupBox.Header>
+                                <TextBlock
+                                   
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="30"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="GOOD" />
+                            </GroupBox.Header>
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="6*" />
@@ -264,7 +303,7 @@
                                     Grid.Row="0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    FontSize="56"
+                                    FontSize="100"
                                     FontWeight="Bold"
                                     Foreground="{StaticResource PrimaryHueMidBrush}"
                                     Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
@@ -283,6 +322,11 @@
                                         Width="30"
                                         Height="30"
                                         Kind="DotsHorizontal" />
+                                    <Button.Resources>
+                                        <ResourceDictionary>
+                                            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#2CC743" />
+                                        </ResourceDictionary>
+                                    </Button.Resources>
                                 </Button>
                             </Grid>
 
@@ -300,10 +344,19 @@
                     </Grid.Resources>
                     <Border>
                         <GroupBox
-                            Margin="16"
+                            Margin="5,16,5,16"
                             materialDesign:ElevationAssist.Elevation="Dp7"
-                            Header="FAIL"
                             Style="{StaticResource MaterialDesignCardGroupBox}">
+                            <GroupBox.Header>
+                                <TextBlock
+                                   
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="30"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="FAIL" />
+                            </GroupBox.Header>
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="6*" />
@@ -314,7 +367,7 @@
                                     Grid.Row="0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    FontSize="56"
+                                    FontSize="100"
                                     FontWeight="Bold"
                                     Foreground="{StaticResource PrimaryHueMidBrush}"
                                     Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
@@ -333,6 +386,11 @@
                                         Width="30"
                                         Height="30"
                                         Kind="DotsHorizontal" />
+                                    <Button.Resources>
+                                        <ResourceDictionary>
+                                            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#FA2D2D" />
+                                        </ResourceDictionary>
+                                    </Button.Resources>
                                 </Button>
                             </Grid>
 
